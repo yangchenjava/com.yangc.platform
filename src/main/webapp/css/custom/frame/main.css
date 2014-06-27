@@ -1,0 +1,9 @@
+﻿.menu {
+	padding: 8px;
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.menu:HOVER {
+	background: #B3DFDA;
+}

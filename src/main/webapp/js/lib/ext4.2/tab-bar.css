@@ -1,0 +1,44 @@
+﻿.ui-tab-bar {
+	padding-top: 1px;
+}
+
+.x-tab-inner {
+	line-height: 16px !important;
+}
+
+.ui-tab-bar .x-tab-bar {
+	/* background:#FFF !important; */
+	border: 0 !important;
+}
+
+.ui-tab-bar .x-tab-bar-strip {
+	top: 28px !important; /* Default value is 20 */
+}
+
+.ui-tab-bar .x-tab-bar-strip-default-top {
+	height: 0 !important;
+}
+
+.ui-tab-bar .ui-tab-body {
+	border: 0 !important;
+}
+
+.ui-tab-bar .x-tab-bar .x-tab-bar-body {
+	height: 31px !important; /* Default value is 23 */
+
+	/*border: 0 !important;*/ /* Overides the border that appears on resizing the grid */
+}
+
+.ui-tab-bar .x-tab-bar .x-tab-bar-body .x-box-inner {
+	height: 29px !important; /* Default value is 21 */
+}
+
+.ui-tab-bar .x-tab-bar .x-tab-bar-body .x-box-inner .x-tab {
+	height: 28px !important; /* Default value is 21 */
+}
+
+.ui-tab-bar .x-tab-bar .x-tab-bar-body .x-box-inner .x-tab-button {
+	height: 21px !important; /* Default value 13 */
+	line-height: 21px !important; /* Default value 13 */
+	margin-top: 5px;
+}

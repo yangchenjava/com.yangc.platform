@@ -1,0 +1,73 @@
+.x-form-readonly {
+	color: black;
+}
+
+.x-form-readonly input {
+	color: gray;
+}
+
+.x-form-readonly textarea {
+	color: gray;
+}
+
+.x-grid-row .x-grid-cell {
+	font-size: 12px;
+}
+
+.x-btn-default-toolbar-small .x-btn-inner {
+	font-size: 12px;
+}
+
+.x-column-header {
+	font-size: 12px;
+}
+
+.x-menu-item-text {
+	font-size: 12px;
+}
+
+.x-panel-header-text-default {
+	font-size: 14px;
+	line-height: 29px;
+}
+
+.x-panel-header-text-default-framed {
+	font-size: 14px;
+	line-height: 29px;
+}
+
+.ext-grid-icon-cls {
+	height: 26px;
+}
+
+.ext-window-icon-cls {
+	height: 20px;
+}
+
+.x-window-header-text-default {
+	font-size: 12px;
+}
+
+.x-btn-default-small .x-btn-inner {
+	font-size: 12px;
+}
+
+.x-toolbar .x-toolbar-text {
+	font-size: 12px;
+}
+
+.x-toolbar .x-form-item-label {
+	font-size: 12px;
+}
+
+.x-fieldset-header {
+	font-size: 12px;
+}
+
+.x-toolbar {
+	font-size: 12px;
+}
+
+.x-tab-default .x-tab-inner {
+	font-size: 14px;
+}

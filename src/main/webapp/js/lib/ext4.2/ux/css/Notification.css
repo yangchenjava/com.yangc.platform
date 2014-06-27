@@ -1,0 +1,12 @@
+.ux-notification-window .x-window-body {
+	text-align: center;
+	padding: 15px 5px 15px 5px;
+}
+
+.ux-notification-icon-information {
+	background-image: url('images/icon16_info.png');
+}
+
+.ux-notification-icon-error {
+	background-image: url('images/icon16_error.png');
+}

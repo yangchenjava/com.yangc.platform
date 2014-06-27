@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+					    http://www.springframework.org/schema/aop
+					    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+					    http://www.springframework.org/schema/tx
+    					http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    					http://www.springframework.org/schema/mvc
+						http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+	<context:annotation-config/>
+	<mvc:annotation-driven />
+	
+	<!-- Spring的MVC拦截器 -->
+    <mvc:interceptors>
+		<bean class="com.longshine.met.interceptor.LogonInterceptor"/>
+    </mvc:interceptors>
+     
+	<!-- Spring基于@AspectJ切面的驱动器  -->
+    <aop:aspectj-autoproxy/>
+    <bean id="performanceMonitorInterceptor" class="org.springframework.aop.interceptor.PerformanceMonitorInterceptor"/>
+    <bean id="debugInterceptor" class="org.springframework.aop.interceptor.DebugInterceptor"/>
+    <aop:config>
+        <aop:advisor pointcut="within(com.longshine.met..*)" advice-ref="performanceMonitorInterceptor"/>
+        <aop:advisor pointcut="within(com.longshine.met..*)" advice-ref="debugInterceptor"/>
+    </aop:config>
+   
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<bean id="multipartResolver" class="com.longshine.met.resolver.MyCommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+	</bean>
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<!-- hibernate工厂类  -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+	            <prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</prop>
+			</props>
+		</property>
+		<property name="packagesToScan" value="com.longshine.application.data.model, com.longshine.met.data.model" />
+	</bean>
+</beans>

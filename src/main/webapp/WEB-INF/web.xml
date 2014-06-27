@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<context-param>
+		<description>加载spring的配置文件</description>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<description>加载spring的监听器</description>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<description>防止内存泄露</description>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+
+	<!-- shiro过滤 -->
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<!-- 该值缺省为false,表示生命周期由SpringApplicationContext管理,设置为true则表示由ServletContainer管理 -->
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 分页过滤 -->
+	<filter>
+		<filter-name>PaginationFilter</filter-name>
+		<filter-class>com.yangc.filter.PaginationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>PaginationFilter</filter-name>
+		<url-pattern>/resource/*</url-pattern>
+	</filter-mapping>
+
+	<!-- html标签过滤 -->
+	<filter>
+		<filter-name>HTMLCharacterFilter</filter-name>
+		<filter-class>com.yangc.filter.HTMLCharacterFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HTMLCharacterFilter</filter-name>
+		<url-pattern>/resource/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 设置编码 -->
+	<filter>
+		<description>处理编码的过滤器</description>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- springmvc -->
+	<servlet>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:dispatcher-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>/resource/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- druid监控页面 -->
+	<servlet>
+  		<servlet-name>DruidStatView</servlet-name>
+  		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+   		<servlet-name>DruidStatView</servlet-name>
+   		<url-pattern>/druid/*</url-pattern>
+ 	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>jsp/login.jsp</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/jsp/error/page_not_found.jsp</location>
+	</error-page>
+</web-app>

@@ -1,0 +1,12 @@
+﻿1.虽然继承了HibernateDaoSupport这个类, 但是this.getSession(), 获得的session也要在使用后及时关闭,
+     因为这个session是原生的session不是经过spring代理过的, 并且还没有事务管理, 自动提交, 自动关闭连接等功能,
+     所以使用getSession()获得session时一定要关闭. 
+
+2.使用getHibernateTemplate()中的 1.exceute(callback) 2.executeFind(callback) 3.execute(callback, boolean)时一定要注意:
+  1和2的方法中使用的session都是经过spring代理过的会自动关闭, 但是3最后一个参数标示的是: 回调函数中使用的session是否
+     是本地的(没有经过spring代理过, 没有自动关闭连接的功能). true: 本地的, false: spring代理过的(不用担心session是否关闭) 
+
+3.spring的bean的默认管理都是单列模式, 在ssh整合中保证各dao的实例是无状态的, 否则一旦有某个方法设置状态之后, 别的方法也就有了状态,
+     但是别的方法又不需要这个状态, 或者对别的方法产生了别的不好的影响: 例如 getHibernateTemplate().setMaxResults(3);
+     一旦给HibernateTemplate设置了最大输出记录数, 那么以后调用这个类中的别的方法的最大记录数也就是3个, 对别人调用这个类的别的方法产生副作用,
+     除非你再次设置你想要的最大记录数, setMaxResults(10);
