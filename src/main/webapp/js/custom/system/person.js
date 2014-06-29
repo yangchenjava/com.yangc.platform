@@ -246,6 +246,7 @@ Ext.onReady(function(){
 	function createPerson(){
 		var panel_addOrUpdate_person = Ext.create("panel_addOrUpdate_person");
 		store_roleList.load();
+		Ext.getCmp("addOrUpdate_username").setReadOnly(false);
 		
 		var window_addOrUpdate_person = Ext.create("window_addOrUpdate_person");
 		window_addOrUpdate_person.add(panel_addOrUpdate_person);
@@ -260,6 +261,7 @@ Ext.onReady(function(){
 			var panel_addOrUpdate_person = Ext.create("panel_addOrUpdate_person");
 			store_roleList.load();
 			panel_addOrUpdate_person.getForm().loadRecord(record);
+			Ext.getCmp("addOrUpdate_username").setReadOnly(true);
 			store_roleIdsList.load({
 				params: {"userId": record.get("userId")},
 		   	 	scope: this,

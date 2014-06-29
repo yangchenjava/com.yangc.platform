@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<!-- 设置读取属性文件的加载器 -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${database.driverClassName}" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.username}" />
+		<property name="password" value="${database.password}" />
+		<property name="initialSize" value="${database.initialSize}" />
+		<property name="maxActive" value="${database.maxActive}" />
+		<property name="minIdle" value="${database.minIdle}" />
+		<property name="maxWait" value="${database.maxWait}" />
+		<property name="poolPreparedStatements" value="${database.poolPreparedStatements}" />
+		<property name="maxOpenPreparedStatements" value="${database.maxOpenPreparedStatements}" />
+		<property name="validationQuery" value="${database.validationQuery}" />
+		<property name="testOnBorrow" value="${database.testOnBorrow}" />
+		<property name="testOnReturn" value="${database.testOnReturn}" />
+		<property name="testWhileIdle" value="${database.testWhileIdle}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${database.timeBetweenEvictionRunsMillis}" />
+		<property name="filters" value="${database.filters}" />
+	</bean>
+
+	<!-- hibernate拦截器 -->
+	<bean id="hibernateInterceptor" class="com.yangc.interceptor.HibernateInterceptor" />
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.connection.SetBigStringTryClob">true</prop>
+				<prop key="hibernate.jdbc.fetch_size">50</prop>
+				<prop key="hibernate.jdbc.batch_size">25</prop>
+			</props>
+		</property>
+		<!-- 指定hibernate 映射文件存放的目录 -->
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:com/*/*/bean/oracle</value>
+			</list>
+		</property>
+		<property name="entityInterceptor" ref="hibernateInterceptor" />
+	</bean>
+</beans>

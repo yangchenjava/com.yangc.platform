@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.yangc.system.bean.oracle.TSysUsersroles" table="T_SYS_USERSROLES">
+		<comment>用户角色维系表</comment>
+		<id name="id" type="java.lang.Long">
+			<column name="ID" precision="22" scale="0" />
+			<generator class="sequence">
+				<param name="sequence">HIBERNATE_SEQ</param>
+			</generator>
+		</id>
+		<property name="userId" type="java.lang.Long">
+			<column name="USER_ID" precision="22" scale="0">
+				<comment>用户ID</comment>
+			</column>
+		</property>
+		<property name="roleId" type="java.lang.Long">
+			<column name="ROLE_ID" precision="22" scale="0">
+				<comment>角色ID</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

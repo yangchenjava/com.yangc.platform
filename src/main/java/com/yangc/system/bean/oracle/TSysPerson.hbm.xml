@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.yangc.system.bean.oracle.TSysPerson" table="T_SYS_PERSON">
+		<comment>用户信息表</comment>
+		<id name="id" type="java.lang.Long">
+			<column name="ID" precision="22" scale="0" />
+			<generator class="sequence">
+				<param name="sequence">HIBERNATE_SEQ</param>
+			</generator>
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="NAME" length="50">
+				<comment>姓名</comment>
+			</column>
+		</property>
+		<property name="sex" type="java.lang.Long">
+			<column name="SEX" precision="1" scale="0">
+				<comment>性别</comment>
+			</column>
+		</property>
+		<property name="phone" type="java.lang.String">
+			<column name="PHONE" length="50">
+				<comment>电话</comment>
+			</column>
+		</property>
+		<property name="spell" type="java.lang.String">
+			<column name="SPELL" length="100">
+				<comment>拼写</comment>
+			</column>
+		</property>
+		<property name="deptId" type="java.lang.Long">
+			<column name="DEPT_ID" precision="22" scale="0">
+				<comment>部门表外键</comment>
+			</column>
+		</property>
+		<property name="createUser" type="java.lang.Long">
+			<column name="CREATE_USER" precision="22" scale="0">
+				<comment>创建者</comment>
+			</column>
+		</property>
+		<property name="createTime" type="java.util.Date">
+			<column name="CREATE_TIME" length="7">
+				<comment>创建时间</comment>
+			</column>
+		</property>
+		<property name="updateUser" type="java.lang.Long">
+			<column name="UPDATE_USER" precision="22" scale="0">
+				<comment>修改者</comment>
+			</column>
+		</property>
+		<property name="updateTime" type="java.util.Date">
+			<column name="UPDATE_TIME" length="7">
+				<comment>修改时间</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>
