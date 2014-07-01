@@ -19,6 +19,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.apache.shiro.util.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yangc.shiro.utils.ShiroUtils;
 import com.yangc.system.bean.oracle.Permission;
@@ -31,7 +32,9 @@ import com.yangc.utils.Message;
 
 public class MyRealm extends AuthorizingRealm {
 
+	@Autowired
 	private UserService userService;
+	@Autowired
 	private AclService aclService;
 
 	private SessionDAO sessionDAO;
@@ -162,14 +165,6 @@ public class MyRealm extends AuthorizingRealm {
 	public void clearAllCached() {
 		this.clearAllCachedAuthenticationInfo();
 		this.clearAllCachedAuthorizationInfo();
-	}
-
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-
-	public void setAclService(AclService aclService) {
-		this.aclService = aclService;
 	}
 
 	public void setSessionDAO(SessionDAO sessionDAO) {

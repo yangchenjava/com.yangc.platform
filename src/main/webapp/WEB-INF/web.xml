@@ -31,16 +31,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- 分页过滤 -->
-	<filter>
-		<filter-name>PaginationFilter</filter-name>
-		<filter-class>com.yangc.filter.PaginationFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>PaginationFilter</filter-name>
-		<url-pattern>/resource/*</url-pattern>
-	</filter-mapping>
-
 	<!-- html标签过滤 -->
 	<filter>
 		<filter-name>HTMLCharacterFilter</filter-name>
