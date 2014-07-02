@@ -1,7 +1,9 @@
 com.yangc.platform
 ===============
 
-### 一个初级的权限框架（与com.yangc.frame如出一辙，应广大要求换成了springmvc）
+### 一个初级的权限框架
+> （与com.yangc.frame如出一辙，应广大要求换成了springmvc）
+
 使用jdk6，maven项目<br />
 后台 hibernate3.6.10 + spring3.2.8 + springmvc3.2.8 + shiro1.2.3<br />
 前端 extjs4.2 + jquery1.8<br />
