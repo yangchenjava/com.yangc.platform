@@ -132,7 +132,7 @@ Ext.onReady(function(){
 		        {width: 55, text: "修改", handler: updatePerson, disabled: !hasPermission("person" + permission.UPD), icon: basePath + "js/lib/ext4.2/icons/edit_task.png"}, "-",
 		        {width: 55, text: "删除", handler: deletePerson, disabled: !hasPermission("person" + permission.DEL), icon: basePath + "js/lib/ext4.2/icons/delete.gif"},
 		        {width: 200,  disabled: true},
-		        {width: 180, id: "search_name", xtype: "combobox", emptyText: "昵称", store: store_spellList, forceSelection: true, editable: true, valueField: "name", displayField: "name", hideTrigger: true, queryMode: "local",
+		        {width: 180, id: "search_name", xtype: "combobox", emptyText: "昵称", store: store_spellList, forceSelection: true, editable: true, plugins: ["clearbutton"], valueField: "name", displayField: "name", hideTrigger: true, queryMode: "local",
 		        	listConfig: {
 		    			getInnerTpl: function(){
 		    				return "{name} ({spell})";
@@ -156,7 +156,7 @@ Ext.onReady(function(){
 			        	}
 			        }
 		        },
-		        {width: 150, id: "search_dept", xtype: "combobox", emptyText: "部门", store: store_deptList, forceSelection: true, editable: false, valueField: "id", displayField: "deptName"},
+		        {width: 150, id: "search_dept", xtype: "combobox", emptyText: "部门", store: store_deptList, forceSelection: true, editable: false, plugins: ["clearbutton"], valueField: "id", displayField: "deptName"},
 		        {width: 55, text: "搜索", handler: refreshPersonGrid, icon: basePath + "js/lib/ext4.2/icons/search.png"},
 		        {width: 55, text: "清空", handler: resetPersonGrid, icon: basePath + "js/lib/ext4.2/icons/refresh.png"}
 		    ]

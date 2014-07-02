@@ -12,6 +12,7 @@
   <head>
   	<title>yangc</title>
   	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/resources/css/ext-all.css" />
+  	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/ux/css/ClearButton.css" />
   	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/ux/css/ItemSelector.css" />
   	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/ux/css/Notification.css" />
   	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/tab-bar.css" />
