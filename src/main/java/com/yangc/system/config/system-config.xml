@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 						http://www.springframework.org/schema/context
-						http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+						http://www.springframework.org/schema/context/spring-context-3.2.xsd
+						http://www.springframework.org/schema/aop
+					    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
 	<!-- 扫描注解 -->
 	<context:component-scan base-package="com.yangc.system" />
+
+	<!-- aop -->
+	<bean id="menuAop" class="com.yangc.system.aop.MenuAop" />
+
+	<aop:config>
+		<aop:aspect id="menuAspect" ref="menuAop">
+			<aop:pointcut id="addOrUpdateMenu" expression="execution(* com.*.system.service.impl.MenuServiceImpl.addOrUpdateMenu(..))" />
+			<aop:pointcut id="updateParentMenuId" expression="execution(* com.*.system.service.impl.MenuServiceImpl.updateParentMenuId(..))" />
+			<aop:pointcut id="delMenu" expression="execution(* com.*.system.service.impl.MenuServiceImpl.delMenu(..))" />
+			<aop:pointcut id="getTopFrame" expression="execution(* com.*.system.service.impl.MenuServiceImpl.getTopFrame(..))" />
+			<aop:pointcut id="getMainFrame" expression="execution(* com.*.system.service.impl.MenuServiceImpl.getMainFrame(..))" />
+
+			<aop:before method="cleanMenuCacheAfterMethod" pointcut-ref="addOrUpdateMenu" />
+			<aop:before method="cleanMenuCacheAfterMethod" pointcut-ref="updateParentMenuId" />
+			<aop:before method="cleanMenuCacheAfterMethod" pointcut-ref="delMenu" />
+			<aop:around method="topMenuCacheAroundMethod" pointcut-ref="getTopFrame" />
+			<aop:around method="mainMenuCacheAroundMethod" pointcut-ref="getMainFrame" />
+		</aop:aspect>
+	</aop:config>
 </beans>
