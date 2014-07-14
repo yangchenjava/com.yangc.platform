@@ -82,7 +82,7 @@ public class MenuResource {
 		logger.info("addMenu - menuName=" + menuName + ", menuUrl=" + menuUrl + ", parentMenuId=" + parentMenuId + ", serialNum=" + serialNum + ", isshow=" + isshow + ", description=" + description);
 		try {
 			this.menuService.addOrUpdateMenu(null, menuName, menuUrl, parentMenuId, serialNum, isshow, description);
-			return new ResultBean(true, "添加成功，请授权进行查看");
+			return new ResultBean(true, "添加成功，请授权后进行查看");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return WebApplicationException.build();
