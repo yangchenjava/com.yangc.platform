@@ -28,12 +28,13 @@ public class MenuServiceImpl implements MenuService {
 	private AclService aclService;
 
 	@Override
-	public void addOrUpdateMenu(Long menuId, String menuName, String menuUrl, Long parentMenuId, Long serialNum, Long isshow, String description) {
+	public void addOrUpdateMenu(Long menuId, String menuName, String menuAlias, String menuUrl, Long parentMenuId, Long serialNum, Long isshow, String description) {
 		TSysMenu menu = (TSysMenu) this.baseDao.get(TSysMenu.class, menuId);
 		if (menu == null) {
 			menu = new TSysMenu();
 		}
 		menu.setMenuName(menuName);
+		menu.setMenuAlias(menuAlias);
 		menu.setMenuUrl(menuUrl);
 		menu.setParentMenuId(parentMenuId);
 		menu.setSerialNum(serialNum);
@@ -77,6 +78,7 @@ public class MenuServiceImpl implements MenuService {
 		for (Map<String, Object> map : mapList) {
 			Long menuId = ((Number) map.get("ID")).longValue();
 			String menuName = (String) map.get("MENU_NAME");
+			String menuAlias = (String) map.get("MENU_ALIAS");
 			String menuUrl = (String) map.get("MENU_URL");
 			Long serialNum = ((Number) map.get("SERIAL_NUM")).longValue();
 			Long isshow = ((Number) map.get("ISSHOW")).longValue();
@@ -87,6 +89,7 @@ public class MenuServiceImpl implements MenuService {
 			menuTree.setLeaf(totalCount == 0);
 			menuTree.setMenuId(menuId);
 			menuTree.setMenuName(menuName);
+			menuTree.setMenuAlias(menuAlias);
 			menuTree.setMenuUrl(menuUrl);
 			menuTree.setParentMenuId(parentMenuId);
 			menuTree.setSerialNum(serialNum);

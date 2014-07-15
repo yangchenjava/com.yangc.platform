@@ -1,5 +1,4 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="../../css/custom/frame/main.css" />
 <div id="main"></div>
 <script type="text/javascript">
 $(function(){

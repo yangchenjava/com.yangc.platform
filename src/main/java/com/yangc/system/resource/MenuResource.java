@@ -78,10 +78,11 @@ public class MenuResource {
 	@RequestMapping(value = "addMenu", method = RequestMethod.POST)
 	@ResponseBody
 	@RequiresPermissions("menu:" + Permission.ADD)
-	public ResultBean addMenu(String menuName, String menuUrl, Long parentMenuId, Long serialNum, Long isshow, String description) {
-		logger.info("addMenu - menuName=" + menuName + ", menuUrl=" + menuUrl + ", parentMenuId=" + parentMenuId + ", serialNum=" + serialNum + ", isshow=" + isshow + ", description=" + description);
+	public ResultBean addMenu(String menuName, String menuAlias, String menuUrl, Long parentMenuId, Long serialNum, Long isshow, String description) {
+		logger.info("addMenu - menuName=" + menuName + ", menuAlias=" + menuAlias + ", menuUrl=" + menuUrl + ", parentMenuId=" + parentMenuId + ", serialNum=" + serialNum + ", isshow=" + isshow
+				+ ", description=" + description);
 		try {
-			this.menuService.addOrUpdateMenu(null, menuName, menuUrl, parentMenuId, serialNum, isshow, description);
+			this.menuService.addOrUpdateMenu(null, menuName, menuAlias, menuUrl, parentMenuId, serialNum, isshow, description);
 			return new ResultBean(true, "添加成功，请授权后进行查看");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,11 +99,11 @@ public class MenuResource {
 	@RequestMapping(value = "updateMenu", method = RequestMethod.POST)
 	@ResponseBody
 	@RequiresPermissions("menu:" + Permission.UPD)
-	public ResultBean updateMenu(Long id, String menuName, String menuUrl, Long parentMenuId, Long serialNum, Long isshow, String description) {
-		logger.info("updateMenu - id=" + id + ", menuName=" + menuName + ", menuUrl=" + menuUrl + ", parentMenuId=" + parentMenuId + ", serialNum=" + serialNum + ", isshow=" + isshow
-				+ ", description=" + description);
+	public ResultBean updateMenu(Long id, String menuName, String menuAlias, String menuUrl, Long parentMenuId, Long serialNum, Long isshow, String description) {
+		logger.info("updateMenu - id=" + id + ", menuName=" + menuName + ", menuAlias=" + menuAlias + ", menuUrl=" + menuUrl + ", parentMenuId=" + parentMenuId + ", serialNum=" + serialNum
+				+ ", isshow=" + isshow + ", description=" + description);
 		try {
-			this.menuService.addOrUpdateMenu(id, menuName, menuUrl, parentMenuId, serialNum, isshow, description);
+			this.menuService.addOrUpdateMenu(id, menuName, menuAlias, menuUrl, parentMenuId, serialNum, isshow, description);
 			return new ResultBean(true, "修改成功，请刷新页面进行查看");
 		} catch (Exception e) {
 			e.printStackTrace();

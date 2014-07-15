@@ -6,6 +6,7 @@ Ext.define("MenuTree", {
         {name: "leaf",         type: "boolean"},
         {name: "menuId",       type: "int"},
         {name: "menuName",     type: "string"},
+        {name: "menuAlias",    type: "string"},
         {name: "menuUrl",      type: "string"},
         {name: "parentMenuId", type: "int"},
         {name: "serialNum",    type: "int"},
@@ -117,9 +118,10 @@ Ext.onReady(function(){
 		items: [
 		    {id: "addOrUpdate_menuId", name: "id", xtype: "hidden"},
 		    {id: "addOrUpdate_parentMenuId", name: "parentMenuId", xtype: "hidden"},
-			{id: "addOrUpdate_menuName", name: "menuName", xtype: "textfield", fieldLabel: "菜单名称", vtype: "basic_chinese"},
+			{id: "addOrUpdate_menuName", name: "menuName", xtype: "textfield", fieldLabel: "菜单名称", allowBlank: false, invalidText: "请输入菜单名称！", vtype: "basic_chinese"},
+			{id: "addOrUpdate_menuAlias", name: "menuAlias", xtype: "textfield", fieldLabel: "菜单别名", allowBlank: false, invalidText: "请输入菜单别名！", vtype: "basic"},
 			{id: "addOrUpdate_menuUrl", name: "menuUrl", xtype: "textfield", fieldLabel: "菜单地址", vtype: "basic"},
-			{id: "addOrUpdate_serialNum", name: "serialNum", xtype: "numberfield", fieldLabel: "顺序", minValue: 1},
+			{id: "addOrUpdate_serialNum", name: "serialNum", xtype: "numberfield", fieldLabel: "顺序", minValue: 1, allowBlank: false, invalidText: "请输入顺序！"},
 			{xtype: "radiogroup", fieldLabel: "是否显示", items: [
                 {id: "addOrUpdate_isshow_yes", boxLabel: "是", name: "isshow", inputValue: 1, checked: true},
                 {id: "addOrUpdate_isshow_no", boxLabel: "否", name: "isshow", inputValue: 0}
@@ -147,6 +149,7 @@ Ext.onReady(function(){
 	
 	function fieldSetReadOnly(isReadOnly){
 		Ext.getCmp("addOrUpdate_menuName").setReadOnly(isReadOnly);
+		Ext.getCmp("addOrUpdate_menuAlias").setReadOnly(isReadOnly);
 		Ext.getCmp("addOrUpdate_menuUrl").setReadOnly(isReadOnly);
 		Ext.getCmp("addOrUpdate_serialNum").setReadOnly(isReadOnly);
 		Ext.getCmp("addOrUpdate_isshow_yes").setReadOnly(isReadOnly);
@@ -198,11 +201,14 @@ Ext.onReady(function(){
 	
 	function addOrUpdateMenuHandler(){
 		var menuName = Ext.getCmp("addOrUpdate_menuName");
+		var menuAlias = Ext.getCmp("addOrUpdate_menuAlias");
 		var serialNum = Ext.getCmp("addOrUpdate_serialNum");
-		if (!menuName.getValue().trim()) {
-			message.error("请输入菜单名称！");
-		} else if (!serialNum.getValue()) {
-			message.error("请输入顺序！");
+		if (!menuName.isValid()) {
+			message.error(menuName.invalidText);
+		} else if (!menuAlias.isValid()) {
+			message.error(menuAlias.invalidText);
+		} else if (!serialNum.isValid()) {
+			message.error(serialNum.invalidText);
 		} else {
 			var url;
 			if (Ext.getCmp("addOrUpdate_menuId").getValue()) {

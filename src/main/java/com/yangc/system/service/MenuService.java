@@ -7,7 +7,7 @@ import com.yangc.system.bean.oracle.TSysMenu;
 
 public interface MenuService {
 
-	public void addOrUpdateMenu(Long menuId, String menuName, String menuUrl, Long parentMenuId, Long serialNum, Long isshow, String description);
+	public void addOrUpdateMenu(Long menuId, String menuName, String menuAlias, String menuUrl, Long parentMenuId, Long serialNum, Long isshow, String description);
 
 	public void updateParentMenuId(Long menuId, Long parentMenuId);
 

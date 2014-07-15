@@ -6,6 +6,7 @@ public class MenuTree extends AsyncTreeNode {
 
 	private Long menuId;
 	private String menuName;
+	private String menuAlias;
 	private String menuUrl;
 	private Long parentMenuId;
 	private Long serialNum;
@@ -28,6 +29,14 @@ public class MenuTree extends AsyncTreeNode {
 	public void setMenuName(String menuName) {
 		this.setText(menuName);
 		this.menuName = menuName;
+	}
+
+	public String getMenuAlias() {
+		return menuAlias;
+	}
+
+	public void setMenuAlias(String menuAlias) {
+		this.menuAlias = menuAlias;
 	}
 
 	public String getMenuUrl() {

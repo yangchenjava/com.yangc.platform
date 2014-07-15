@@ -85,6 +85,7 @@ Ext.onReady(function(){
     Ext.create("Ext.panel.Panel", {
     	renderTo: "main_" + parentMenuId,
 		layout: "border",
+		border: 0,
 		width: "100%",
 		height: document.documentElement.clientHeight - 92,
         items: [left, right]

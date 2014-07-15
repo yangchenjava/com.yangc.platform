@@ -2,7 +2,7 @@
 <sqlroot>
 	<sql name="system.menu.getMenusByParentId" desc="根据父id查询子菜单">
 	<![CDATA[
-		SELECT   c.ID, c.menu_name, c.menu_url, c.serial_num, c.isshow, c.description,
+		SELECT   c.ID, c.menu_name, c.menu_alias, c.menu_url, c.serial_num, c.isshow, c.description,
          		 NVL (d.totalcount, 0) totalcount
 		    FROM t_sys_menu c
 		         LEFT JOIN
