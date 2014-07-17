@@ -6,7 +6,8 @@ Ext.require([
     "Ext.ux.form.ItemSelector",
     "Ext.ux.form.MultiSelect",
     "Ext.ux.grid.Printer",
-    "Ext.ux.window.Notification"
+    "Ext.ux.window.Notification",
+    "Ext.ux.form.Ueditor"
 ]);
 
 Ext.define("TopFrame", {

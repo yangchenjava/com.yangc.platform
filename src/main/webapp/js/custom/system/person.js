@@ -105,7 +105,7 @@ Ext.onReady(function(){
         renderTo: "person",
 		store: store_personGrid,
 		width: "100%",
-		height: document.documentElement.clientHeight - 127,
+		height: document.documentElement.clientHeight - 125,
 		border: 0,
         collapsible: false,
         multiSelect: false,

@@ -32,7 +32,7 @@ Ext.onReady(function(){
         renderTo: "dept",
 		store: store_deptGrid,
 		width: "100%",
-		height: document.documentElement.clientHeight - 127,
+		height: document.documentElement.clientHeight - 125,
 		border: false,
         collapsible: false,
         multiSelect: false,

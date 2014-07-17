@@ -66,7 +66,7 @@ Ext.onReady(function(){
         renderTo: "role",
 		store: store_roleGrid,
 		width: "100%",
-		height: document.documentElement.clientHeight - 127,
+		height: document.documentElement.clientHeight - 125,
 		border: false,
         collapsible: false,
         multiSelect: false,

@@ -119,7 +119,7 @@ Ext.onReady(function(){
 		    {id: "addOrUpdate_menuId", name: "id", xtype: "hidden"},
 		    {id: "addOrUpdate_parentMenuId", name: "parentMenuId", xtype: "hidden"},
 			{id: "addOrUpdate_menuName", name: "menuName", xtype: "textfield", fieldLabel: "菜单名称", allowBlank: false, invalidText: "请输入菜单名称！", vtype: "basic_chinese"},
-			{id: "addOrUpdate_menuAlias", name: "menuAlias", xtype: "textfield", fieldLabel: "菜单别名", allowBlank: false, invalidText: "请输入菜单别名！", vtype: "basic"},
+			{id: "addOrUpdate_menuAlias", name: "menuAlias", xtype: "textfield", fieldLabel: "菜单别名", vtype: "basic"},
 			{id: "addOrUpdate_menuUrl", name: "menuUrl", xtype: "textfield", fieldLabel: "菜单地址", vtype: "basic"},
 			{id: "addOrUpdate_serialNum", name: "serialNum", xtype: "numberfield", fieldLabel: "顺序", minValue: 1, allowBlank: false, invalidText: "请输入顺序！"},
 			{xtype: "radiogroup", fieldLabel: "是否显示", items: [
@@ -134,7 +134,7 @@ Ext.onReady(function(){
 	Ext.create("Ext.form.Panel", {
 		renderTo: "menu",
 		width: "100%",
-		height: document.documentElement.clientHeight - 127,
+		height: document.documentElement.clientHeight - 125,
         border: false,
 		header: false,
 		layout: "column",
@@ -201,12 +201,9 @@ Ext.onReady(function(){
 	
 	function addOrUpdateMenuHandler(){
 		var menuName = Ext.getCmp("addOrUpdate_menuName");
-		var menuAlias = Ext.getCmp("addOrUpdate_menuAlias");
 		var serialNum = Ext.getCmp("addOrUpdate_serialNum");
 		if (!menuName.isValid()) {
 			message.error(menuName.invalidText);
-		} else if (!menuAlias.isValid()) {
-			message.error(menuAlias.invalidText);
 		} else if (!serialNum.isValid()) {
 			message.error(serialNum.invalidText);
 		} else {
