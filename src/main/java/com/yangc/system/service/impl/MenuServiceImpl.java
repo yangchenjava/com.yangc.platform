@@ -68,11 +68,11 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public List<MenuTree> getMenuListByParentMenuId(Long parentMenuId) {
-		String sql = JdbcDao.SQL_MAPPING.get("system.menu.getMenusByParentId");
+		String sql = JdbcDao.SQL_MAPPING.get("system.menu.getMenuListByParentMenuId");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("parentMenuId", parentMenuId);
 		List<Map<String, Object>> mapList = this.jdbcDao.findAll(sql, paramMap);
-		if (null == mapList || mapList.isEmpty()) return null;
+		if (mapList == null || mapList.isEmpty()) return null;
 
 		List<MenuTree> menuTreeList = new ArrayList<MenuTree>();
 		for (Map<String, Object> map : mapList) {
@@ -107,7 +107,7 @@ public class MenuServiceImpl implements MenuService {
 		paramMap.put("parentMenuId", parentMenuId);
 		paramMap.put("userId", userId);
 		List<Map<String, Object>> mapList = this.jdbcDao.findAll(sql, paramMap);
-		if (null == mapList || mapList.isEmpty()) return null;
+		if (mapList == null || mapList.isEmpty()) return null;
 
 		List<TSysMenu> menus = new ArrayList<TSysMenu>();
 		for (Map<String, Object> map : mapList) {
@@ -127,7 +127,7 @@ public class MenuServiceImpl implements MenuService {
 		paramMap.put("parentMenuId", parentMenuId);
 		paramMap.put("userId", userId);
 		List<Map<String, Object>> mapList = this.jdbcDao.findAll(sql, paramMap);
-		if (null == mapList || mapList.isEmpty()) return null;
+		if (mapList == null || mapList.isEmpty()) return null;
 
 		Map<Long, Map<TSysMenu, List<TSysMenu>>> tempMap = new LinkedHashMap<Long, Map<TSysMenu, List<TSysMenu>>>();
 		for (int i = 1, size = mapList.size(); i < size; i++) {

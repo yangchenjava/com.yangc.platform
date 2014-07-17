@@ -18,7 +18,7 @@ Ext.define('Ext.ux.form.Ueditor', {
 		me.callParent(arguments);
 		me.initField();
 		me.on('render', function() {
-			var width = me.width - 105;
+			var width = me.width - 75;
 			var height = me.height - 109;
 			var config = {
 				initialFrameWidth : width,

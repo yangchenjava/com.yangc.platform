@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sqlroot>
-	<sql name="system.menu.getMenusByParentId" desc="根据父id查询子菜单">
+	<sql name="system.menu.getMenuListByParentMenuId" desc="根据父id查询子菜单">
 	<![CDATA[
 		SELECT   c.ID, c.menu_name, c.menu_alias, c.menu_url, c.serial_num, c.isshow, c.description,
          		 NVL (d.totalcount, 0) totalcount

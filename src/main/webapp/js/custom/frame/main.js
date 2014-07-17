@@ -99,6 +99,10 @@ Ext.onReady(function(){
 		});
     }
     
+    getMainTabWidth = function(){
+    	return right.getWidth();
+    };
+    
     addTab = function(id, title, url){
 		if (!right.queryById(id)) {
 			if (right.items.length == 5) {
@@ -116,5 +120,12 @@ Ext.onReady(function(){
 			});
 		}
 		right.setActiveTab(id);
+	};
+	
+	removeTab = function(id){
+		var tab = right.queryById(id);
+		if (tab) {
+			right.remove(tab);
+		}
 	};
 });
