@@ -47,14 +47,14 @@
         //     'print', 'preview', 'searchreplace', 'help', 'drafts'
         // ]]
         , toolbars: [[
-            'fullscreen', 'source', '|', 'undo', 'redo', '|',
+            'source', '|', 'undo', 'redo', '|',
             'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
             'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
             'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
             'directionalityltr', 'directionalityrtl', 'indent', '|',
             'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
             'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-            'insertimage', 'emotion', 'scrawl', 'attachment', 'map', 'insertcode', 'pagebreak', 'template', 'background', '|',
+            'insertimage', 'emotion', 'scrawl', 'attachment', 'map', 'insertcode', 'pagebreak', 'template', '|',
             'horizontal', 'date', 'time', 'spechars', '|',
             'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
             'print', 'preview', 'searchreplace', 'help', 'drafts'
@@ -290,8 +290,8 @@
         //,maxInputCount:1
 
         //autoHeightEnabled
-        // 是否自动长高,默认true
-        //,autoHeightEnabled:true
+        // 是否自动长高,默认true,非自动长高时编辑框有滚动条
+        ,autoHeightEnabled:false
 
         //scaleEnabled
         //是否可以拉伸长高,默认true(当开启时，自动长高失效)

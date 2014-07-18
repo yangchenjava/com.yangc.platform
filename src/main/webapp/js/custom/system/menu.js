@@ -41,7 +41,7 @@ Ext.onReady(function(){
 	var tree_menu = Ext.create("Ext.tree.Panel", {
         store: store_menuTree,
         width: 300,
-        height: document.documentElement.clientHeight,
+        height: document.documentElement.clientHeight - 125,
         border: false,
         style: {
 			borderWidth: "0 2px 0 0",

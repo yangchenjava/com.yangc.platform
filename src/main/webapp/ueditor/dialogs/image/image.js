@@ -126,7 +126,7 @@
     function setAlign(align){
         align = align || 'none';
         var aligns = $G("alignIcon").children;
-        for(i = 0; i < aligns.length; i++){
+        for(var i = 0; i < aligns.length; i++){
             if(aligns[i].getAttribute('data-align') == align) {
                 domUtils.addClass(aligns[i], 'focus');
                 $G("align").value = aligns[i].getAttribute('data-align');
@@ -622,9 +622,9 @@
                 }
 
                 if (!_this.getQueueCount()) {
-                    $upload.addClass('disabled')
+                    $upload.addClass('disabled');
                 } else {
-                    $upload.removeClass('disabled')
+                    $upload.removeClass('disabled');
                 }
 
             }
