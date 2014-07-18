@@ -284,7 +284,7 @@ Ext.onReady(function(){
 			message.confirm("是否删除记录？", function(){
 				var record = grid_person.getSelectionModel().getSelection()[0];
 				$.post(basePath + "resource/person/delPerson", {
-					id: record.get("id"),
+					id: record.get("id")
 				}, function(data){
 					if (data.success) {
 						message.info(data.message);

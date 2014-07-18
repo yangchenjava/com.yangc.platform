@@ -208,7 +208,7 @@ Ext.onReady(function(){
 			message.confirm("是否删除记录？", function(){
 				var record = grid_role.getSelectionModel().getSelection()[0];
 				$.post(basePath + "resource/role/delRole", {
-					id: record.get("id"),
+					id: record.get("id")
 				}, function(data){
 					if (data.success) {
 						message.info(data.message);
