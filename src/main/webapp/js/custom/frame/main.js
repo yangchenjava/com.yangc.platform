@@ -122,6 +122,13 @@ Ext.onReady(function(){
 		right.setActiveTab(id);
 	};
 	
+	removeCurrentTab = function(){
+		var currentTab = right.getActiveTab();
+		if (currentTab) {
+			right.remove(currentTab);
+		}
+	};
+	
 	removeTab = function(id){
 		var tab = right.queryById(id);
 		if (tab) {
