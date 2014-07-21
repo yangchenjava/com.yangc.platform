@@ -130,8 +130,7 @@ public class MenuServiceImpl implements MenuService {
 		if (mapList == null || mapList.isEmpty()) return null;
 
 		Map<Long, Map<TSysMenu, List<TSysMenu>>> tempMap = new LinkedHashMap<Long, Map<TSysMenu, List<TSysMenu>>>();
-		for (int i = 1, size = mapList.size(); i < size; i++) {
-			Map<String, Object> map = mapList.get(i);
+		for (Map<String, Object> map : mapList) {
 			Long id = ((Number) map.get("ID")).longValue();
 			String menuName = (String) map.get("MENU_NAME");
 			Long pid = ((Number) map.get("PARENT_MENU_ID")).longValue();
@@ -145,10 +144,11 @@ public class MenuServiceImpl implements MenuService {
 				tempMap.put(id, value);
 			} else {
 				Map<TSysMenu, List<TSysMenu>> value = tempMap.get(pid);
-				if (null == value || value.isEmpty()) continue;
+				if (value == null || value.isEmpty()) continue;
 				TSysMenu menu = new TSysMenu();
 				menu.setId(id);
 				menu.setMenuName(menuName);
+				menu.setMenuAlias((String) map.get("MENU_ALIAS"));
 				menu.setMenuUrl((String) map.get("MENU_URL"));
 				menu.setParentMenuId(pid);
 				value.entrySet().iterator().next().getValue().add(menu);

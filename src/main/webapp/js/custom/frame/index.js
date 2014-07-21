@@ -19,6 +19,14 @@ Ext.define("TopFrame", {
     ]
 });
 
+// 全局参数
+var index = {
+	parentMenuId: 0,
+	personName: "",
+	userPermission: [],
+	menuAliasMap: {}
+};
+
 Ext.onReady(function(){
 	/** ------------------------------------- store ------------------------------------- */
 	Ext.create("Ext.data.Store", {
@@ -88,7 +96,7 @@ Ext.onReady(function(){
     		tabchange: function(tabPanel, newCard, oldCard, eOpts){
     			$.get(basePath + "resource/ping/system", function(data){
     				if (data.success) {
-    					parentMenuId = newCard.id;
+    					index.parentMenuId = newCard.id;
     					newCard.loader.load();
     				} else {
     					message.error(data.message);
@@ -203,6 +211,11 @@ Ext.onReady(function(){
     	return true;
     }
 	
+	// 查询用户权限
+	$.post(basePath + "resource/acl/getUserPermission", function(data){
+		index.userPermission = data;
+	});
+	
 	// 校验当前用户密码是否为初始密码
 	$.post(basePath + "resource/user/checkPassword", function(data){
 		if (data.success) {
@@ -218,4 +231,8 @@ Ext.onReady(function(){
 			}).show();
 		}
 	});
+	
+	hasPermission = function(permission){
+		return $.inArray(permission, index.userPermission) == -1 ? false : true;
+	};
 });

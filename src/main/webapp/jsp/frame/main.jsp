@@ -2,7 +2,7 @@
 <div id="main"></div>
 <script type="text/javascript">
 $(function(){
-	$("#main").attr("id", "main_" + parentMenuId);
+	$("#main").attr("id", "main_" + index.parentMenuId);
 });
 </script>
 <script type="text/javascript" src="../../js/custom/frame/main.js"></script>

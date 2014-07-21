@@ -2,8 +2,7 @@
 <sqlroot>
 	<sql name="system.menu.getMenuListByParentMenuId" desc="根据父id查询子菜单">
 	<![CDATA[
-		SELECT   c.ID, c.menu_name, c.menu_alias, c.menu_url, c.serial_num, c.isshow, c.description,
-         		 NVL (d.totalcount, 0) totalcount
+		SELECT   c.ID, c.menu_name, c.menu_alias, c.menu_url, c.serial_num, c.isshow, c.description, NVL (d.totalcount, 0) totalcount
 		    FROM t_sys_menu c
 		         LEFT JOIN
 		         (SELECT   b.ID, COUNT (1) totalcount
@@ -11,8 +10,7 @@
 		                   JOIN
 		                   (SELECT ID
 		                      FROM t_sys_menu
-		                     WHERE parent_menu_id = :parentMenuId) b
-		                   ON b.ID = a.parent_menu_id
+		                     WHERE parent_menu_id = :parentMenuId) b ON b.ID = a.parent_menu_id
 		          GROUP BY b.ID) d ON d.ID = c.ID
 		   WHERE c.parent_menu_id = :parentMenuId
 		ORDER BY c.serial_num
@@ -42,10 +40,10 @@
 	 -->
 	<sql name="system.menu.getMainFrame" desc="根据父id递归查询叶子节点">
 	<![CDATA[
-		SELECT   a.ID, a.menu_name, a.menu_url, a.parent_menu_id
-		    FROM (SELECT     ID, menu_name, menu_url, parent_menu_id, serial_num
+		SELECT   a.ID, a.menu_name, a.menu_alias, a.menu_url, a.parent_menu_id
+		    FROM (SELECT     ID, menu_name, menu_alias, menu_url, parent_menu_id, serial_num
 		                FROM t_sys_menu
-		          START WITH ID = :parentMenuId
+		          START WITH parent_menu_id = :parentMenuId
 		          CONNECT BY PRIOR ID = parent_menu_id AND isshow = 1) a
 		         JOIN
 		         (SELECT   c.menu_id
@@ -67,10 +65,8 @@
 	
 	<sql name="system.acl.getAclAndMenu" desc="根据父id和roleId查询子菜单和操作权限">
 	<![CDATA[
-		SELECT   e.ID, e.menu_name, e.totalcount,
-		         NVL (f.operate_status, 0) operate_status
-		    FROM (SELECT c.ID, c.menu_name, NVL (d.totalcount, 0) totalcount,
-		                 c.serial_num
+		SELECT   e.ID, e.menu_name, e.totalcount, NVL (f.operate_status, 0) operate_status
+		    FROM (SELECT c.ID, c.menu_name, NVL (d.totalcount, 0) totalcount, c.serial_num
 		            FROM t_sys_menu c
 		                 LEFT JOIN
 		                 (SELECT   b.ID, COUNT (1) totalcount
@@ -78,8 +74,7 @@
 		                           JOIN
 		                           (SELECT ID
 		                              FROM t_sys_menu
-		                             WHERE parent_menu_id = :parentMenuId) b
-		                           ON b.ID = a.parent_menu_id
+		                             WHERE parent_menu_id = :parentMenuId) b ON b.ID = a.parent_menu_id
 		                  GROUP BY b.ID) d ON d.ID = c.ID
 		           WHERE c.parent_menu_id = :parentMenuId) e
 		         LEFT JOIN
