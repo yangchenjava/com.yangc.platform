@@ -18,12 +18,16 @@
 
 	<aop:config>
 		<aop:aspect id="menuAspect" ref="menuAop">
+			<aop:pointcut id="addOrUpdateAcl" expression="execution(* com.*.system.service.AclService.addOrUpdateAcl(..))" />
+			<aop:pointcut id="delAcl" expression="execution(* com.*.system.service.AclService.delAcl(..))" />
 			<aop:pointcut id="addOrUpdateMenu" expression="execution(* com.*.system.service.MenuService.addOrUpdateMenu(..))" />
 			<aop:pointcut id="updateParentMenuId" expression="execution(* com.*.system.service.MenuService.updateParentMenuId(..))" />
 			<aop:pointcut id="delMenu" expression="execution(* com.*.system.service.MenuService.delMenu(..))" />
 			<aop:pointcut id="getTopFrame" expression="execution(* com.*.system.service.MenuService.getTopFrame(..))" />
 			<aop:pointcut id="getMainFrame" expression="execution(* com.*.system.service.MenuService.getMainFrame(..))" />
 
+			<aop:before method="cleanMenuCacheAfterMethod" pointcut-ref="addOrUpdateAcl" />
+			<aop:before method="cleanMenuCacheAfterMethod" pointcut-ref="delAcl" />
 			<aop:before method="cleanMenuCacheAfterMethod" pointcut-ref="addOrUpdateMenu" />
 			<aop:before method="cleanMenuCacheAfterMethod" pointcut-ref="updateParentMenuId" />
 			<aop:before method="cleanMenuCacheAfterMethod" pointcut-ref="delMenu" />

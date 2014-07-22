@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Note that this control will most likely remain as an example, and not as a core Ext form
  * control.  However, the API will be changing in a future release and so should not yet be
  * treated as a final, stable API at this time.

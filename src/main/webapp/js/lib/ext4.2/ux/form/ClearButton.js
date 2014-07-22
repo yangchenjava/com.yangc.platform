@@ -1,4 +1,4 @@
-(function() {
+﻿(function() {
     /**
      * @class Ext.ux.form.field.ClearButton
      *

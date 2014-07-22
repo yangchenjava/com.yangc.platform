@@ -1,4 +1,4 @@
-/**
+﻿/**
  * A control that allows selection of multiple items in a list.
  */
 Ext.define('Ext.ux.form.MultiSelect', {

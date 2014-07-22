@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Extjs集成百度编辑器
  */
 Ext.define('Ext.ux.form.Ueditor', {
