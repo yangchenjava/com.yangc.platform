@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,8 +68,8 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public List<MenuTree> getMenuListByParentMenuId(Long parentMenuId) {
-		String sql = JdbcDao.SQL_MAPPING.get("system.menu.getMenuListByParentMenuId");
+	public List<MenuTree> getMenuTreeListByParentMenuId(Long parentMenuId) {
+		String sql = JdbcDao.SQL_MAPPING.get("system.menu.getMenuTreeListByParentMenuId");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("parentMenuId", parentMenuId);
 		List<Map<String, Object>> mapList = this.jdbcDao.findAll(sql, paramMap);
@@ -76,25 +77,16 @@ public class MenuServiceImpl implements MenuService {
 
 		List<MenuTree> menuTreeList = new ArrayList<MenuTree>();
 		for (Map<String, Object> map : mapList) {
-			Long menuId = ((Number) map.get("ID")).longValue();
-			String menuName = (String) map.get("MENU_NAME");
-			String menuAlias = (String) map.get("MENU_ALIAS");
-			String menuUrl = (String) map.get("MENU_URL");
-			Long serialNum = ((Number) map.get("SERIAL_NUM")).longValue();
-			Long isshow = ((Number) map.get("ISSHOW")).longValue();
-			String description = (String) map.get("DESCRIPTION");
-			long totalCount = ((Number) map.get("TOTALCOUNT")).longValue();
-
 			MenuTree menuTree = new MenuTree();
-			menuTree.setLeaf(totalCount == 0);
-			menuTree.setMenuId(menuId);
-			menuTree.setMenuName(menuName);
-			menuTree.setMenuAlias(menuAlias);
-			menuTree.setMenuUrl(menuUrl);
+			menuTree.setLeaf(MapUtils.getLongValue(map, "TOTALCOUNT") == 0);
+			menuTree.setMenuId(MapUtils.getLong(map, "ID"));
+			menuTree.setMenuName(MapUtils.getString(map, "MENU_NAME"));
+			menuTree.setMenuAlias(MapUtils.getString(map, "MENU_ALIAS"));
+			menuTree.setMenuUrl(MapUtils.getString(map, "MENU_URL"));
 			menuTree.setParentMenuId(parentMenuId);
-			menuTree.setSerialNum(serialNum);
-			menuTree.setIsshow(isshow);
-			menuTree.setDescription(description);
+			menuTree.setSerialNum(MapUtils.getLong(map, "SERIAL_NUM"));
+			menuTree.setIsshow(MapUtils.getLong(map, "ISSHOW"));
+			menuTree.setDescription(MapUtils.getString(map, "DESCRIPTION"));
 			menuTreeList.add(menuTree);
 		}
 		return menuTreeList;
@@ -112,9 +104,9 @@ public class MenuServiceImpl implements MenuService {
 		List<TSysMenu> menus = new ArrayList<TSysMenu>();
 		for (Map<String, Object> map : mapList) {
 			TSysMenu menu = new TSysMenu();
-			menu.setId(((Number) map.get("ID")).longValue());
-			menu.setMenuName((String) map.get("MENU_NAME"));
-			menu.setMenuUrl((String) map.get("MENU_URL"));
+			menu.setId(MapUtils.getLong(map, "ID"));
+			menu.setMenuName(MapUtils.getString(map, "MENU_NAME"));
+			menu.setMenuUrl(MapUtils.getString(map, "MENU_URL"));
 			menus.add(menu);
 		}
 		return menus;
@@ -129,38 +121,38 @@ public class MenuServiceImpl implements MenuService {
 		List<Map<String, Object>> mapList = this.jdbcDao.findAll(sql, paramMap);
 		if (mapList == null || mapList.isEmpty()) return null;
 
-		Map<Long, Map<TSysMenu, List<TSysMenu>>> tempMap = new LinkedHashMap<Long, Map<TSysMenu, List<TSysMenu>>>();
+		Map<Long, TSysMenu> tempMap = new LinkedHashMap<Long, TSysMenu>();
 		for (Map<String, Object> map : mapList) {
-			Long id = ((Number) map.get("ID")).longValue();
-			String menuName = (String) map.get("MENU_NAME");
-			Long pid = ((Number) map.get("PARENT_MENU_ID")).longValue();
+			Long id = MapUtils.getLong(map, "ID");
+			String menuName = MapUtils.getString(map, "MENU_NAME");
+			Long pid = MapUtils.getLong(map, "PARENT_MENU_ID");
 
 			if (pid == parentMenuId) {
-				Map<TSysMenu, List<TSysMenu>> value = new HashMap<TSysMenu, List<TSysMenu>>();
 				TSysMenu menu = new TSysMenu();
 				menu.setId(id);
 				menu.setMenuName(menuName);
-				value.put(menu, new ArrayList<TSysMenu>());
-				tempMap.put(id, value);
-			} else {
-				Map<TSysMenu, List<TSysMenu>> value = tempMap.get(pid);
-				if (value == null || value.isEmpty()) continue;
-				TSysMenu menu = new TSysMenu();
-				menu.setId(id);
-				menu.setMenuName(menuName);
-				menu.setMenuAlias((String) map.get("MENU_ALIAS"));
-				menu.setMenuUrl((String) map.get("MENU_URL"));
 				menu.setParentMenuId(pid);
-				value.entrySet().iterator().next().getValue().add(menu);
+				menu.setChildRenMenu(new ArrayList<TSysMenu>());
+				tempMap.put(id, menu);
+			} else {
+				TSysMenu parentMenu = tempMap.get(pid);
+				if (parentMenu == null) continue;
+				TSysMenu menu = new TSysMenu();
+				menu.setId(id);
+				menu.setMenuName(menuName);
+				menu.setMenuAlias(MapUtils.getString(map, "MENU_ALIAS"));
+				menu.setMenuUrl(MapUtils.getString(map, "MENU_URL"));
+				menu.setParentMenuId(pid);
+
+				List<TSysMenu> childRenMenu = parentMenu.getChildRenMenu();
+				childRenMenu.add(menu);
+				parentMenu.setChildRenMenu(childRenMenu);
 			}
 		}
 
 		List<TSysMenu> menus = new ArrayList<TSysMenu>();
-		for (Entry<Long, Map<TSysMenu, List<TSysMenu>>> entry : tempMap.entrySet()) {
-			Entry<TSysMenu, List<TSysMenu>> en = entry.getValue().entrySet().iterator().next();
-			TSysMenu menu = en.getKey();
-			menu.setChildRenMenu(en.getValue());
-			menus.add(menu);
+		for (Entry<Long, TSysMenu> entry : tempMap.entrySet()) {
+			menus.add(entry.getValue());
 		}
 		return menus;
 	}

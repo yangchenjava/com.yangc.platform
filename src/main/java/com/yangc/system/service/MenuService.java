@@ -15,7 +15,7 @@ public interface MenuService {
 
 	public int getNodePosition(Long menuId);
 
-	public List<MenuTree> getMenuListByParentMenuId(Long parentMenuId);
+	public List<MenuTree> getMenuTreeListByParentMenuId(Long parentMenuId);
 
 	public List<TSysMenu> getTopFrame(Long parentMenuId, Long userId);
 

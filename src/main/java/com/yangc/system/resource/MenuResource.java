@@ -66,7 +66,7 @@ public class MenuResource {
 	@RequiresPermissions("menu:" + Permission.SEL)
 	public List<MenuTree> getMenuTreeList(Long parentMenuId) {
 		logger.info("getMenuTreeList - parentMenuId=" + parentMenuId);
-		return this.menuService.getMenuListByParentMenuId(parentMenuId);
+		return this.menuService.getMenuTreeListByParentMenuId(parentMenuId);
 	}
 
 	/**

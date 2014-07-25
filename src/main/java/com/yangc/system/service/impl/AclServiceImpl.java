@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,10 +71,10 @@ public class AclServiceImpl implements AclService {
 
 		List<AuthTree> authTreeList = new ArrayList<AuthTree>();
 		for (Map<String, Object> map : mapList) {
-			Long menuId = ((Number) map.get("ID")).longValue();
-			String menuName = (String) map.get("MENU_NAME");
-			long totalCount = ((Number) map.get("TOTALCOUNT")).longValue();
-			long operateStatus = ((Number) map.get("OPERATE_STATUS")).longValue();
+			Long menuId = MapUtils.getLong(map, "ID");
+			String menuName = MapUtils.getString(map, "MENU_NAME");
+			long totalCount = MapUtils.getLongValue(map, "TOTALCOUNT");
+			long operateStatus = MapUtils.getLongValue(map, "OPERATE_STATUS");
 
 			AuthTree authTree = new AuthTree();
 			authTree.setLeaf(totalCount == 0);
@@ -99,7 +100,7 @@ public class AclServiceImpl implements AclService {
 		if (mapList == null || mapList.isEmpty()) return Permission.ACL_NO;
 
 		for (Map<String, Object> map : mapList) {
-			long operateStatus = ((Number) map.get("OPERATE_STATUS")).longValue();
+			long operateStatus = MapUtils.getLongValue(map, "OPERATE_STATUS");
 			if (Permission.isPermission(operateStatus, permission)) {
 				return Permission.ACL_YES;
 			}
@@ -117,8 +118,8 @@ public class AclServiceImpl implements AclService {
 
 		Map<String, Long> aclMap = new HashMap<String, Long>();
 		for (Map<String, Object> map : mapList) {
-			String menuAlias = (String) map.get("MENU_ALIAS");
-			Long operateStatus = ((Number) map.get("OPERATE_STATUS")).longValue();
+			String menuAlias = MapUtils.getString(map, "MENU_ALIAS");
+			Long operateStatus = MapUtils.getLong(map, "OPERATE_STATUS");
 
 			if (aclMap.containsKey(menuAlias)) {
 				aclMap.put(menuAlias, operateStatus | aclMap.get(menuAlias));

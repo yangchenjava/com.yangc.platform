@@ -22,7 +22,6 @@
 	     -->
 	    <property name="authorizationCachingEnabled" value="true" />
 	    <property name="authorizationCacheName" value="authorizationCache" />
-	    <property name="sessionDAO" ref="sessionDAO" />
 	</bean>
 
 	<!-- cache -->
@@ -90,6 +89,7 @@
         </property>
         <property name="filterChainDefinitions">
         	<value>
+        		/resource/blog/** = anon
         		/resource/user/captcha = anon
         		/resource/user/login = myCaptc
         		/resource/** = myAuthc

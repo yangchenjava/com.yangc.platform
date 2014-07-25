@@ -36,7 +36,7 @@ public class MyRealm extends AuthorizingRealm {
 	private UserService userService;
 	@Autowired
 	private AclService aclService;
-
+	@Autowired
 	private SessionDAO sessionDAO;
 
 	@Override
@@ -165,10 +165,6 @@ public class MyRealm extends AuthorizingRealm {
 	public void clearAllCached() {
 		this.clearAllCachedAuthenticationInfo();
 		this.clearAllCachedAuthorizationInfo();
-	}
-
-	public void setSessionDAO(SessionDAO sessionDAO) {
-		this.sessionDAO = sessionDAO;
 	}
 
 }
