@@ -16,7 +16,7 @@ Ext.onReady(function(){
 		 * 中英文数字下划线中划线正斜杠
 		 */
 		basic_chinese: function(val, field){
-			return /^[\w\s\-\/\u4E00-\u9FA5（）！？。，《》{}【】“”·、：；‘’……]*$/.test(val);
+			return /^[\w\s\-\/\u4E00-\u9FA5（）！？。，《》{}【】“”·、：；‘’……@\.']*$/.test(val);
 		},
 		basic_chineseText: "不能包含特殊字符",
 

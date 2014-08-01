@@ -127,7 +127,7 @@ public class MenuServiceImpl implements MenuService {
 			String menuName = MapUtils.getString(map, "MENU_NAME");
 			Long pid = MapUtils.getLong(map, "PARENT_MENU_ID");
 
-			if (pid == parentMenuId) {
+			if (pid.longValue() == parentMenuId.longValue()) {
 				TSysMenu menu = new TSysMenu();
 				menu.setId(id);
 				menu.setMenuName(menuName);

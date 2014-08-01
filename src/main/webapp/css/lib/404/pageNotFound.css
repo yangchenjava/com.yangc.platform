@@ -24,14 +24,15 @@ body {
 	opacity: 0.8;
 }
 
+/**	.steam2 shows the bottom part (dark version)
+ *	of the background image.
+ */
 .steam2 {
-	/*	.steam2 shows the bottom part (dark version)
-	*	of the background image.
-	*/
 	background-position: left bottom;
 }
 
-hgroup { /* Using the HTML4 hgroup element */
+/* Using the HTML4 hgroup element */
+hgroup {
 	display: block;
 	margin: 80px auto;
 	width: 850px;

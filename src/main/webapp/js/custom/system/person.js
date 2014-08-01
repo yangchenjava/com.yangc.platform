@@ -156,7 +156,7 @@ Ext.onReady(function(){
 			        	}
 			        }
 		        },
-		        {width: 150, id: "search_dept", xtype: "combobox", emptyText: "部门", store: store_deptList, forceSelection: true, editable: false, plugins: ["clearbutton"], valueField: "id", displayField: "deptName"},
+		        {width: 150, id: "search_dept", xtype: "combobox", emptyText: "部门", store: store_deptList, forceSelection: true, editable: false, queryMode: "local", plugins: ["clearbutton"], valueField: "id", displayField: "deptName"},
 		        {width: 55, text: "搜索", handler: refreshPersonGrid, icon: basePath + "js/lib/ext4.2/icons/search.png"},
 		        {width: 55, text: "清空", handler: resetPersonGrid, icon: basePath + "js/lib/ext4.2/icons/refresh.png"}
 		    ]
@@ -200,7 +200,7 @@ Ext.onReady(function(){
                     {id: "addOrUpdate_phone", name: "phone", xtype: "textfield", fieldLabel: "手机", allowBlank: false, invalidText: "请输入手机！", vtype: "mobile"}
                 ]},
                 {xtype: "container", columnWidth:.5, layout: "anchor", items: [
-                    {id: "addOrUpdate_dept", name: "deptId", xtype: "combobox", fieldLabel: "部门", allowBlank: false, invalidText: "请选择部门！", store: store_deptList, forceSelection: true, editable: false, valueField: "id", displayField: "deptName"}
+                    {id: "addOrUpdate_dept", name: "deptId", xtype: "combobox", fieldLabel: "部门", allowBlank: false, invalidText: "请选择部门！", store: store_deptList, forceSelection: true, editable: false, queryMode: "local", valueField: "id", displayField: "deptName"}
                 ]}
             ]},
             {id: "addOrUpdate_role", name: "roleIds", xtype: "itemselector", fieldLabel: "角色", allowBlank: false, labelSeparator: "", invalidText: "请选择角色！",

@@ -35,7 +35,7 @@ public class HTMLCharacterFilter implements Filter {
 				}
 			}
 		}
-		chain.doFilter(request, response);
+		chain.doFilter(new ParameterRequestWrapper(req, params), response);
 	}
 
 	@Override
