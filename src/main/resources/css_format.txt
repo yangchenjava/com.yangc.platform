@@ -1,0 +1,30 @@
+﻿整理了一下自己写CSS时的顺序
+下表顺序为从上到下,从左到右
+========================
+display || visibility
+list-style : list-style-type || list-style-position || list-style-image
+position
+top || right || bottom || left
+z-index
+clear
+float
+width
+max-width || min-width
+height
+max-height || min-height
+overflow || clip
+margin : margin-top || margin-right || margin-bottom || margin-left
+padding : padding-top || padding-right || padding-bottom || padding-left
+outline : outline-color || outline-style || outline-width
+border
+background : background-color || background-image || background-repeat || background-attachment || background-position
+color
+font : font-style || font-variant || font-weight || font-size || line-height || font-family
+font : caption | icon | menu | message-box | small-caption | status-bar
+text-overflow
+text-align
+text-indent
+line-height
+white-space
+vertical-align
+cursor
