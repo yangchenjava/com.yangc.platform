@@ -8,7 +8,7 @@ import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.subject.PrincipalCollection;
 
 import com.yangc.shiro.auth.MyRealm;
-import com.yangc.system.bean.oracle.TSysUser;
+import com.yangc.system.bean.TSysUser;
 import com.yangc.utils.Constants;
 
 public class ShiroUtils {

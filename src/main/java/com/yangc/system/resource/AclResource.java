@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yangc.bean.ResultBean;
 import com.yangc.exception.WebApplicationException;
 import com.yangc.shiro.utils.ShiroUtils;
-import com.yangc.system.bean.oracle.AuthTree;
-import com.yangc.system.bean.oracle.Permission;
+import com.yangc.system.bean.AuthTree;
+import com.yangc.system.bean.Permission;
 import com.yangc.system.service.AclService;
 
 @Controller

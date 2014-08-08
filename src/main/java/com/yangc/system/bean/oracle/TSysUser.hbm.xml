@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="com.yangc.system.bean.oracle.TSysUser" table="T_SYS_USER">
+	<class name="com.yangc.system.bean.TSysUser" table="T_SYS_USER">
 		<comment>用户登录表</comment>
 		<id name="id" type="java.lang.Long">
 			<column name="ID" precision="22" scale="0" />

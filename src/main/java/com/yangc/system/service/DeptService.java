@@ -2,7 +2,7 @@ package com.yangc.system.service;
 
 import java.util.List;
 
-import com.yangc.system.bean.oracle.TSysDepartment;
+import com.yangc.system.bean.TSysDepartment;
 
 public interface DeptService {
 

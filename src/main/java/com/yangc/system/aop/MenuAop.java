@@ -8,7 +8,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import com.google.gson.reflect.TypeToken;
-import com.yangc.system.bean.oracle.TSysMenu;
+import com.yangc.system.bean.TSysMenu;
 import com.yangc.utils.Constants;
 import com.yangc.utils.cache.RedisUtils;
 import com.yangc.utils.json.JsonUtils;

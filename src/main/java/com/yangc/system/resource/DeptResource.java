@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yangc.bean.DataGridBean;
 import com.yangc.bean.ResultBean;
 import com.yangc.exception.WebApplicationException;
-import com.yangc.system.bean.oracle.Permission;
-import com.yangc.system.bean.oracle.TSysDepartment;
+import com.yangc.system.bean.Permission;
+import com.yangc.system.bean.TSysDepartment;
 import com.yangc.system.service.DeptService;
 
 @Controller

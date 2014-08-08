@@ -14,8 +14,8 @@ import com.yangc.bean.DataGridBean;
 import com.yangc.bean.ResultBean;
 import com.yangc.exception.WebApplicationException;
 import com.yangc.shiro.utils.ShiroUtils;
-import com.yangc.system.bean.oracle.Permission;
-import com.yangc.system.bean.oracle.TSysRole;
+import com.yangc.system.bean.Permission;
+import com.yangc.system.bean.TSysRole;
 import com.yangc.system.service.RoleService;
 
 @Controller

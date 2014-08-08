@@ -2,7 +2,7 @@ package com.yangc.system.service;
 
 import java.util.List;
 
-import com.yangc.system.bean.oracle.TSysRole;
+import com.yangc.system.bean.TSysRole;
 
 public interface RoleService {
 

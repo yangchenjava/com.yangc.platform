@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yangc.dao.BaseDao;
-import com.yangc.system.bean.oracle.TSysDepartment;
+import com.yangc.system.bean.TSysDepartment;
 import com.yangc.system.service.DeptService;
 import com.yangc.system.service.PersonService;
 import com.yangc.utils.BeanUtils;

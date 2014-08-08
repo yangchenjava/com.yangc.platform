@@ -2,8 +2,8 @@ package com.yangc.system.service;
 
 import java.util.List;
 
-import com.yangc.system.bean.oracle.AuthTree;
-import com.yangc.system.bean.oracle.TSysAcl;
+import com.yangc.system.bean.AuthTree;
+import com.yangc.system.bean.TSysAcl;
 
 public interface AclService {
 

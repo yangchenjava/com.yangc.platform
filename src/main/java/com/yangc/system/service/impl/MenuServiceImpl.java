@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.yangc.dao.BaseDao;
 import com.yangc.dao.JdbcDao;
-import com.yangc.system.bean.oracle.MenuTree;
-import com.yangc.system.bean.oracle.TSysMenu;
+import com.yangc.system.bean.MenuTree;
+import com.yangc.system.bean.TSysMenu;
 import com.yangc.system.service.AclService;
 import com.yangc.system.service.MenuService;
 

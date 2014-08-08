@@ -2,7 +2,7 @@ package com.yangc.system.service;
 
 import java.util.List;
 
-import com.yangc.system.bean.oracle.TSysUser;
+import com.yangc.system.bean.TSysUser;
 
 public interface UserService {
 

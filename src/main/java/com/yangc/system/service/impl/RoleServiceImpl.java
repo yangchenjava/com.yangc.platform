@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yangc.dao.BaseDao;
-import com.yangc.system.bean.oracle.TSysRole;
+import com.yangc.system.bean.TSysRole;
 import com.yangc.system.service.AclService;
 import com.yangc.system.service.RoleService;
 import com.yangc.system.service.UsersrolesService;

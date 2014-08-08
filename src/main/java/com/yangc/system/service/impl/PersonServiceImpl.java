@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yangc.dao.BaseDao;
-import com.yangc.system.bean.oracle.TSysPerson;
-import com.yangc.system.bean.oracle.TSysUser;
+import com.yangc.system.bean.TSysPerson;
+import com.yangc.system.bean.TSysUser;
 import com.yangc.system.service.PersonService;
 import com.yangc.system.service.UserService;
 import com.yangc.utils.lang.PinyinUtils;

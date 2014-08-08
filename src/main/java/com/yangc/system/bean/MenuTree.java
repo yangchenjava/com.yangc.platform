@@ -1,13 +1,10 @@
-package com.yangc.system.bean.oracle;
+package com.yangc.system.bean;
 
-import java.util.List;
+import com.yangc.bean.AsyncTreeNode;
 
-import com.yangc.bean.BaseBean;
+public class MenuTree extends AsyncTreeNode {
 
-public class TSysMenu extends BaseBean {
-
-	private static final long serialVersionUID = -6612592275613733140L;
-
+	private Long menuId;
 	private String menuName;
 	private String menuAlias;
 	private String menuUrl;
@@ -16,12 +13,13 @@ public class TSysMenu extends BaseBean {
 	private Long isshow;
 	private String description;
 
-	private List<TSysMenu> childRenMenu;
+	public Long getMenuId() {
+		return menuId;
+	}
 
-	@Override
-	public String toString() {
-		return "TSysMenu [menuName=" + menuName + ", menuAlias=" + menuAlias + ", menuUrl=" + menuUrl + ", parentMenuId=" + parentMenuId + ", serialNum=" + serialNum + ", isshow=" + isshow
-				+ ", description=" + description + ", childRenMenu=" + childRenMenu + "]";
+	public void setMenuId(Long menuId) {
+		this.setId("" + menuId);
+		this.menuId = menuId;
 	}
 
 	public String getMenuName() {
@@ -29,6 +27,7 @@ public class TSysMenu extends BaseBean {
 	}
 
 	public void setMenuName(String menuName) {
+		this.setText(menuName);
 		this.menuName = menuName;
 	}
 
@@ -78,14 +77,6 @@ public class TSysMenu extends BaseBean {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public List<TSysMenu> getChildRenMenu() {
-		return childRenMenu;
-	}
-
-	public void setChildRenMenu(List<TSysMenu> childRenMenu) {
-		this.childRenMenu = childRenMenu;
 	}
 
 }

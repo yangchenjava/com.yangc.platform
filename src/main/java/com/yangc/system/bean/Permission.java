@@ -1,4 +1,4 @@
-package com.yangc.system.bean.oracle;
+package com.yangc.system.bean;
 
 public class Permission {
 

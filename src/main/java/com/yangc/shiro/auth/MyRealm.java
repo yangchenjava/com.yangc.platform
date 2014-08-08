@@ -22,9 +22,9 @@ import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yangc.shiro.utils.ShiroUtils;
-import com.yangc.system.bean.oracle.Permission;
-import com.yangc.system.bean.oracle.TSysAcl;
-import com.yangc.system.bean.oracle.TSysUser;
+import com.yangc.system.bean.Permission;
+import com.yangc.system.bean.TSysAcl;
+import com.yangc.system.bean.TSysUser;
 import com.yangc.system.service.AclService;
 import com.yangc.system.service.UserService;
 import com.yangc.utils.Constants;
