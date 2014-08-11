@@ -1,7 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sqlroot>
-	<sql name="" desc="">
+	<sql name="system.menu.getMenuTreeListByParentMenuId" desc="根据父id查询子菜单">
 	<![CDATA[
+		SELECT   C.ID, C.MENU_NAME, C.MENU_ALIAS, C.MENU_URL, C.SERIAL_NUM, C.ISSHOW, C.DESCRIPTION, IFNULL(D.TOTALCOUNT, 0) AS TOTALCOUNT
+		FROM     T_SYS_MENU C
+		         LEFT JOIN (SELECT   B.ID, COUNT(1) AS TOTALCOUNT
+		                    FROM     T_SYS_MENU A
+		                             JOIN (SELECT ID
+		                                   FROM   T_SYS_MENU
+		                                   WHERE  PARENT_MENU_ID = :parentMenuId) B
+		                               ON B.ID = A.PARENT_MENU_ID
+		                    GROUP BY B.ID) D
+		           ON D.ID = C.ID
+		WHERE    C.PARENT_MENU_ID = :parentMenuId
+		ORDER BY C.SERIAL_NUM
+	]]>
+	</sql>
+
+	<sql name="system.menu.getTopFrame" desc="根据父id查询子节点">
+	<![CDATA[
+		SELECT   A.ID, A.MENU_NAME, A.MENU_URL
+		FROM     T_SYS_MENU A
+		         JOIN (SELECT   C.MENU_ID
+		               FROM     T_SYS_ACL C JOIN T_SYS_USERSROLES D ON D.ROLE_ID = C.ROLE_ID
+		               WHERE    D.USER_ID = :userId AND C.OPERATE_STATUS & 8 = 8
+		               GROUP BY C.MENU_ID) B
+		           ON B.MENU_ID = ID
+		WHERE    A.ISSHOW = 1 AND A.PARENT_MENU_ID = :parentMenuId
+		ORDER BY A.SERIAL_NUM
+	]]>
+	</sql>
+
+	<sql name="system.menu.getMainFrame" desc="根据父id递归查询叶子节点">
+	<![CDATA[
+		SELECT   A.ID, A.MENU_NAME, A.MENU_ALIAS, A.MENU_URL, A.PARENT_MENU_ID
+		FROM     (SELECT ID, MENU_NAME, MENU_ALIAS, MENU_URL, PARENT_MENU_ID, SERIAL_NUM
+		          FROM   T_SYS_MENU
+		          WHERE  FIND_IN_SET(ID, START_WITH_PRIOR_MENU(:parentMenuId)) AND ISSHOW = 1 AND ID <> 0) A
+		         JOIN (SELECT   C.MENU_ID
+		               FROM     T_SYS_ACL C JOIN T_SYS_USERSROLES D ON D.ROLE_ID = C.ROLE_ID
+		               WHERE    D.USER_ID = :userId AND C.OPERATE_STATUS & 8 = 8
+		               GROUP BY C.MENU_ID) B
+		           ON B.MENU_ID = A.ID
+		ORDER BY A.PARENT_MENU_ID, A.SERIAL_NUM
+	]]>
+	</sql>
+
+	<sql name="system.menu.getNodePosition" desc="根据id获取该节点所在位置">
+	<![CDATA[
+		SELECT COUNT(1)
+		  FROM T_SYS_MENU
+		 WHERE FIND_IN_SET(ID, START_WITH_PRIOR_PARENT_MENU(:menuId));
+	]]>
+	</sql>
+
+	<sql name="system.acl.getAclAndMenu" desc="根据父id和roleId查询子菜单和操作权限">
+	<![CDATA[
+		SELECT   E.ID, E.MENU_NAME, E.TOTALCOUNT, IFNULL(F.OPERATE_STATUS, 0) OPERATE_STATUS
+		FROM     (SELECT C.ID, C.MENU_NAME, IFNULL(D.TOTALCOUNT, 0) TOTALCOUNT, C.SERIAL_NUM
+		          FROM   T_SYS_MENU C
+		                 LEFT JOIN (SELECT   B.ID, COUNT(1) TOTALCOUNT
+		                            FROM     T_SYS_MENU A
+		                                     JOIN (SELECT ID
+		                                           FROM   T_SYS_MENU
+		                                           WHERE  PARENT_MENU_ID = :parentMenuId) B
+		                                       ON B.ID = A.PARENT_MENU_ID
+		                            GROUP BY B.ID) D
+		                   ON D.ID = C.ID
+		          WHERE  C.PARENT_MENU_ID = :parentMenuId) E
+		         LEFT JOIN (SELECT MENU_ID, OPERATE_STATUS
+		                    FROM   T_SYS_ACL
+		                    WHERE  ROLE_ID = :roleId) F
+		           ON F.MENU_ID = E.ID
+		ORDER BY E.SERIAL_NUM
+	]]>
+	</sql>
+
+	<sql name="system.acl.getOperateStatus" desc="根据用户id和菜单id查看操作权限">
+	<![CDATA[
+		SELECT A.OPERATE_STATUS
+		FROM   T_SYS_ACL A JOIN T_SYS_USERSROLES B ON B.ROLE_ID = A.ROLE_ID
+		WHERE  A.MENU_ID = :menuId AND B.USER_ID = :userId
+	]]>
+	</sql>
+
+	<sql name="system.acl.getAclListByUserId" desc="根据用户id查看拥有的权限">
+	<![CDATA[
+		SELECT C.MENU_ALIAS, A.OPERATE_STATUS
+		FROM   T_SYS_ACL A
+		       JOIN T_SYS_USERSROLES B ON B.ROLE_ID = A.ROLE_ID
+		       JOIN T_SYS_MENU C ON C.ID = A.MENU_ID
+		WHERE  B.USER_ID = :userId AND C.MENU_ALIAS IS NOT NULL
 	]]>
 	</sql>
 </sqlroot>

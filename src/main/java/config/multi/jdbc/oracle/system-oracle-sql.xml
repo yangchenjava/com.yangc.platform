@@ -30,7 +30,7 @@
 		ORDER BY a.serial_num
 	]]>
 	</sql>
-	
+
 	<!-- 
 		SELECT     ID, menu_name, menu_url, parent_menu_id
 		      FROM t_sys_menu
@@ -53,7 +53,7 @@
 		ORDER BY a.parent_menu_id, a.serial_num
 	]]>
 	</sql>
-	
+
 	<sql name="system.menu.getNodePosition" desc="根据id获取该节点所在位置">
 	<![CDATA[
 		SELECT     COUNT (1)
@@ -62,7 +62,7 @@
 		CONNECT BY ID = PRIOR parent_menu_id
 	]]>
 	</sql>
-	
+
 	<sql name="system.acl.getAclAndMenu" desc="根据父id和roleId查询子菜单和操作权限">
 	<![CDATA[
 		SELECT   e.ID, e.menu_name, e.totalcount, NVL (f.operate_status, 0) operate_status
@@ -84,7 +84,7 @@
 		ORDER BY e.serial_num
 	]]>
 	</sql>
-	
+
 	<sql name="system.acl.getOperateStatus" desc="根据用户id和菜单id查看操作权限">
 	<![CDATA[
 		SELECT a.operate_status
@@ -92,7 +92,7 @@
 		 WHERE a.menu_id = :menuId AND b.user_id = :userId
 	]]>
 	</sql>
-	
+
 	<sql name="system.acl.getAclListByUserId" desc="根据用户id查看拥有的权限">
 	<![CDATA[
 		SELECT c.menu_alias, a.operate_status

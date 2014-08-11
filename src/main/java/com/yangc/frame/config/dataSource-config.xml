@@ -46,8 +46,8 @@
 		<!-- 指定hibernate 映射文件存放的目录 -->
 		<property name="mappingDirectoryLocations">
 			<list>
-				<value>classpath:com/*/*/bean/oracle</value>
-				<!-- <value>classpath:com/*/*/bean/mysql</value> -->
+				<!-- <value>classpath:com/*/*/bean/oracle</value> -->
+				<value>classpath:com/*/*/bean/mysql</value>
 			</list>
 		</property>
 		<property name="entityInterceptor" ref="hibernateInterceptor" />
