@@ -31,7 +31,8 @@
 	<!-- hibernate拦截器 -->
 	<bean id="hibernateInterceptor" class="com.yangc.interceptor.HibernateInterceptor" />
 
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	<!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> -->
+	<bean id="sessionFactory" class="com.yangc.bean.SessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="hibernateProperties">
 			<props>
@@ -47,7 +48,8 @@
 		<property name="mappingDirectoryLocations">
 			<list>
 				<!-- <value>classpath:com/*/*/bean/oracle</value> -->
-				<value>classpath:com/*/*/bean/mysql</value>
+				<!-- <value>classpath:com/*/*/bean/mysql</value> -->
+				<value>classpath:com/*/*/bean</value>
 			</list>
 		</property>
 		<property name="entityInterceptor" ref="hibernateInterceptor" />
