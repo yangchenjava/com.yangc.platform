@@ -1,6 +1,16 @@
 package com.yangc.utils;
 
+import org.apache.log4j.Logger;
+
+import com.yangc.utils.prop.PropertiesUtils;
+
 public class Constants {
+
+	private static Logger logger = Logger.getLogger(Constants.class);
+
+	/***************** system *****************/
+	public static final String CLASSPATH = Constants.class.getResource("//").getFile();
+	public static String DB_NAME = "";
 
 	/***************** default password (123456) *****************/
 	public static final String DEFAULT_PASSWORD = "14e1b600b1fd579f47433b88e8d85291";
@@ -19,5 +29,17 @@ public class Constants {
 	public static final String MENU = "menu";
 	public static final String MENU_TOP = "menuTop";
 	public static final String MENU_MAIN = "menuMain";
+
+	static {
+		String driverClassName = PropertiesUtils.getProperty("/jdbc.properties", "database.driverClassName");
+		if ("com.microsoft.sqlserver.jdbc.SQLServerDriver".equals(driverClassName)) {
+			Constants.DB_NAME = "sqlserver";
+		} else if ("oracle.jdbc.driver.OracleDriver".equals(driverClassName)) {
+			Constants.DB_NAME = "oracle";
+		} else if ("com.mysql.jdbc.Driver".equals(driverClassName)) {
+			Constants.DB_NAME = "mysql";
+		}
+		logger.info("DB_NAME - " + Constants.DB_NAME);
+	}
 
 }

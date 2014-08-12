@@ -3,7 +3,6 @@ package com.yangc.dao.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -27,10 +25,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import com.yangc.common.Pagination;
 import com.yangc.common.PaginationThreadUtils;
 import com.yangc.dao.JdbcDao;
+import com.yangc.utils.Constants;
 
 public class JdbcDaoImpl implements JdbcDao {
-
-	private static String DB_NAME = "DB_NAME";
 
 	/** 存储符合规范的文件 */
 	private static final List<File> LIST = new ArrayList<File>();
@@ -39,24 +36,7 @@ public class JdbcDaoImpl implements JdbcDao {
 	private JdbcTemplate jdbcTemplate;
 
 	static {
-		String realPath = JdbcDaoImpl.class.getResource("//").getFile();
-		Properties prop = new Properties();
-		try {
-			prop.load(new FileInputStream(realPath + "jdbc.properties"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String driverClassName = prop.getProperty("database.driverClassName");
-		if ("com.microsoft.sqlserver.jdbc.SQLServerDriver".equals(driverClassName)) {
-			DB_NAME = "sqlserver";
-		} else if ("oracle.jdbc.driver.OracleDriver".equals(driverClassName)) {
-			DB_NAME = "oracle";
-		} else if ("com.mysql.jdbc.Driver".equals(driverClassName)) {
-			DB_NAME = "mysql";
-		}
-		List<File> fileList = getFileInfo(realPath + "config/multi/jdbc/");
+		List<File> fileList = getFileInfo(Constants.CLASSPATH + "config/multi/jdbc/");
 		for (File file : fileList) {
 			loadFileContents(file);
 		}
@@ -98,7 +78,7 @@ public class JdbcDaoImpl implements JdbcDao {
 		String fileName = file.getName();
 		if (fileName.endsWith(".xml")) {
 			String dbFileName = fileName.split("\\.")[0];
-			if (dbFileName.endsWith("-sql") && dbFileName.contains(DB_NAME)) {
+			if (dbFileName.endsWith("-sql") && dbFileName.contains(Constants.DB_NAME)) {
 				b = true;
 			}
 		}
@@ -180,9 +160,9 @@ public class JdbcDaoImpl implements JdbcDao {
 		if (pagination.getTotalCount() == 0) {
 			return null;
 		}
-		if (DB_NAME.equals("oracle")) {
+		if (Constants.DB_NAME.equals("oracle")) {
 			return this.queryForOracle(sql, paramMap);
-		} else if (DB_NAME.equals("mysql")) {
+		} else if (Constants.DB_NAME.equals("mysql")) {
 			return this.queryForMysql(sql, paramMap);
 		}
 		return null;

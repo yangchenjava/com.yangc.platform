@@ -3,7 +3,9 @@ package com.yangc.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -17,16 +19,13 @@ public final class PropertiesFileScanUtils {
 
 	private static Logger logger = Logger.getLogger(PropertiesFileScanUtils.class);
 
-	private static final Properties properties = new Properties();
-
-	/* 获取类路径 */
-	private static final String CLASSPATH = PropertiesFileScanUtils.class.getResource("//").getFile();
+	private static final Map<String, String> properties = new HashMap<String, String>();
 
 	/* 初始化 */
 	static {
 		try {
 			logger.info("==========开始搜索满足条件的属性文件=========");
-			init(CLASSPATH);
+			init(Constants.CLASSPATH);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -53,7 +52,7 @@ public final class PropertiesFileScanUtils {
 							logger.error("属性文件:" + f.getAbsolutePath() + "定义的键(" + key + ")重复");
 							throw new IOException("属性文件:" + f.getAbsolutePath() + "定义的键(" + key + ")重复");
 						} else {
-							properties.setProperty(key, (String) temp.getProperty(key));
+							properties.put(key, temp.getProperty(key));
 						}
 					}
 				} else if (f.isDirectory()) {
@@ -67,7 +66,7 @@ public final class PropertiesFileScanUtils {
 	}
 
 	public static String getMessage(String key) {
-		return properties.getProperty(key);
+		return properties.get(key);
 	}
 
 }
