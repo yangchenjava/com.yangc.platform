@@ -30,6 +30,10 @@ public class Constants {
 	public static final String MENU_TOP = "menuTop";
 	public static final String MENU_MAIN = "menuMain";
 
+	/***************** ueditor upload path *****************/
+	public static final String IMAGE_PATH = "/upload/image/";
+	public static final String FILE_PATH = "/upload/file/";
+
 	static {
 		String driverClassName = PropertiesUtils.getProperty("/jdbc.properties", "database.driverClassName");
 		if ("com.microsoft.sqlserver.jdbc.SQLServerDriver".equals(driverClassName)) {

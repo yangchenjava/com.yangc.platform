@@ -24,6 +24,18 @@ Ext.define('Ext.ux.form.Ueditor', {
 				initialFrameWidth : width,
 				initialFrameHeight : height
 			};
+			UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+			UE.Editor.prototype.getActionUrl = function(action){
+			    if (action == "uploadimage") {
+			    	return basePath + "resource/ueditor/uploadImage";
+			    } else if (action == "uploadscrawl") {
+			    	return basePath + "resource/ueditor/uploadBase64";
+			    } else if (action == "uploadfile") {
+			    	return basePath + "resource/ueditor/uploadFile";
+			    } else {
+			        return this._bkGetActionUrl.call(this, action);
+			    }
+			};
 			me.ueditorInstance = UE.getEditor(id, config);
 			me.ueditorInstance.ready(function() {
 				me.initialized = true;
