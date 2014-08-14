@@ -31,8 +31,8 @@ public class UeditorResource {
 		logger.info("uploadImage");
 		try {
 			String savePath = new File(request.getSession().getServletContext().getRealPath("/")).getParent() + Constants.IMAGE_PATH;
-			String urlPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + Constants.IMAGE_PATH;
-			return this.ueditorService.uploadImage(upfile, savePath, urlPath);
+			String urlPath = ".." + Constants.IMAGE_PATH;
+			return this.ueditorService.uploadFile(upfile, savePath, urlPath);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new UeditorBean(UeditorBean.FAIL);
@@ -45,7 +45,7 @@ public class UeditorResource {
 		logger.info("uploadBase64");
 		try {
 			String savePath = new File(request.getSession().getServletContext().getRealPath("/")).getParent() + Constants.IMAGE_PATH;
-			String urlPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + Constants.IMAGE_PATH;
+			String urlPath = ".." + Constants.IMAGE_PATH;
 			return this.ueditorService.uploadBase64(upfile, savePath, urlPath);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,7 +59,7 @@ public class UeditorResource {
 		logger.info("uploadFile");
 		try {
 			String savePath = new File(request.getSession().getServletContext().getRealPath("/")).getParent() + Constants.FILE_PATH;
-			String urlPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + Constants.FILE_PATH;
+			String urlPath = ".." + Constants.FILE_PATH;
 			return this.ueditorService.uploadFile(upfile, savePath, urlPath);
 		} catch (Exception e) {
 			e.printStackTrace();

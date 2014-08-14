@@ -27,11 +27,11 @@ public class HTMLCharacterFilter implements Filter {
 			for (Iterator<String> it = params.keySet().iterator(); it.hasNext();) {
 				String[] values = params.get(it.next());
 				for (int i = 0; i < values.length; i++) {
-					values[i] = values[i].replace("<", "&lt;");
-					values[i] = values[i].replace(">", "&gt;");
-					values[i] = values[i].replace("&", "&amp;");
-					values[i] = values[i].replace("\"", "&quot;");
-					values[i] = values[i].replace("'", "&apos;");
+					values[i] = values[i].replaceAll("<", "&lt;");
+					values[i] = values[i].replaceAll(">", "&gt;");
+					values[i] = values[i].replaceAll("&", "&amp;");
+					values[i] = values[i].replaceAll("\"", "&quot;");
+					values[i] = values[i].replaceAll("'", "&apos;");
 				}
 			}
 		}

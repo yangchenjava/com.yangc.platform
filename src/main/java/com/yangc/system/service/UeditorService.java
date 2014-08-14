@@ -8,10 +8,8 @@ import com.yangc.bean.UeditorBean;
 
 public interface UeditorService {
 
-	public UeditorBean uploadImage(MultipartFile upfile, String savePath, String urlPath) throws IOException;
+	public UeditorBean uploadFile(MultipartFile upfile, String savePath, String urlPath) throws IOException;
 
-	public UeditorBean uploadBase64(String upfile, String savePath, String urlPath);
-
-	public UeditorBean uploadFile(MultipartFile upfile, String savePath, String urlPath);
+	public UeditorBean uploadBase64(String upfile, String savePath, String urlPath) throws IOException;
 
 }
