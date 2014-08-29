@@ -1,5 +1,5 @@
-﻿$.extend({
-	showPagination: function(pageCount, pageNow, pagination, callback){
+﻿(function($){
+	$.showPagination = function(pageCount, pageNow, pagination, callback){
 		var showPageCount = 5;
 		var i = 1;
 		while (true) {
@@ -38,5 +38,5 @@
 			}
 			i++;
 		}
-	}
-});
+	};
+})(jQuery);
