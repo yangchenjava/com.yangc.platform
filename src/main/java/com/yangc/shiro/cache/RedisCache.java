@@ -26,7 +26,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public V get(K key) throws CacheException {
-		logger.info("get - key=" + key);
+		logger.debug("get - key=" + key);
 		if (key != null) {
 			RedisUtils cache = RedisUtils.getInstance();
 			ShardedJedis jedis = null;
@@ -46,7 +46,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
 
 	@Override
 	public V put(K key, V value) throws CacheException {
-		logger.info("put - key=" + key + ", value=" + value);
+		logger.debug("put - key=" + key + ", value=" + value);
 		if (key != null && value != null) {
 			RedisUtils cache = RedisUtils.getInstance();
 			ShardedJedis jedis = null;
@@ -68,7 +68,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public V remove(K key) throws CacheException {
-		logger.info("remove - key=" + key);
+		logger.debug("remove - key=" + key);
 		if (key != null) {
 			RedisUtils cache = RedisUtils.getInstance();
 			ShardedJedis jedis = null;
@@ -90,7 +90,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
 
 	@Override
 	public void clear() throws CacheException {
-		logger.info("clear");
+		logger.debug("clear");
 		RedisUtils cache = RedisUtils.getInstance();
 		ShardedJedis jedis = null;
 		try {
@@ -107,7 +107,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
 
 	@Override
 	public int size() {
-		logger.info("size");
+		logger.debug("size");
 		RedisUtils cache = RedisUtils.getInstance();
 		ShardedJedis jedis = null;
 		try {
@@ -125,7 +125,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public Set<K> keys() {
-		logger.info("keys");
+		logger.debug("keys");
 		RedisUtils cache = RedisUtils.getInstance();
 		ShardedJedis jedis = null;
 		try {
@@ -147,7 +147,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public Collection<V> values() {
-		logger.info("values");
+		logger.debug("values");
 		RedisUtils cache = RedisUtils.getInstance();
 		ShardedJedis jedis = null;
 		try {
