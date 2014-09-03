@@ -127,7 +127,9 @@ Ext.onReady(function(){
                 {id: "addOrUpdate_isshow_no", boxLabel: "否", name: "isshow", inputValue: 0}
             ]},
             {id: "addOrUpdate_description", name: "description", xtype: "textarea", fieldLabel: "描述", vtype: "basic_chinese"},
-            {id: "addOrUpdate_button", xtype: "button", margin: "0 0 0 300", maxWidth: 70, text: "确定", handler: addOrUpdateMenuHandler}
+            {xtype: "container", layout: {type: "hbox", align: "middle", pack: "center"}, items: [
+                {id: "addOrUpdate_button", xtype: "button", width: 70, text: "确定", handler: addOrUpdateMenuHandler}
+            ]}
 		]
 	});
 	
