@@ -28,4 +28,3 @@ hibernate中主要使用的是HibernateTemplate和JdbcTemplate，封装了两个
     2.通过hibernate的拦截器去保存公共信息，如：createTime、updateTime。
     3.重新授予权限后记得清空过期的权限缓存。（毕竟菜单、权限等不经常修改的信息适合放入缓存）
     4.想到了再写...
-    
