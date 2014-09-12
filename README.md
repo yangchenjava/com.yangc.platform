@@ -14,7 +14,7 @@ yangchen 1<br />
 wangsheng 123456<br />
 
 ### shiro
-使用shiro实现登录认证和权限控制，将shiro默认的ehcache缓存改为使用redis缓存，通过配置文件，配置redis的分布式策略。
+使用shiro实现登录认证和权限控制，将shiro默认的ehcache缓存改为使用redis缓存，通过配置文件，配置redis的集群策略。
 
 ### springmvc
 通过注解的方式实现请求数据的传递，拦截器的实现，全局异常的实现，rest风格。
