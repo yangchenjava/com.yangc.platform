@@ -6,7 +6,7 @@ import java.net.URLDecoder;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.web.filter.authc.AuthenticationFilter;
 
