@@ -82,6 +82,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.yangc</groupId>
+			<artifactId>com.yangc.utils</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
@@ -192,11 +197,6 @@
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20090211</version>
-		</dependency>
-		<dependency>
-			<groupId>com.yangc</groupId>
-			<artifactId>com.yangc.utils</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 </project>
