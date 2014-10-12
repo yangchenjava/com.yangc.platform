@@ -35,7 +35,7 @@
 		<property name="defaultEncoding" value="utf-8" />
 	</bean>
 
-	<!-- shiro注解 -->
+	<!-- shiro注解,在controller中可用 -->
 	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor" />
 
 	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
