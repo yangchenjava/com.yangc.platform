@@ -1,6 +1,10 @@
 package com.yangc.system.resource;
 
+import java.util.Date;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.log4j.Logger;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +31,18 @@ public class PingResource {
 		logger.info("system");
 		try {
 			return new ResultBean(true, "");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return WebApplicationException.build();
+		}
+	}
+
+	@RequestMapping(value = "test", method = RequestMethod.GET)
+	@ResponseBody
+	public ResultBean test(@DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+		logger.info("test");
+		try {
+			return new ResultBean(true, DateFormatUtils.format(date, "yyyy-MM-dd"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return WebApplicationException.build();
