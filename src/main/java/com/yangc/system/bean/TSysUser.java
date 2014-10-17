@@ -8,7 +8,6 @@ public class TSysUser extends BaseBean {
 
 	private String username;
 	private String password;
-	private Long personId;
 
 	private String personName;
 
@@ -24,7 +23,7 @@ public class TSysUser extends BaseBean {
 
 	@Override
 	public String toString() {
-		return "TSysUser [username=" + username + ", password=" + password + ", personId=" + personId + "]";
+		return "TSysUser [username=" + username + ", password=" + password + "]";
 	}
 
 	public String getUsername() {
@@ -41,14 +40,6 @@ public class TSysUser extends BaseBean {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Long getPersonId() {
-		return personId;
-	}
-
-	public void setPersonId(Long personId) {
-		this.personId = personId;
 	}
 
 	public String getPersonName() {

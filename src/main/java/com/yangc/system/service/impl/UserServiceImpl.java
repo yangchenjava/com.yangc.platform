@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yangc.dao.BaseDao;
+import com.yangc.system.bean.TSysPerson;
 import com.yangc.system.bean.TSysUser;
+import com.yangc.system.service.PersonService;
 import com.yangc.system.service.UserService;
 import com.yangc.system.service.UsersrolesService;
-import com.yangc.utils.Constants;
 import com.yangc.utils.lang.NumberUtils;
 
 @Service
@@ -20,33 +21,46 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private BaseDao baseDao;
 	@Autowired
+	private PersonService personService;
+	@Autowired
 	private UsersrolesService usersrolesService;
 
 	@Override
-	public void addOrUpdateUser(Long userId, String username, Long personId, String roleIds) {
-		TSysUser user = (TSysUser) this.baseDao.get(TSysUser.class, userId);
-		if (user == null) {
+	public void addOrUpdateUser(Long userId, String username, String password, TSysPerson person, String roleIds) throws IllegalStateException {
+		TSysUser user = this.getUserByUsername(username);
+		if (user != null) {
+			if (userId == null) {
+				throw new IllegalStateException("用户名已存在");
+			} else if (userId.longValue() != user.getId().longValue()) {
+				throw new IllegalStateException("用户名已存在");
+			}
+		} else {
 			user = new TSysUser();
-			user.setPassword(Constants.DEFAULT_PASSWORD);
+			user.setUsername(username);
+			user.setPassword(password);
+			this.baseDao.saveOrUpdate(user);
 		}
-		user.setUsername(username);
-		user.setPersonId(personId);
-		this.baseDao.saveOrUpdate(user);
+
+		// 保存person
+		person.setUserId(user.getId());
+		this.personService.addOrUpdatePerson(person);
 
 		// 保存role
-		userId = user.getId();
-		this.usersrolesService.delUsersrolesByMainId(userId, 0);
+		this.usersrolesService.delUsersrolesByMainId(user.getId(), 0);
 		if (StringUtils.isNotBlank(roleIds)) {
 			for (String roleId : roleIds.split(",")) {
-				this.usersrolesService.addUsersroles(userId, NumberUtils.toLong(roleId));
+				this.usersrolesService.addUsersroles(user.getId(), NumberUtils.toLong(roleId));
 			}
 		}
 	}
 
 	@Override
-	public void delUser(Long userId) {
+	public String delUser(Long userId) {
+		String username = ((TSysUser) this.baseDao.get(TSysUser.class, userId)).getUsername();
 		this.usersrolesService.delUsersrolesByMainId(userId, 0);
-		this.baseDao.updateOrDelete("delete TSysUser where id = ?", new Object[] { userId });
+		this.personService.delPersonByUserId(userId);
+		this.baseDao.delete(TSysUser.class, userId);
+		return username;
 	}
 
 	@Override
@@ -60,13 +74,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public TSysUser getUserByPersonId(Long personId) {
-		return (TSysUser) this.baseDao.get("from TSysUser where personId = ?", new Object[] { personId });
-	}
-
-	@Override
 	public List<TSysUser> getUserListByUsernameAndPassword(String username, String password) {
-		String hql = "select new TSysUser(u.id, u.username, u.password, p.name as personName) from TSysUser u, TSysPerson p where u.personId = p.id and username = ? and password = ?";
+		String hql = "select new TSysUser(u.id, u.username, u.password, p.name as personName) from TSysUser u, TSysPerson p where u.id = p.userId and username = ? and password = ?";
 		return this.baseDao.findAll(hql, new Object[] { username, password });
 	}
 

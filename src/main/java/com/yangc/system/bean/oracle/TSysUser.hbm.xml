@@ -21,11 +21,6 @@
 				<comment>密码</comment>
 			</column>
 		</property>
-		<property name="personId" type="java.lang.Long">
-			<column name="PERSON_ID" precision="22" scale="0">
-				<comment>用户信息表外键</comment>
-			</column>
-		</property>
 		<property name="createUser" type="java.lang.Long">
 			<column name="CREATE_USER" precision="22" scale="0">
 				<comment>创建者</comment>

@@ -9,12 +9,14 @@ public class TSysPerson extends BaseBean {
 	private String name;
 	private Long sex;
 	private String phone;
-	private Long deptId;
-	private String deptName;
 	private String spell;
+	private String photo;
 
 	private Long userId;
 	private String username;
+
+	private Long deptId;
+	private String deptName;
 
 	private String roleIds;
 
@@ -26,22 +28,16 @@ public class TSysPerson extends BaseBean {
 		this.spell = spell;
 	}
 
-	public TSysPerson(Long id, String name, Long sex, String phone, Long deptId, String deptName, String spell, Long userId, String username) {
+	public TSysPerson(Long id, String name, Long sex, String phone, String spell, Long userId, String username, Long deptId, String deptName) {
 		this.setId(id);
 		this.name = name;
 		this.sex = sex;
 		this.phone = phone;
-		this.deptId = deptId;
-		this.deptName = deptName;
 		this.spell = spell;
 		this.userId = userId;
 		this.username = username;
-	}
-
-	@Override
-	public String toString() {
-		return "TSysPerson [name=" + name + ", sex=" + sex + ", phone=" + phone + ", deptId=" + deptId + ", deptName=" + deptName + ", spell=" + spell + ", userId=" + userId + ", username="
-				+ username + ", roleIds=" + roleIds + "]";
+		this.deptId = deptId;
+		this.deptName = deptName;
 	}
 
 	public String getName() {
@@ -68,28 +64,20 @@ public class TSysPerson extends BaseBean {
 		this.phone = phone;
 	}
 
-	public Long getDeptId() {
-		return deptId;
-	}
-
-	public void setDeptId(Long deptId) {
-		this.deptId = deptId;
-	}
-
-	public String getDeptName() {
-		return deptName;
-	}
-
-	public void setDeptName(String deptName) {
-		this.deptName = deptName;
-	}
-
 	public String getSpell() {
 		return spell;
 	}
 
 	public void setSpell(String spell) {
 		this.spell = spell;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 	public Long getUserId() {
@@ -106,6 +94,22 @@ public class TSysPerson extends BaseBean {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public Long getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Long deptId) {
+		this.deptId = deptId;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
 	}
 
 	public String getRoleIds() {

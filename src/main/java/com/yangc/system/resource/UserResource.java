@@ -106,6 +106,7 @@ public class UserResource {
 	@RequestMapping(value = "changePassword", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultBean changePassword(String password, String newPassword) {
+		logger.info("changePassword - password=" + password + ", newPassword=" + newPassword);
 		ResultBean resultBean = new ResultBean();
 		try {
 			TSysUser user = ShiroUtils.getCurrentUser();
@@ -141,6 +142,7 @@ public class UserResource {
 	@RequestMapping(value = "checkPassword", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultBean checkPassword() {
+		logger.info("checkPassword");
 		try {
 			TSysUser user = ShiroUtils.getCurrentUser();
 			return new ResultBean(user.getPassword().equals(Constants.DEFAULT_PASSWORD), "当前密码为初始密码，建议修改！");

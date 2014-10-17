@@ -21,7 +21,9 @@ import com.yangc.system.bean.Permission;
 import com.yangc.system.bean.TSysPerson;
 import com.yangc.system.bean.TSysUsersroles;
 import com.yangc.system.service.PersonService;
+import com.yangc.system.service.UserService;
 import com.yangc.system.service.UsersrolesService;
+import com.yangc.utils.Constants;
 
 @Controller
 @RequestMapping("/person")
@@ -31,6 +33,8 @@ public class PersonResource {
 
 	@Autowired
 	private PersonService personService;
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private UsersrolesService usersrolesService;
 
@@ -43,9 +47,16 @@ public class PersonResource {
 	@RequestMapping(value = "getPersonList", method = RequestMethod.POST)
 	@ResponseBody
 	@RequiresPermissions("person:" + Permission.SEL)
-	public List<TSysPerson> getPersonList() {
-		logger.info("getPersonList");
-		return this.personService.getPersonList();
+	public List<TSysPerson> getPersonList(String condition) {
+		if (StringUtils.isNotBlank(condition)) {
+			try {
+				condition = URLDecoder.decode(condition, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
+		logger.info("getPersonList - condition=" + condition);
+		return this.personService.getPersonList(condition);
 	}
 
 	/**
@@ -108,7 +119,12 @@ public class PersonResource {
 		logger.info("addPerson - name=" + name + ", sex=" + sex + ", phone=" + phone + ", deptId=" + deptId + ", username=" + username + ", roleIds=" + roleIds);
 		ResultBean resultBean = new ResultBean();
 		try {
-			this.personService.addOrUpdatePerson(null, name, sex, phone, deptId, null, username, roleIds);
+			TSysPerson person = new TSysPerson();
+			person.setName(name);
+			person.setSex(sex);
+			person.setPhone(phone);
+			person.setDeptId(deptId);
+			this.userService.addOrUpdateUser(null, username, Constants.DEFAULT_PASSWORD, person, roleIds);
 			resultBean.setSuccess(true);
 			resultBean.setMessage("添加成功");
 			return resultBean;
@@ -136,7 +152,13 @@ public class PersonResource {
 				+ roleIds);
 		ResultBean resultBean = new ResultBean();
 		try {
-			this.personService.addOrUpdatePerson(id, name, sex, phone, deptId, userId, username, roleIds);
+			TSysPerson person = new TSysPerson();
+			person.setId(id);
+			person.setName(name);
+			person.setSex(sex);
+			person.setPhone(phone);
+			person.setDeptId(deptId);
+			this.userService.addOrUpdateUser(userId, username, Constants.DEFAULT_PASSWORD, person, roleIds);
 			// 清除用户权限缓存信息
 			ShiroUtils.clearCachedAuthorizationInfo(username);
 			resultBean.setSuccess(true);
@@ -161,10 +183,10 @@ public class PersonResource {
 	@RequestMapping(value = "delPerson", method = RequestMethod.POST)
 	@ResponseBody
 	@RequiresPermissions("person:" + Permission.DEL)
-	public ResultBean delPerson(Long id) {
+	public ResultBean delPerson(Long userId) {
 		try {
-			logger.info("delPerson - id=" + id);
-			String username = this.personService.delPerson(id);
+			logger.info("delPerson - userId=" + userId);
+			String username = this.userService.delUser(userId);
 			// 清除用户权限缓存信息
 			ShiroUtils.clearCachedAuthorizationInfo(username);
 			return new ResultBean(true, "删除成功");

@@ -6,13 +6,13 @@ Ext.define("Person", {
 		{name: "sex",      type: "int"},
 		{name: "phone",    type: "string"},
 		{name: "spell",    type: "string"},
-		
-		{name: "deptId",   type: "int"},
-		{name: "deptName", type: "string"},
-		
+
 		{name: "userId",   type: "int"},
 		{name: "username", type: "string"},
-		
+
+		{name: "deptId",   type: "int"},
+		{name: "deptName", type: "string"},
+
 		{name: "roleIds",  type: "string"}
     ]
 });
@@ -97,7 +97,7 @@ Ext.onReady(function(){
 			},
 			url: basePath + "resource/person/getPersonList"
 		},
-		autoLoad: true
+		autoLoad: false
 	});
 	
 	/** ------------------------------------- view ------------------------------------- */
@@ -143,11 +143,14 @@ Ext.onReady(function(){
 			        		if (!queryPlan.forceAll) {
 			        			var combo = queryPlan.combo, content = queryPlan.query.trim();
 			        			if (content) {
-			        				combo.store.filterBy(function(record, id){
-			        					var nameSpell = record.get("name") + record.get("spell");
-			        					return nameSpell.indexOf(content) != -1;
+			        				store_spellList.proxy.extraParams = {"condition": encodeURIComponent(content)};
+			        				store_spellList.load(function (records, operation, success){
+			        				    combo.expand();
 			        				});
-			        				combo.expand();
+//			        				combo.store.filterBy(function(record, id){
+//			        					var nameSpell = record.get("name") + record.get("spell");
+//			        					return nameSpell.indexOf(content) != -1;
+//			        				});
 			        			} else {
 			        				combo.collapse();
 			        			}
@@ -284,7 +287,7 @@ Ext.onReady(function(){
 			message.confirm("是否删除记录？", function(){
 				var record = grid_person.getSelectionModel().getSelection()[0];
 				$.post(basePath + "resource/person/delPerson", {
-					id: record.get("id")
+					userId: record.get("userId")
 				}, function(data){
 					if (data.success) {
 						message.info(data.message);

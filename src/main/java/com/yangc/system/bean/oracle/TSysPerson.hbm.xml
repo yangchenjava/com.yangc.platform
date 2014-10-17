@@ -31,6 +31,16 @@
 				<comment>拼写</comment>
 			</column>
 		</property>
+		<property name="photo" type="java.lang.String">
+			<column name="PHOTO" length="100">
+				<comment>头像地址</comment>
+			</column>
+		</property>
+		<property name="userId" type="java.lang.Long">
+			<column name="USER_ID" precision="22" scale="0">
+				<comment>用户表外键</comment>
+			</column>
+		</property>
 		<property name="deptId" type="java.lang.Long">
 			<column name="DEPT_ID" precision="22" scale="0">
 				<comment>部门表外键</comment>

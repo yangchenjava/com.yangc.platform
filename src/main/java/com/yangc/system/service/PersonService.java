@@ -6,13 +6,13 @@ import com.yangc.system.bean.TSysPerson;
 
 public interface PersonService {
 
-	public void addOrUpdatePerson(Long personId, String name, Long sex, String phone, Long deptId, Long userId, String username, String roleIds) throws IllegalStateException;
+	public void addOrUpdatePerson(TSysPerson person);
 
-	public String delPerson(Long personId);
+	public void delPersonByUserId(Long userId);
 
-	public TSysPerson getPersonByPersonId(Long personId);
+	public TSysPerson getPersonByUserId(Long userId);
 
-	public List<TSysPerson> getPersonList();
+	public List<TSysPerson> getPersonList(String condition);
 
 	public List<TSysPerson> getPersonListByPersonNameAndDeptId_page(String personName, Long deptId);
 
