@@ -1,5 +1,7 @@
 package com.yangc.system.resource;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -17,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.yangc.bean.ResultBean;
 import com.yangc.exception.WebApplicationException;
 import com.yangc.system.bean.TSysPerson;
+import com.yangc.system.service.PersonService;
 import com.yangc.system.service.UserService;
+import com.yangc.utils.Constants;
 import com.yangc.utils.encryption.Md5Utils;
 
 @Controller
@@ -28,6 +32,8 @@ public class InterfaceResource {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private PersonService personService;
 
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	@ResponseBody
@@ -53,12 +59,52 @@ public class InterfaceResource {
 	@ResponseBody
 	public ResultBean register(String username, String password, String name, Long sex, String phone, String description, MultipartFile photo, HttpServletRequest request) {
 		logger.info("register - username=" + username + ", password=" + password + ", name=" + name + ", sex=" + sex + ", phone=" + phone + ", description=" + description);
-		TSysPerson person = new TSysPerson();
-		person.setName(name);
-		person.setSex(sex);
-		person.setPhone(phone);
-		this.userService.addOrUpdateUser(null, username, Md5Utils.getMD5(password), person, null);
-		return null;
+		ResultBean resultBean = new ResultBean();
+		try {
+			TSysPerson person = new TSysPerson();
+			person.setName(name);
+			person.setSex(sex);
+			person.setPhone(phone);
+			person.setDescription(description);
+
+			String savePath = new File(request.getSession().getServletContext().getRealPath("/")).getParent() + Constants.PORTRAIT_PATH;
+			String urlPath = ".." + Constants.PORTRAIT_PATH;
+
+			Long userId = this.userService.addOrUpdateUser(null, username, Md5Utils.getMD5(password), person, photo, savePath, urlPath, null);
+			resultBean.setSuccess(true);
+			resultBean.setMessage("" + userId);
+			return resultBean;
+		} catch (IllegalStateException e) {
+			resultBean.setSuccess(false);
+			resultBean.setMessage(e.getMessage());
+			return resultBean;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return WebApplicationException.build();
+		}
+	}
+
+	@RequestMapping(value = "updatePerson", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultBean updatePerson(Long userId, String name, Long sex, String phone, String description, MultipartFile photo, HttpServletRequest request) {
+		logger.info("updatePerson - userId=" + userId + ", name=" + name + ", sex=" + sex + ", phone=" + phone + ", description=" + description);
+		try {
+			TSysPerson person = new TSysPerson();
+			person.setUserId(userId);
+			person.setName(name);
+			person.setSex(sex);
+			person.setPhone(phone);
+			person.setDescription(description);
+
+			String savePath = new File(request.getSession().getServletContext().getRealPath("/")).getParent() + Constants.PORTRAIT_PATH;
+			String urlPath = ".." + Constants.PORTRAIT_PATH;
+
+			this.personService.addOrUpdatePerson(person, photo, savePath, urlPath);
+			return new ResultBean(true, "");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return WebApplicationException.build();
+		}
 	}
 
 }

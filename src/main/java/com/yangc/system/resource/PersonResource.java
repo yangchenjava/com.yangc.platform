@@ -124,7 +124,7 @@ public class PersonResource {
 			person.setSex(sex);
 			person.setPhone(phone);
 			person.setDeptId(deptId);
-			this.userService.addOrUpdateUser(null, username, Constants.DEFAULT_PASSWORD, person, roleIds);
+			this.userService.addOrUpdateUser(null, username, Constants.DEFAULT_PASSWORD, person, null, null, null, roleIds);
 			resultBean.setSuccess(true);
 			resultBean.setMessage("添加成功");
 			return resultBean;
@@ -158,7 +158,7 @@ public class PersonResource {
 			person.setSex(sex);
 			person.setPhone(phone);
 			person.setDeptId(deptId);
-			this.userService.addOrUpdateUser(userId, username, Constants.DEFAULT_PASSWORD, person, roleIds);
+			this.userService.addOrUpdateUser(userId, username, Constants.DEFAULT_PASSWORD, person, null, null, null, roleIds);
 			// 清除用户权限缓存信息
 			ShiroUtils.clearCachedAuthorizationInfo(username);
 			resultBean.setSuccess(true);

@@ -11,6 +11,7 @@ public class TSysPerson extends BaseBean {
 	private String phone;
 	private String spell;
 	private String photo;
+	private String description;
 
 	private Long userId;
 	private String username;
@@ -78,6 +79,14 @@ public class TSysPerson extends BaseBean {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Long getUserId() {

@@ -1,12 +1,16 @@
 package com.yangc.system.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yangc.dao.BaseDao;
 import com.yangc.system.bean.TSysPerson;
@@ -21,7 +25,20 @@ public class PersonServiceImpl implements PersonService {
 	private BaseDao baseDao;
 
 	@Override
-	public void addOrUpdatePerson(TSysPerson person) {
+	public void addOrUpdatePerson(TSysPerson person, MultipartFile photo, String savePath, String urlPath) throws IOException {
+		if (photo != null) {
+			String original = photo.getOriginalFilename();
+			String fileName = System.currentTimeMillis() + original.substring(original.indexOf("."));
+
+			File dir = new File(savePath + person.getUserId());
+			if (!dir.exists() || !dir.isDirectory()) {
+				dir.delete();
+				dir.mkdirs();
+			}
+			FileUtils.copyInputStreamToFile(photo.getInputStream(), new File(dir, fileName));
+			person.setPhoto(urlPath + person.getUserId() + "/" + fileName);
+		}
+
 		person.setSpell(PinyinUtils.getPinyin(person.getName()) + " " + PinyinUtils.getPinyinHead(person.getName()));
 		this.baseDao.saveOrUpdate(person);
 	}

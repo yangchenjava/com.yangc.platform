@@ -34,6 +34,11 @@
 				<comment>头像地址</comment>
 			</column>
 		</property>
+		<property name="description" type="java.lang.String">
+			<column name="DESCRIPTION" length="100">
+				<comment>描述</comment>
+			</column>
+		</property>
 		<property name="userId" type="java.lang.Long">
 			<column name="USER_ID" precision="22" scale="0">
 				<comment>用户表外键</comment>

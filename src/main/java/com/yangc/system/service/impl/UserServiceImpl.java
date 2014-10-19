@@ -1,10 +1,12 @@
 package com.yangc.system.service.impl;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yangc.dao.BaseDao;
 import com.yangc.system.bean.TSysPerson;
@@ -26,7 +28,8 @@ public class UserServiceImpl implements UserService {
 	private UsersrolesService usersrolesService;
 
 	@Override
-	public void addOrUpdateUser(Long userId, String username, String password, TSysPerson person, String roleIds) throws IllegalStateException {
+	public Long addOrUpdateUser(Long userId, String username, String password, TSysPerson person, MultipartFile photo, String savePath, String urlPath, String roleIds) throws IllegalStateException,
+			IOException {
 		TSysUser user = this.getUserByUsername(username);
 		if (user != null) {
 			if (userId == null) {
@@ -43,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
 		// 保存person
 		person.setUserId(user.getId());
-		this.personService.addOrUpdatePerson(person);
+		this.personService.addOrUpdatePerson(person, photo, savePath, urlPath);
 
 		// 保存role
 		this.usersrolesService.delUsersrolesByMainId(user.getId(), 0);
@@ -52,13 +55,14 @@ public class UserServiceImpl implements UserService {
 				this.usersrolesService.addUsersroles(user.getId(), NumberUtils.toLong(roleId));
 			}
 		}
+		return user.getId();
 	}
 
 	@Override
 	public String delUser(Long userId) {
 		String username = ((TSysUser) this.baseDao.get(TSysUser.class, userId)).getUsername();
-		this.usersrolesService.delUsersrolesByMainId(userId, 0);
 		this.personService.delPersonByUserId(userId);
+		this.usersrolesService.delUsersrolesByMainId(userId, 0);
 		this.baseDao.delete(TSysUser.class, userId);
 		return username;
 	}

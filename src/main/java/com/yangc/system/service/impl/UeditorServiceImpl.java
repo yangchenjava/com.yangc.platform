@@ -27,7 +27,7 @@ public class UeditorServiceImpl implements UeditorService {
 		String fileName = System.currentTimeMillis() + String.valueOf(Math.random()).substring(2, 8) + type;
 		String url = urlPath + currentDate + "/" + fileName;
 
-		File dir = new File(savePath + currentDate + "/");
+		File dir = new File(savePath + currentDate);
 		if (!dir.exists() || !dir.isDirectory()) {
 			dir.delete();
 			dir.mkdirs();
@@ -49,7 +49,7 @@ public class UeditorServiceImpl implements UeditorService {
 		String fileName = System.currentTimeMillis() + String.valueOf(Math.random()).substring(2, 8) + type;
 		String url = urlPath + currentDate + "/" + fileName;
 
-		File dir = new File(savePath + currentDate + "/");
+		File dir = new File(savePath + currentDate);
 		if (!dir.exists() || !dir.isDirectory()) {
 			dir.delete();
 			dir.mkdirs();
