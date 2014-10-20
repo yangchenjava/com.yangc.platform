@@ -57,15 +57,15 @@ public class InterfaceResource {
 
 	@RequestMapping(value = "register", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultBean register(String username, String password, String name, Long sex, String phone, String description, MultipartFile photo, HttpServletRequest request) {
-		logger.info("register - username=" + username + ", password=" + password + ", name=" + name + ", sex=" + sex + ", phone=" + phone + ", description=" + description);
+	public ResultBean register(String username, String password, String name, Long sex, String phone, String signature, MultipartFile photo, HttpServletRequest request) {
+		logger.info("register - username=" + username + ", password=" + password + ", name=" + name + ", sex=" + sex + ", phone=" + phone + ", signature=" + signature);
 		ResultBean resultBean = new ResultBean();
 		try {
 			TSysPerson person = new TSysPerson();
 			person.setName(name);
 			person.setSex(sex);
 			person.setPhone(phone);
-			person.setDescription(description);
+			person.setSignature(signature);
 
 			String savePath = new File(request.getSession().getServletContext().getRealPath("/")).getParent() + Constants.PORTRAIT_PATH;
 			String urlPath = ".." + Constants.PORTRAIT_PATH;
@@ -86,15 +86,15 @@ public class InterfaceResource {
 
 	@RequestMapping(value = "updatePerson", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultBean updatePerson(Long userId, String name, Long sex, String phone, String description, MultipartFile photo, HttpServletRequest request) {
-		logger.info("updatePerson - userId=" + userId + ", name=" + name + ", sex=" + sex + ", phone=" + phone + ", description=" + description);
+	public ResultBean updatePerson(Long userId, String name, Long sex, String phone, String signature, MultipartFile photo, HttpServletRequest request) {
+		logger.info("updatePerson - userId=" + userId + ", name=" + name + ", sex=" + sex + ", phone=" + phone + ", signature=" + signature);
 		try {
 			TSysPerson person = new TSysPerson();
 			person.setUserId(userId);
 			person.setName(name);
 			person.setSex(sex);
 			person.setPhone(phone);
-			person.setDescription(description);
+			person.setSignature(signature);
 
 			String savePath = new File(request.getSession().getServletContext().getRealPath("/")).getParent() + Constants.PORTRAIT_PATH;
 			String urlPath = ".." + Constants.PORTRAIT_PATH;

@@ -36,8 +36,8 @@
 				<comment>头像地址</comment>
 			</column>
 		</property>
-		<property name="description" type="java.lang.String">
-			<column name="DESCRIPTION" length="100">
+		<property name="signature" type="java.lang.String">
+			<column name="SIGNATURE" length="100">
 				<comment>描述</comment>
 			</column>
 		</property>
