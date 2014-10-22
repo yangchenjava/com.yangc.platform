@@ -82,6 +82,8 @@
         		/resource/blog/** = anon
         		/resource/user/captcha = anon
         		/resource/user/login = myCaptc
+        		/resource/interface/login = anon
+        		/resource/interface/register = anon
         		/resource/** = myAuthc
         		/jsp/** = myAuthc
         		/ = myAuthc

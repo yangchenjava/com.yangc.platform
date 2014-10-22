@@ -60,6 +60,7 @@ public class UserResource {
 		} catch (AuthenticationException e) {
 			resultBean.setSuccess(false);
 			resultBean.setMessage(e.getMessage());
+			// 登录失败超过一定次数,出现验证码
 			if ((Integer) session.getAttribute(Constants.ENTER_COUNT) >= Integer.parseInt(Message.getMessage("shiro.captcha"))) {
 				session.setAttribute(Constants.NEED_CAPTCHA, "NEED_CAPTCHA");
 				resultBean.setOther("captcha");

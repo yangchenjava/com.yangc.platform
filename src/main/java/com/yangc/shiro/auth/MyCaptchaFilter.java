@@ -26,11 +26,13 @@ public class MyCaptchaFilter extends AuthenticationFilter {
 		if (enterCount == null) {
 			enterCount = 0;
 		}
+		// 累计登录次数
 		if (enterCount < Integer.parseInt(Message.getMessage("shiro.captcha"))) {
 			session.setAttribute(Constants.ENTER_COUNT, enterCount + 1);
 			return true;
 		}
 
+		// 验证码
 		String code = (String) session.getAttribute(CaptchaUtils.CAPTCHA);
 		try {
 			session.removeAttribute(CaptchaUtils.CAPTCHA);
