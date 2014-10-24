@@ -2,23 +2,31 @@ package com.yangc.bean;
 
 public class ResultBean {
 
+	private int statusCode;
 	private boolean success;
 	private String message;
 	private String msg;
-	private String other;
 
 	public ResultBean() {
 	}
 
 	public ResultBean(boolean success, String message) {
-		this(success, message, null);
+		this(0, success, message);
 	}
 
-	public ResultBean(boolean success, String message, String other) {
+	public ResultBean(int statusCode, boolean success, String message) {
+		this.statusCode = statusCode;
 		this.success = success;
 		this.message = message;
 		this.msg = message;
-		this.other = other;
+	}
+
+	public int getStatusCode() {
+		return statusCode;
+	}
+
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
 	}
 
 	public boolean getSuccess() {
@@ -45,14 +53,6 @@ public class ResultBean {
 	public void setMsg(String msg) {
 		this.message = msg;
 		this.msg = msg;
-	}
-
-	public String getOther() {
-		return other;
-	}
-
-	public void setOther(String other) {
-		this.other = other;
 	}
 
 }

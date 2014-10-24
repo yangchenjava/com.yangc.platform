@@ -110,7 +110,7 @@ Ext.onReady(function(){
 					}
 					window.location.href = basePath + data.message;
 				} else {
-					if (data.other) {
+					if (data.statusCode == 100) {
 						refreshCaptcha();
 						Ext.getCmp("captcha").show();
 					}

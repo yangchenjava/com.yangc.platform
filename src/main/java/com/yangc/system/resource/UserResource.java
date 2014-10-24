@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yangc.bean.ResultBean;
+import com.yangc.common.StatusCode;
 import com.yangc.exception.WebApplicationException;
 import com.yangc.shiro.utils.ShiroUtils;
 import com.yangc.system.bean.TSysUser;
@@ -63,7 +64,7 @@ public class UserResource {
 			// 登录失败超过一定次数,出现验证码
 			if ((Integer) session.getAttribute(Constants.ENTER_COUNT) >= Integer.parseInt(Message.getMessage("shiro.captcha"))) {
 				session.setAttribute(Constants.NEED_CAPTCHA, "NEED_CAPTCHA");
-				resultBean.setOther("captcha");
+				resultBean.setStatusCode(StatusCode.CAPTCHA_ERROR.value());
 			}
 			return resultBean;
 		} catch (Exception e) {

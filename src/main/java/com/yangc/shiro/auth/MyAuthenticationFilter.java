@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.web.filter.authc.AuthenticationFilter;
 
 import com.yangc.bean.ResultBean;
+import com.yangc.common.StatusCode;
 import com.yangc.utils.json.JsonUtils;
 
 public class MyAuthenticationFilter extends AuthenticationFilter {
@@ -42,7 +43,7 @@ public class MyAuthenticationFilter extends AuthenticationFilter {
 			if (StringUtils.isNotBlank(header) && (header.equals("X-Requested-With") || header.equals("XMLHttpRequest"))) {
 				resp.setContentType("application/json;charset=UTF-8");
 				PrintWriter pw = resp.getWriter();
-				pw.write(JsonUtils.toJson(new ResultBean(false, "页面超时, 请刷新页面!")));
+				pw.write(JsonUtils.toJson(new ResultBean(StatusCode.SESSION_TIMEOUT.value(), false, "页面超时, 请刷新页面!")));
 				pw.flush();
 				pw.close();
 			}

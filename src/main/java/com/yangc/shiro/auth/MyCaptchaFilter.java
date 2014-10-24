@@ -11,6 +11,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.web.filter.authc.AuthenticationFilter;
 
 import com.yangc.bean.ResultBean;
+import com.yangc.common.StatusCode;
 import com.yangc.utils.Constants;
 import com.yangc.utils.Message;
 import com.yangc.utils.image.CaptchaUtils;
@@ -49,7 +50,7 @@ public class MyCaptchaFilter extends AuthenticationFilter {
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
-		pw.write(JsonUtils.toJson(new ResultBean(false, "验证码错误", "captcha")));
+		pw.write(JsonUtils.toJson(new ResultBean(StatusCode.CAPTCHA_ERROR.value(), false, "验证码错误")));
 		pw.flush();
 		pw.close();
 		return false;
