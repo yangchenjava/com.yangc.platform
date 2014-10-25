@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	private UsersrolesService usersrolesService;
 
 	@Override
-	public Long addOrUpdateUser(Long userId, String username, String password, TSysPerson person, MultipartFile photo, String savePath, String urlPath, String roleIds) throws IllegalStateException,
+	public void addOrUpdateUser(Long userId, String username, String password, TSysPerson person, MultipartFile photo, String savePath, String urlPath, String roleIds) throws IllegalStateException,
 			IOException {
 		TSysUser user = this.getUserByUsername(username);
 		if (user != null) {
@@ -55,7 +55,6 @@ public class UserServiceImpl implements UserService {
 				this.usersrolesService.addUsersroles(user.getId(), NumberUtils.toLong(roleId));
 			}
 		}
-		return user.getId();
 	}
 
 	@Override

@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.yangc.bean.ResultBean;
 import com.yangc.exception.WebApplicationException;
+import com.yangc.shiro.utils.ShiroUtils;
 import com.yangc.system.bean.TSysPerson;
 import com.yangc.system.service.PersonService;
 import com.yangc.system.service.UserService;
@@ -41,9 +41,9 @@ public class InterfaceResource {
 		logger.info("login - username=" + username + ", password=" + password);
 		ResultBean resultBean = new ResultBean();
 		try {
-			Subject subject = SecurityUtils.getSubject();
-			subject.login(new UsernamePasswordToken(username, Md5Utils.getMD5(password)));
+			SecurityUtils.getSubject().login(new UsernamePasswordToken(username, Md5Utils.getMD5(password)));
 			resultBean.setSuccess(true);
+			resultBean.setMessage("" + ShiroUtils.getCurrentUser().getId());
 			return resultBean;
 		} catch (AuthenticationException e) {
 			resultBean.setSuccess(false);
@@ -69,10 +69,11 @@ public class InterfaceResource {
 
 			String savePath = new File(request.getSession().getServletContext().getRealPath("/")).getParent() + Constants.PORTRAIT_PATH;
 			String urlPath = ".." + Constants.PORTRAIT_PATH;
+			this.userService.addOrUpdateUser(null, username, Md5Utils.getMD5(password), person, photo, savePath, urlPath, null);
 
-			Long userId = this.userService.addOrUpdateUser(null, username, Md5Utils.getMD5(password), person, photo, savePath, urlPath, null);
+			SecurityUtils.getSubject().login(new UsernamePasswordToken(username, Md5Utils.getMD5(password)));
 			resultBean.setSuccess(true);
-			resultBean.setMessage("" + userId);
+			resultBean.setMessage("" + ShiroUtils.getCurrentUser().getId());
 			return resultBean;
 		} catch (IllegalStateException e) {
 			resultBean.setSuccess(false);

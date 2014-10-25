@@ -8,6 +8,7 @@ import org.hibernate.type.Type;
 
 import com.yangc.bean.BaseBean;
 import com.yangc.shiro.utils.ShiroUtils;
+import com.yangc.system.bean.TSysUser;
 
 public class HibernateInterceptor extends EmptyInterceptor {
 
@@ -31,9 +32,11 @@ public class HibernateInterceptor extends EmptyInterceptor {
 					bean.setUpdateTime(updateTime);
 				} else if (propertyNames[i].equalsIgnoreCase("updateUser")) {
 					b = true;
-					Long userId = ShiroUtils.getCurrentUser().getId();
-					currentState[i] = userId;
-					bean.setUpdateUser(userId);
+					TSysUser user = ShiroUtils.getCurrentUser();
+					if (user != null) {
+						currentState[i] = user.getId();
+						bean.setUpdateUser(user.getId());
+					}
 				}
 			}
 			return b;
@@ -59,9 +62,11 @@ public class HibernateInterceptor extends EmptyInterceptor {
 					bean.setCreateTime(createTime);
 				} else if (propertyNames[i].equalsIgnoreCase("createUser")) {
 					b = true;
-					Long userId = ShiroUtils.getCurrentUser().getId();
-					state[i] = userId;
-					bean.setCreateUser(userId);
+					TSysUser user = ShiroUtils.getCurrentUser();
+					if (user != null) {
+						state[i] = user.getId();
+						bean.setCreateUser(user.getId());
+					}
 				}
 			}
 			return b;

@@ -10,7 +10,7 @@ import com.yangc.system.bean.TSysUser;
 
 public interface UserService {
 
-	public Long addOrUpdateUser(Long userId, String username, String password, TSysPerson person, MultipartFile photo, String savePath, String urlPath, String roleIds) throws IllegalStateException,
+	public void addOrUpdateUser(Long userId, String username, String password, TSysPerson person, MultipartFile photo, String savePath, String urlPath, String roleIds) throws IllegalStateException,
 			IOException;
 
 	public String delUser(Long userId);
