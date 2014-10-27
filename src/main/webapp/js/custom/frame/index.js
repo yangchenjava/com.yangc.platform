@@ -22,7 +22,7 @@ Ext.define("TopFrame", {
 // 全局参数
 var index = {
 	parentMenuId: 0,
-	personName: "",
+	nickname: "",
 	userPermission: [],
 	menuAliasMap: {}
 };

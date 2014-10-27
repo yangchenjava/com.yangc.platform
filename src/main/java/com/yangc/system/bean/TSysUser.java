@@ -9,16 +9,16 @@ public class TSysUser extends BaseBean {
 	private String username;
 	private String password;
 
-	private String personName;
+	private String nickname;
 
 	public TSysUser() {
 	}
 
-	public TSysUser(Long id, String username, String password, String personName) {
+	public TSysUser(Long id, String username, String password, String nickname) {
 		this.setId(id);
 		this.username = username;
 		this.password = password;
-		this.personName = personName;
+		this.nickname = nickname;
 	}
 
 	@Override
@@ -42,12 +42,12 @@ public class TSysUser extends BaseBean {
 		this.password = password;
 	}
 
-	public String getPersonName() {
-		return personName;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setPersonName(String personName) {
-		this.personName = personName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 }

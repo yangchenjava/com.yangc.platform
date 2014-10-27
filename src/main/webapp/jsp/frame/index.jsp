@@ -8,7 +8,7 @@
 <script type="text/javascript" src="<%=js_custom%>frame/permission.js"></script>
 <script type="text/javascript" src="<%=js_custom%>frame/index.js"></script>
 <script type="text/javascript">
-index.personName = "${sessionScope.CURRENT_USER.personName}";
+index.nickname = "${sessionScope.CURRENT_USER.nickname}";
 </script>
 </head>
 <body>

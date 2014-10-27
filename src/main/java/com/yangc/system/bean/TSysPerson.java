@@ -6,7 +6,7 @@ public class TSysPerson extends BaseBean {
 
 	private static final long serialVersionUID = 1086104255350281027L;
 
-	private String name;
+	private String nickname;
 	private Long sex;
 	private String phone;
 	private String spell;
@@ -24,14 +24,14 @@ public class TSysPerson extends BaseBean {
 	public TSysPerson() {
 	}
 
-	public TSysPerson(String name, String spell) {
-		this.name = name;
+	public TSysPerson(String nickname, String spell) {
+		this.nickname = nickname;
 		this.spell = spell;
 	}
 
-	public TSysPerson(Long id, String name, Long sex, String phone, String spell, Long userId, String username, Long deptId, String deptName) {
+	public TSysPerson(Long id, String nickname, Long sex, String phone, String spell, Long userId, String username, Long deptId, String deptName) {
 		this.setId(id);
-		this.name = name;
+		this.nickname = nickname;
 		this.sex = sex;
 		this.phone = phone;
 		this.spell = spell;
@@ -41,12 +41,12 @@ public class TSysPerson extends BaseBean {
 		this.deptName = deptName;
 	}
 
-	public String getName() {
-		return name;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public Long getSex() {

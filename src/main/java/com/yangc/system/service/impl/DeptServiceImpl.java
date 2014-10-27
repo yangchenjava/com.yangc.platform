@@ -33,7 +33,7 @@ public class DeptServiceImpl implements DeptService {
 
 	@Override
 	public void delDept(Long deptId) throws IllegalStateException {
-		Long count = this.personService.getPersonListByPersonNameAndDeptId_count(null, deptId);
+		Long count = this.personService.getPersonListByNicknameAndDeptId_count(null, deptId);
 		if (count > 0) {
 			throw new IllegalStateException("该部门下有员工存在");
 		}

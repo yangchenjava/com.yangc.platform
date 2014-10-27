@@ -65,19 +65,19 @@ public class PersonResource {
 	 * @创建日期: 2013年12月23日 下午5:30:25
 	 * @return
 	 */
-	@RequestMapping(value = "getPersonListByPersonNameAndDeptId_page", method = RequestMethod.POST)
+	@RequestMapping(value = "getPersonListByNicknameAndDeptId_page", method = RequestMethod.POST)
 	@ResponseBody
 	@RequiresPermissions("person:" + Permission.SEL)
-	public DataGridBean getPersonListByPersonNameAndDeptId_page(String name, Long deptId) {
-		if (StringUtils.isNotBlank(name)) {
+	public DataGridBean getPersonListByNicknameAndDeptId_page(String nickname, Long deptId) {
+		if (StringUtils.isNotBlank(nickname)) {
 			try {
-				name = URLDecoder.decode(name, "UTF-8");
+				nickname = URLDecoder.decode(nickname, "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
 		}
-		logger.info("getPersonListByPersonNameAndDeptId_page - name=" + name + ", deptId=" + deptId);
-		List<TSysPerson> personList = this.personService.getPersonListByPersonNameAndDeptId_page(name, deptId);
+		logger.info("getPersonListByNicknameAndDeptId_page - nickname=" + nickname + ", deptId=" + deptId);
+		List<TSysPerson> personList = this.personService.getPersonListByNicknameAndDeptId_page(nickname, deptId);
 		return new DataGridBean(personList);
 	}
 
@@ -115,12 +115,12 @@ public class PersonResource {
 	@RequestMapping(value = "addPerson", method = RequestMethod.POST)
 	@ResponseBody
 	@RequiresPermissions("person:" + Permission.ADD)
-	public ResultBean addPerson(String name, Long sex, String phone, Long deptId, String username, String roleIds) {
-		logger.info("addPerson - name=" + name + ", sex=" + sex + ", phone=" + phone + ", deptId=" + deptId + ", username=" + username + ", roleIds=" + roleIds);
+	public ResultBean addPerson(String nickname, Long sex, String phone, Long deptId, String username, String roleIds) {
+		logger.info("addPerson - nickname=" + nickname + ", sex=" + sex + ", phone=" + phone + ", deptId=" + deptId + ", username=" + username + ", roleIds=" + roleIds);
 		ResultBean resultBean = new ResultBean();
 		try {
 			TSysPerson person = new TSysPerson();
-			person.setName(name);
+			person.setNickname(nickname);
 			person.setSex(sex);
 			person.setPhone(phone);
 			person.setDeptId(deptId);
@@ -147,14 +147,14 @@ public class PersonResource {
 	@RequestMapping(value = "updatePerson", method = RequestMethod.POST)
 	@ResponseBody
 	@RequiresPermissions("person:" + Permission.UPD)
-	public ResultBean updatePerson(Long id, String name, Long sex, String phone, Long deptId, Long userId, String username, String roleIds) {
-		logger.info("updatePerson - id=" + id + ", name=" + name + ", sex=" + sex + ", phone=" + phone + ", deptId=" + deptId + ", userId=" + userId + ", username=" + username + ", roleIds="
+	public ResultBean updatePerson(Long id, String nickname, Long sex, String phone, Long deptId, Long userId, String username, String roleIds) {
+		logger.info("updatePerson - id=" + id + ", nickname=" + nickname + ", sex=" + sex + ", phone=" + phone + ", deptId=" + deptId + ", userId=" + userId + ", username=" + username + ", roleIds="
 				+ roleIds);
 		ResultBean resultBean = new ResultBean();
 		try {
 			TSysPerson person = new TSysPerson();
 			person.setId(id);
-			person.setName(name);
+			person.setNickname(nickname);
 			person.setSex(sex);
 			person.setPhone(phone);
 			person.setDeptId(deptId);

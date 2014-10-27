@@ -48,7 +48,7 @@ Ext.onReady(function(){
 	
 	/** ------------------------------------- view ------------------------------------- */
 	var left = Ext.create("Ext.panel.Panel", {
-		title: "你好，" + index.personName,
+		title: "你好，" + index.nickname,
 		region: "west",
 		layout: "accordion",
 		width: "20%",

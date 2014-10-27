@@ -39,7 +39,7 @@ public class PersonServiceImpl implements PersonService {
 			person.setPhoto(urlPath + person.getUserId() + "/" + fileName);
 		}
 
-		person.setSpell(PinyinUtils.getPinyin(person.getName()) + " " + PinyinUtils.getPinyinHead(person.getName()));
+		person.setSpell(PinyinUtils.getPinyin(person.getNickname()) + " " + PinyinUtils.getPinyinHead(person.getNickname()));
 		this.baseDao.saveOrUpdate(person);
 	}
 
@@ -56,7 +56,7 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public List<TSysPerson> getPersonList(String condition) {
 		if (StringUtils.isNotBlank(condition)) {
-			String hql = "select new TSysPerson(name, spell) from TSysPerson where name like :condition or spell like :condition";
+			String hql = "select new TSysPerson(nickname, spell) from TSysPerson where nickname like :condition or spell like :condition";
 			Map<String, Object> paramMap = new HashMap<String, Object>(1);
 			paramMap.put("condition", "%" + condition + "%");
 			return this.baseDao.findAllByMap(hql, paramMap);
@@ -65,15 +65,15 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public List<TSysPerson> getPersonListByPersonNameAndDeptId_page(String personName, Long deptId) {
+	public List<TSysPerson> getPersonListByNicknameAndDeptId_page(String nickname, Long deptId) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("select new TSysPerson(p.id, p.name, p.sex, p.phone, p.spell, u.id as userId, u.username, p.deptId, d.deptName)");
+		sb.append("select new TSysPerson(p.id, p.nickname, p.sex, p.phone, p.spell, u.id as userId, u.username, p.deptId, d.deptName)");
 		sb.append(" from TSysPerson p, TSysUser u, TSysDepartment d where p.userId = u.id and p.deptId = d.id");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
-		if (StringUtils.isNotBlank(personName)) {
-			sb.append(" and p.name = :personName");
-			paramMap.put("personName", personName);
+		if (StringUtils.isNotBlank(nickname)) {
+			sb.append(" and p.nickname = :nickname");
+			paramMap.put("nickname", nickname);
 		}
 		if (deptId != null && deptId.longValue() != 0) {
 			sb.append(" and p.deptId = :deptId");
@@ -85,13 +85,13 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public Long getPersonListByPersonNameAndDeptId_count(String personName, Long deptId) {
+	public Long getPersonListByNicknameAndDeptId_count(String nickname, Long deptId) {
 		StringBuilder sb = new StringBuilder("select count(p) from TSysPerson p where 1 = 1");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
-		if (StringUtils.isNotBlank(personName)) {
-			sb.append(" and p.name = :personName");
-			paramMap.put("personName", personName);
+		if (StringUtils.isNotBlank(nickname)) {
+			sb.append(" and p.nickname = :nickname");
+			paramMap.put("nickname", nickname);
 		}
 		if (deptId != null && deptId.longValue() != 0) {
 			sb.append(" and p.deptId = :deptId");

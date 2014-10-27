@@ -17,8 +17,8 @@ public interface PersonService {
 
 	public List<TSysPerson> getPersonList(String condition);
 
-	public List<TSysPerson> getPersonListByPersonNameAndDeptId_page(String personName, Long deptId);
+	public List<TSysPerson> getPersonListByNicknameAndDeptId_page(String nickname, Long deptId);
 
-	public Long getPersonListByPersonNameAndDeptId_count(String personName, Long deptId);
+	public Long getPersonListByNicknameAndDeptId_count(String nickname, Long deptId);
 
 }

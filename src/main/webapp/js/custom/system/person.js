@@ -2,7 +2,7 @@ Ext.define("Person", {
     extend: "Ext.data.Model",
     fields: [
 		{name: "id",   	   type: "int"},
-		{name: "name",     type: "string"},
+		{name: "nickname", type: "string"},
 		{name: "sex",      type: "int"},
 		{name: "phone",    type: "string"},
 		{name: "spell",    type: "string"},
@@ -43,7 +43,7 @@ Ext.onReady(function(){
 			actionMethods: {
 				create: "POST", read: "POST", update: "POST", destroy: "POST"
 			},
-			url: basePath + "resource/person/getPersonListByPersonNameAndDeptId_page",
+			url: basePath + "resource/person/getPersonListByNicknameAndDeptId_page",
 			reader: {
             	root: "dataGrid",
                 totalProperty: "totalCount"
@@ -117,7 +117,7 @@ Ext.onReady(function(){
         columns: [
             {text: "序号", width: 50, align: "center", xtype: "rownumberer"},
             {text: "用户名", flex: 1, align: "center", dataIndex: "username"},
-            {text: "昵称", flex: 1, align: "center", dataIndex: "name"},
+            {text: "昵称", flex: 1, align: "center", dataIndex: "nickname"},
             {text: "性别", flex: 1, align: "center", dataIndex: "sex", renderer: function(value){
             	return value == 0 ? "女" : "男";
             }},
@@ -132,10 +132,10 @@ Ext.onReady(function(){
 		        {width: 55, text: "修改", handler: updatePerson, disabled: !hasPermission("person" + permission.UPD), icon: basePath + "js/lib/ext4.2/icons/edit_task.png"}, "-",
 		        {width: 55, text: "删除", handler: deletePerson, disabled: !hasPermission("person" + permission.DEL), icon: basePath + "js/lib/ext4.2/icons/delete.gif"},
 		        {width: 200,  disabled: true},
-		        {width: 180, id: "search_name", xtype: "combobox", emptyText: "昵称", store: store_spellList, forceSelection: true, editable: true, plugins: ["clearbutton"], valueField: "name", displayField: "name", hideTrigger: true, queryMode: "local",
+		        {width: 180, id: "search_name", xtype: "combobox", emptyText: "昵称", store: store_spellList, forceSelection: true, editable: true, plugins: ["clearbutton"], valueField: "nickname", displayField: "nickname", hideTrigger: true, queryMode: "local",
 		        	listConfig: {
 		    			getInnerTpl: function(){
-		    				return "{name} ({spell})";
+		    				return "{nickname} ({spell})";
 		    			}
 		    		},
 		        	listeners: {
@@ -148,7 +148,7 @@ Ext.onReady(function(){
 			        				    combo.expand();
 			        				});
 //			        				combo.store.filterBy(function(record, id){
-//			        					var nameSpell = record.get("name") + record.get("spell");
+//			        					var nameSpell = record.get("nickname") + record.get("spell");
 //			        					return nameSpell.indexOf(content) != -1;
 //			        				});
 			        			} else {
@@ -191,7 +191,7 @@ Ext.onReady(function(){
                     {id: "addOrUpdate_username", name: "username", xtype: "textfield", fieldLabel: "用户名", allowBlank: false, invalidText: "请输入用户名！", vtype: "basic"}
                 ]},
                 {xtype: "container", columnWidth:.5, layout: "anchor", items: [
-                    {id: "addOrUpdate_name", name: "name", xtype: "textfield", fieldLabel: "昵称", allowBlank: false, invalidText: "请输入昵称！", vtype: "basic_chinese"}
+                    {id: "addOrUpdate_nickname", name: "nickname", xtype: "textfield", fieldLabel: "昵称", allowBlank: false, invalidText: "请输入昵称！", vtype: "basic_chinese"}
                 ]}
             ]},
             {id: "addOrUpdate_sex", xtype: "radiogroup", fieldLabel: "性别", allowBlank: false, invalidText: "请选择性别！", items: [
@@ -231,12 +231,12 @@ Ext.onReady(function(){
     
     /** ------------------------------------- handler ------------------------------------- */
     function refreshPersonGrid(){
-    	var name = Ext.getCmp("search_name").getValue() ? Ext.getCmp("search_name").getValue() : "";
+    	var nickname = Ext.getCmp("search_name").getValue() ? Ext.getCmp("search_name").getValue() : "";
     	var deptId = Ext.getCmp("search_dept").getValue() ? Ext.getCmp("search_dept").getValue() : 0;
     	
     	grid_person.getSelectionModel().deselectAll();
     	store_personGrid.currentPage = 1;
-    	store_personGrid.proxy.extraParams = {"name": encodeURIComponent(name), "deptId": deptId};
+    	store_personGrid.proxy.extraParams = {"nickname": encodeURIComponent(nickname), "deptId": deptId};
 		store_personGrid.load();
     }
     
@@ -304,15 +304,15 @@ Ext.onReady(function(){
 	
 	function addOrUpdatePersonHandler(){
 		var username = Ext.getCmp("addOrUpdate_username");
-		var name = Ext.getCmp("addOrUpdate_name");
+		var nickname = Ext.getCmp("addOrUpdate_nickname");
 		var sex = Ext.getCmp("addOrUpdate_sex");
 		var phone = Ext.getCmp("addOrUpdate_phone");
 		var dept = Ext.getCmp("addOrUpdate_dept");
 		var role = Ext.getCmp("addOrUpdate_role");
 		if (!username.isValid()) {
 			message.error(username.invalidText);
-		} else if (!name.isValid()) {
-			message.error(name.invalidText);
+		} else if (!nickname.isValid()) {
+			message.error(nickname.invalidText);
 		} else if (!sex.isValid()) {
 			message.error(sex.invalidText);
 		} else if (!phone.isValid()) {

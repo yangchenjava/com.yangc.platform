@@ -9,8 +9,8 @@
 			<column name="ID" precision="22" scale="0" />
 			<generator class="identity" />
 		</id>
-		<property name="name" type="java.lang.String">
-			<column name="NAME" length="50">
+		<property name="nickname" type="java.lang.String">
+			<column name="NICKNAME" length="50">
 				<comment>姓名</comment>
 			</column>
 		</property>
@@ -36,7 +36,7 @@
 		</property>
 		<property name="signature" type="java.lang.String">
 			<column name="SIGNATURE" length="100">
-				<comment>描述</comment>
+				<comment>个性签名</comment>
 			</column>
 		</property>
 		<property name="userId" type="java.lang.Long">

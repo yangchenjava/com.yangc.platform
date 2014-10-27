@@ -57,12 +57,12 @@ public class InterfaceResource {
 
 	@RequestMapping(value = "register", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultBean register(String username, String password, String name, Long sex, String phone, String signature, MultipartFile photo, HttpServletRequest request) {
-		logger.info("register - username=" + username + ", password=" + password + ", name=" + name + ", sex=" + sex + ", phone=" + phone + ", signature=" + signature);
+	public ResultBean register(String username, String password, String nickname, Long sex, String phone, String signature, MultipartFile photo, HttpServletRequest request) {
+		logger.info("register - username=" + username + ", password=" + password + ", nickname=" + nickname + ", sex=" + sex + ", phone=" + phone + ", signature=" + signature);
 		ResultBean resultBean = new ResultBean();
 		try {
 			TSysPerson person = new TSysPerson();
-			person.setName(name);
+			person.setNickname(nickname);
 			person.setSex(sex);
 			person.setPhone(phone);
 			person.setSignature(signature);
@@ -87,12 +87,12 @@ public class InterfaceResource {
 
 	@RequestMapping(value = "updatePerson", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultBean updatePerson(Long userId, String name, Long sex, String phone, String signature, MultipartFile photo, HttpServletRequest request) {
-		logger.info("updatePerson - userId=" + userId + ", name=" + name + ", sex=" + sex + ", phone=" + phone + ", signature=" + signature);
+	public ResultBean updatePerson(Long userId, String nickname, Long sex, String phone, String signature, MultipartFile photo, HttpServletRequest request) {
+		logger.info("updatePerson - userId=" + userId + ", nickname=" + nickname + ", sex=" + sex + ", phone=" + phone + ", signature=" + signature);
 		try {
 			TSysPerson person = new TSysPerson();
 			person.setUserId(userId);
-			person.setName(name);
+			person.setNickname(nickname);
 			person.setSex(sex);
 			person.setPhone(phone);
 			person.setSignature(signature);

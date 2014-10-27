@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<TSysUser> getUserListByUsernameAndPassword(String username, String password) {
-		String hql = "select new TSysUser(u.id, u.username, u.password, p.name as personName) from TSysUser u, TSysPerson p where u.id = p.userId and username = ? and password = ?";
+		String hql = "select new TSysUser(u.id, u.username, u.password, p.nickname) from TSysUser u, TSysPerson p where u.id = p.userId and username = ? and password = ?";
 		return this.baseDao.findAll(hql, new Object[] { username, password });
 	}
 
