@@ -23,6 +23,7 @@ import com.yangc.system.service.PersonService;
 import com.yangc.system.service.UserService;
 import com.yangc.utils.Constants;
 import com.yangc.utils.encryption.Md5Utils;
+import com.yangc.utils.json.JsonUtils;
 
 @Controller
 @RequestMapping("/interface")
@@ -73,7 +74,7 @@ public class InterfaceResource {
 
 			SecurityUtils.getSubject().login(new UsernamePasswordToken(username, Md5Utils.getMD5(password)));
 			resultBean.setSuccess(true);
-			resultBean.setMessage("" + ShiroUtils.getCurrentUser().getId());
+			resultBean.setMessage(JsonUtils.toJson(person));
 			return resultBean;
 		} catch (IllegalStateException e) {
 			resultBean.setSuccess(false);
@@ -106,6 +107,13 @@ public class InterfaceResource {
 			e.printStackTrace();
 			return WebApplicationException.build();
 		}
+	}
+
+	@RequestMapping(value = "userInfo", method = RequestMethod.POST)
+	@ResponseBody
+	public TSysPerson userInfo(Long userId) {
+		logger.info("userInfo - userId=" + userId);
+		return this.personService.getPersonByUserId(userId);
 	}
 
 	@RequestMapping(value = "test", method = RequestMethod.POST)

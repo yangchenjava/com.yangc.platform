@@ -28,15 +28,15 @@ public class PersonServiceImpl implements PersonService {
 	public void addOrUpdatePerson(TSysPerson person, MultipartFile photo, String savePath, String urlPath) throws IOException {
 		if (photo != null) {
 			String original = photo.getOriginalFilename();
-			String fileName = System.currentTimeMillis() + original.substring(original.indexOf("."));
+			String fileName = person.getUserId() + "_" + System.currentTimeMillis() + original.substring(original.indexOf("."));
 
-			File dir = new File(savePath + person.getUserId());
+			File dir = new File(savePath);
 			if (!dir.exists() || !dir.isDirectory()) {
 				dir.delete();
 				dir.mkdirs();
 			}
 			FileUtils.copyInputStreamToFile(photo.getInputStream(), new File(dir, fileName));
-			person.setPhoto(urlPath + person.getUserId() + "/" + fileName);
+			person.setPhoto(urlPath + "/" + fileName);
 		}
 
 		person.setSpell(PinyinUtils.getPinyin(person.getNickname()) + " " + PinyinUtils.getPinyinHead(person.getNickname()));
