@@ -36,7 +36,7 @@ public class PersonServiceImpl implements PersonService {
 				dir.mkdirs();
 			}
 			FileUtils.copyInputStreamToFile(photo.getInputStream(), new File(dir, fileName));
-			person.setPhoto(urlPath + "/" + fileName);
+			person.setPhoto(urlPath + fileName);
 		}
 
 		person.setSpell(PinyinUtils.getPinyin(person.getNickname()) + " " + PinyinUtils.getPinyinHead(person.getNickname()));
