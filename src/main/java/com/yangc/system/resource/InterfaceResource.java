@@ -44,7 +44,7 @@ public class InterfaceResource {
 		try {
 			SecurityUtils.getSubject().login(new UsernamePasswordToken(username, Md5Utils.getMD5(password)));
 			resultBean.setSuccess(true);
-			resultBean.setMessage("" + ShiroUtils.getCurrentUser().getId());
+			resultBean.setMessage(JsonUtils.toJson(this.personService.getPersonByUserId(ShiroUtils.getCurrentUser().getId())));
 			return resultBean;
 		} catch (AuthenticationException e) {
 			resultBean.setSuccess(false);
