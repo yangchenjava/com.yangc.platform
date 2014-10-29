@@ -88,7 +88,7 @@ public class InterfaceResource {
 
 	@RequestMapping(value = "updatePerson", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultBean updatePerson(Long id, String nickname, Long sex, String phone, String signature, MultipartFile photo, HttpServletRequest request) {
+	public ResultBean updatePerson(Long id, String nickname, Long sex, String phone, String signature, HttpServletRequest request) {
 		logger.info("updatePerson - id=" + id + ", nickname=" + nickname + ", sex=" + sex + ", phone=" + phone + ", signature=" + signature);
 		try {
 			TSysPerson person = this.personService.getPersonById(id);
@@ -96,6 +96,21 @@ public class InterfaceResource {
 			person.setSex(sex);
 			person.setPhone(phone);
 			person.setSignature(signature);
+
+			this.personService.addOrUpdatePerson(person, null, null, null);
+			return new ResultBean(true, JsonUtils.toJson(person));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return WebApplicationException.build();
+		}
+	}
+
+	@RequestMapping(value = "updatePersonPhoto", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultBean updatePersonPhoto(Long id, MultipartFile photo, HttpServletRequest request) {
+		logger.info("updatePersonPhoto - id=" + id);
+		try {
+			TSysPerson person = this.personService.getPersonById(id);
 
 			String savePath = new File(request.getSession().getServletContext().getRealPath("/")).getParent() + Constants.PORTRAIT_PATH;
 			String urlPath = ".." + Constants.PORTRAIT_PATH;
