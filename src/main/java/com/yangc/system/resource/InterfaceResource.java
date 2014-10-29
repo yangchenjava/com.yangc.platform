@@ -88,11 +88,10 @@ public class InterfaceResource {
 
 	@RequestMapping(value = "updatePerson", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultBean updatePerson(Long userId, String nickname, Long sex, String phone, String signature, MultipartFile photo, HttpServletRequest request) {
-		logger.info("updatePerson - userId=" + userId + ", nickname=" + nickname + ", sex=" + sex + ", phone=" + phone + ", signature=" + signature);
+	public ResultBean updatePerson(Long id, String nickname, Long sex, String phone, String signature, MultipartFile photo, HttpServletRequest request) {
+		logger.info("updatePerson - id=" + id + ", nickname=" + nickname + ", sex=" + sex + ", phone=" + phone + ", signature=" + signature);
 		try {
-			TSysPerson person = new TSysPerson();
-			person.setUserId(userId);
+			TSysPerson person = this.personService.getPersonById(id);
 			person.setNickname(nickname);
 			person.setSex(sex);
 			person.setPhone(phone);
@@ -102,7 +101,7 @@ public class InterfaceResource {
 			String urlPath = ".." + Constants.PORTRAIT_PATH;
 
 			this.personService.addOrUpdatePerson(person, photo, savePath, urlPath);
-			return new ResultBean(true, "");
+			return new ResultBean(true, JsonUtils.toJson(person));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return WebApplicationException.build();

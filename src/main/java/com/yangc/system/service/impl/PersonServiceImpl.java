@@ -49,6 +49,11 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
+	public TSysPerson getPersonById(Long id) {
+		return (TSysPerson) this.baseDao.get(TSysPerson.class, id);
+	}
+
+	@Override
 	public TSysPerson getPersonByUserId(Long userId) {
 		return (TSysPerson) this.baseDao.get("from TSysPerson where userId = ?", new Object[] { userId });
 	}

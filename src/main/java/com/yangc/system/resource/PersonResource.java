@@ -152,8 +152,7 @@ public class PersonResource {
 				+ roleIds);
 		ResultBean resultBean = new ResultBean();
 		try {
-			TSysPerson person = new TSysPerson();
-			person.setId(id);
+			TSysPerson person = this.personService.getPersonById(id);
 			person.setNickname(nickname);
 			person.setSex(sex);
 			person.setPhone(phone);

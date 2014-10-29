@@ -13,6 +13,8 @@ public interface PersonService {
 
 	public void delPersonByUserId(Long userId);
 
+	public TSysPerson getPersonById(Long id);
+
 	public TSysPerson getPersonByUserId(Long userId);
 
 	public List<TSysPerson> getPersonList(String condition);
