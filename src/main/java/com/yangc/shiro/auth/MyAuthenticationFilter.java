@@ -16,6 +16,16 @@ import com.yangc.utils.json.JsonUtils;
 
 public class MyAuthenticationFilter extends AuthenticationFilter {
 
+	/**
+	 * @功能: 是否允许访问
+	 * @作者: yangc
+	 * @创建日期: 2014年10月30日 下午6:44:44
+	 * @param request
+	 * @param response
+	 * @param mappedValue
+	 * @return
+	 * @see org.apache.shiro.web.filter.authc.AuthenticationFilter#isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, java.lang.Object)
+	 */
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
 		// 是否已经登录成功
@@ -30,6 +40,16 @@ public class MyAuthenticationFilter extends AuthenticationFilter {
 		return false;
 	}
 
+	/**
+	 * @功能: 不允许访问时是否自己处理,true表示自己不处理且继续拦截器链执行,false表示自己已经处理了(比如重定向到另一个页面)
+	 * @作者: yangc
+	 * @创建日期: 2014年10月30日 下午6:45:38
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 * @see org.apache.shiro.web.filter.AccessControlFilter#onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+	 */
 	@Override
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
 		boolean isAuthenticated = this.getSubject(request, response).isAuthenticated();

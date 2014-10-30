@@ -65,6 +65,7 @@
 
 	<bean id="myCaptchaFilter" class="com.yangc.shiro.auth.MyCaptchaFilter" />
 	<bean id="myAuthenticationFilter" class="com.yangc.shiro.auth.MyAuthenticationFilter" />
+	<bean id="myClientFilter" class="com.yangc.shiro.auth.MyClientFilter" />
 
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
@@ -75,15 +76,17 @@
         	<map>
         		<entry key="myCaptc" value-ref="myCaptchaFilter" />
         		<entry key="myAuthc" value-ref="myAuthenticationFilter" />
+        		<entry key="myClient" value-ref="myClientFilter" />
         	</map>
         </property>
         <property name="filterChainDefinitions">
         	<value>
         		/resource/blog/** = anon
-        		/resource/user/captcha = anon
-        		/resource/user/login = myCaptc
         		/resource/interface/login = anon
         		/resource/interface/register = anon
+        		/resource/interface/** = myClient
+        		/resource/user/captcha = anon
+        		/resource/user/login = myCaptc
         		/resource/** = myAuthc
         		/jsp/** = myAuthc
         		/ = myAuthc
