@@ -1,6 +1,7 @@
 package com.yangc.system.resource;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -128,6 +129,13 @@ public class InterfaceResource {
 	public TSysPerson userInfo(Long userId) {
 		logger.info("userInfo - userId=" + userId);
 		return this.personService.getPersonByUserId(userId);
+	}
+
+	@RequestMapping(value = "friends", method = RequestMethod.POST)
+	@ResponseBody
+	public List<TSysPerson> friends(Long userId) {
+		logger.info("friends - userId=" + userId);
+		return this.personService.getFriendListByUserId(userId);
 	}
 
 	@RequestMapping(value = "test", method = RequestMethod.POST)
