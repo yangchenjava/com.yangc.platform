@@ -19,6 +19,7 @@ import com.yangc.dao.BaseDao;
 import com.yangc.dao.JdbcDao;
 import com.yangc.system.bean.TSysPerson;
 import com.yangc.system.service.PersonService;
+import com.yangc.utils.image.ImageUtils;
 import com.yangc.utils.lang.PinyinUtils;
 
 @Service
@@ -33,16 +34,19 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public void addOrUpdatePerson(TSysPerson person, MultipartFile photo, String savePath, String urlPath) throws IOException {
 		if (photo != null) {
-			String original = photo.getOriginalFilename();
-			String fileName = person.getUserId() + "_" + System.currentTimeMillis() + original.substring(original.indexOf("."));
+			long currentTimeMillis = System.currentTimeMillis();
+			String fileType = photo.getOriginalFilename().substring(photo.getOriginalFilename().indexOf("."));
+			String thumbnailName = person.getUserId() + "_" + currentTimeMillis + fileType;
+			String photoName = person.getUserId() + "_" + currentTimeMillis + "_original" + fileType;
 
 			File dir = new File(savePath);
 			if (!dir.exists() || !dir.isDirectory()) {
 				dir.delete();
 				dir.mkdirs();
 			}
-			FileUtils.copyInputStreamToFile(photo.getInputStream(), new File(dir, fileName));
-			person.setPhoto(urlPath + fileName);
+			FileUtils.copyInputStreamToFile(photo.getInputStream(), new File(dir, photoName));
+			ImageUtils.process(savePath + photoName, 128, 128, true, 0, null, null, 0, savePath + thumbnailName);
+			person.setPhoto(urlPath + thumbnailName);
 		}
 
 		person.setSpell(PinyinUtils.getPinyin(person.getNickname()) + " " + PinyinUtils.getPinyinHead(person.getNickname()));
