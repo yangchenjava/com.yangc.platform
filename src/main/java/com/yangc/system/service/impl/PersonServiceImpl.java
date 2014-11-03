@@ -45,7 +45,7 @@ public class PersonServiceImpl implements PersonService {
 				dir.mkdirs();
 			}
 			FileUtils.copyInputStreamToFile(photo.getInputStream(), new File(dir, photoName));
-			ImageUtils.process(savePath + photoName, 128, 128, true, 0, null, null, 0, savePath + thumbnailName);
+			ImageUtils.process(savePath + photoName, 256, 256, true, 0, null, null, 0, savePath + thumbnailName);
 			person.setPhoto(urlPath + thumbnailName);
 		}
 
