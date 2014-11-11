@@ -3,12 +3,13 @@ com.yangc.platform
 
 ### 一个初级的权限框架
 > 与com.yangc.frame如出一辙，应广大要求换成了springmvc。<br />
+>看到大家有问com.yangc.utils.jar在哪里，其实都在[这里](https://github.com/yangchenjava?tab=repositories)，做程序猿，多点点，反正也不花钱，而且你还会有更多的发现。 (๑¯∀¯๑)<br />
 > 若发现bug，请联系QQ：511636835，感激不尽。
 
 使用jdk6，maven项目<br />
 后台 hibernate3.6.10 + spring3.2.8 + springmvc3.2.8 + shiro1.2.3<br />
 前端 extjs4.2 + jquery1.8<br />
-目前使用的是oracle数据库，可以使用不同的数据库，不同的数据库脚本放入不同的文件夹中<br />
+目前支持的是oracle和mysql数据库，可以使用不同的数据库，不同的数据库脚本放入不同的文件夹中<br />
 <br />
 登录账号（用户名 密码）<br />
 yangchen 1<br />
