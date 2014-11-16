@@ -20,6 +20,7 @@ import com.yangc.bean.ResultBean;
 import com.yangc.exception.WebApplicationException;
 import com.yangc.shiro.utils.ShiroUtils;
 import com.yangc.system.bean.TSysPerson;
+import com.yangc.system.service.FriendService;
 import com.yangc.system.service.PersonService;
 import com.yangc.system.service.UserService;
 import com.yangc.utils.Constants;
@@ -36,6 +37,8 @@ public class InterfaceResource {
 	private UserService userService;
 	@Autowired
 	private PersonService personService;
+	@Autowired
+	private FriendService friendService;
 
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	@ResponseBody
@@ -133,9 +136,22 @@ public class InterfaceResource {
 
 	@RequestMapping(value = "friends", method = RequestMethod.POST)
 	@ResponseBody
-	public List<TSysPerson> friends(Long userId) {
-		logger.info("friends - userId=" + userId);
-		return this.personService.getFriendListByUserId(userId);
+	public List<TSysPerson> friends(Long userId, String friendIds) {
+		logger.info("friends - userId=" + userId + ", friendIds=" + friendIds);
+		return this.friendService.getFriendListByUserId(userId, friendIds);
+	}
+
+	@RequestMapping(value = "deleteFriend", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultBean deleteFriend(Long userId, String friendId) {
+		logger.info("deleteFriend - userId=" + userId + ", friendId=" + friendId);
+		try {
+			this.friendService.delFriend(userId, friendId);
+			return new ResultBean(true, friendId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return WebApplicationException.build();
+		}
 	}
 
 	@RequestMapping(value = "test", method = RequestMethod.POST)

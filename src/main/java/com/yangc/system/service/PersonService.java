@@ -23,6 +23,4 @@ public interface PersonService {
 
 	public Long getPersonListByNicknameAndDeptId_count(String nickname, Long deptId);
 
-	public List<TSysPerson> getFriendListByUserId(Long userId);
-
 }

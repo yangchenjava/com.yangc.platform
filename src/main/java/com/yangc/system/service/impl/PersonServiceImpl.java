@@ -2,13 +2,10 @@ package com.yangc.system.service.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.MapUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,31 +112,6 @@ public class PersonServiceImpl implements PersonService {
 
 		Number count = (Number) this.baseDao.findAllByMap(sb.toString(), paramMap).get(0);
 		return count.longValue();
-	}
-
-	@Override
-	public List<TSysPerson> getFriendListByUserId(Long userId) {
-		String sql = JdbcDao.SQL_MAPPING.get("system.person.getFriendListByUserId");
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("userId", userId);
-		List<Map<String, Object>> mapList = this.jdbcDao.findAll(sql, paramMap);
-		if (CollectionUtils.isEmpty(mapList)) return null;
-
-		List<TSysPerson> persons = new ArrayList<TSysPerson>();
-		for (Map<String, Object> map : mapList) {
-			TSysPerson person = new TSysPerson();
-			person.setId(MapUtils.getLong(map, "ID"));
-			person.setNickname(MapUtils.getString(map, "NICKNAME"));
-			person.setSex(MapUtils.getLong(map, "SEX"));
-			person.setPhone(MapUtils.getString(map, "PHONE"));
-			person.setSpell(MapUtils.getString(map, "SPELL"));
-			person.setPhoto(MapUtils.getString(map, "PHOTO"));
-			person.setSignature(MapUtils.getString(map, "SIGNATURE"));
-			person.setUserId(MapUtils.getLong(map, "USER_ID"));
-			person.setUsername(MapUtils.getString(map, "USERNAME"));
-			persons.add(person);
-		}
-		return persons;
 	}
 
 }

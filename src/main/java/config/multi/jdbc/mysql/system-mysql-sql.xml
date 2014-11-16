@@ -94,7 +94,19 @@
 	]]>
 	</sql>
 
-	<sql name="system.person.getFriendListByUserId" desc="根据用户id获取好友信息">
+	<sql name="system.friend.addFriend" desc="保存用户好友信息">
+	<![CDATA[
+		INSERT INTO T_SYS_PERSON_REL (ID, FRIEND_ID) VALUES (:userId, :friendId)
+	]]>
+	</sql>
+
+	<sql name="system.friend.delFriend" desc="删除用户好友信息">
+	<![CDATA[
+		DELETE FROM T_SYS_PERSON_REL WHERE ID = ? AND FRIEND_ID = ?
+	]]>
+	</sql>
+
+	<sql name="system.friend.getFriendListByUserId" desc="根据用户id获取好友信息">
 	<![CDATA[
 		SELECT P.ID, P.NICKNAME, P.SEX, P.PHONE, P.SPELL, P.PHOTO, P.SIGNATURE, P.USER_ID, U.USERNAME
 		FROM T_SYS_PERSON_REL REL JOIN T_SYS_USER U ON U.ID = REL.FRIEND_ID JOIN T_SYS_PERSON P ON P.USER_ID = REL.FRIEND_ID
