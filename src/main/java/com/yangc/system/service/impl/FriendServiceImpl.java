@@ -40,9 +40,7 @@ public class FriendServiceImpl implements FriendService {
 	}
 
 	@Override
-	public List<TSysPerson> getFriendListByUserId(Long userId, String friendIds) {
-		this.delFriend(userId, friendIds);
-
+	public List<TSysPerson> getFriendListByUserId(Long userId) {
 		String sql = JdbcDao.SQL_MAPPING.get("system.friend.getFriendListByUserId");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("userId", userId);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -138,7 +139,10 @@ public class InterfaceResource {
 	@ResponseBody
 	public List<TSysPerson> friends(Long userId, String friendIds) {
 		logger.info("friends - userId=" + userId + ", friendIds=" + friendIds);
-		return this.friendService.getFriendListByUserId(userId, friendIds);
+		if (StringUtils.isNotBlank(friendIds)) {
+			this.friendService.delFriend(userId, friendIds);
+		}
+		return this.friendService.getFriendListByUserId(userId);
 	}
 
 	@RequestMapping(value = "deleteFriend", method = RequestMethod.POST)

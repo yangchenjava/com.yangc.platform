@@ -10,6 +10,6 @@ public interface FriendService {
 
 	public void delFriend(Long userId, String friendIds);
 
-	public List<TSysPerson> getFriendListByUserId(Long userId, String friendIds);
+	public List<TSysPerson> getFriendListByUserId(Long userId);
 
 }
