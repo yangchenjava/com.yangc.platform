@@ -19,11 +19,11 @@
 			<aop:pointcut id="getTopFrame" expression="execution(* com.*.system.service.MenuService.getTopFrame(..))" />
 			<aop:pointcut id="getMainFrame" expression="execution(* com.*.system.service.MenuService.getMainFrame(..))" />
 
-			<aop:before method="cleanMenuCacheAfterMethod" pointcut-ref="addOrUpdateAcl" />
-			<aop:before method="cleanMenuCacheAfterMethod" pointcut-ref="delAcl" />
-			<aop:before method="cleanMenuCacheAfterMethod" pointcut-ref="addOrUpdateMenu" />
-			<aop:before method="cleanMenuCacheAfterMethod" pointcut-ref="updateParentMenuId" />
-			<aop:before method="cleanMenuCacheAfterMethod" pointcut-ref="delMenu" />
+			<aop:around method="cleanMenuCacheAfterMethod" pointcut-ref="addOrUpdateAcl" />
+			<aop:around method="cleanMenuCacheAfterMethod" pointcut-ref="delAcl" />
+			<aop:around method="cleanMenuCacheAfterMethod" pointcut-ref="addOrUpdateMenu" />
+			<aop:around method="cleanMenuCacheAfterMethod" pointcut-ref="updateParentMenuId" />
+			<aop:around method="cleanMenuCacheAfterMethod" pointcut-ref="delMenu" />
 			<aop:around method="topMenuCacheAroundMethod" pointcut-ref="getTopFrame" />
 			<aop:around method="mainMenuCacheAroundMethod" pointcut-ref="getMainFrame" />
 		</aop:aspect>
