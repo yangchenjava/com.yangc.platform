@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import com.google.gson.reflect.TypeToken;
@@ -21,8 +20,9 @@ public class MenuAop {
 	 * @创建日期: 2014年7月5日 下午9:42:01
 	 * @param point
 	 */
-	public void cleanMenuCacheAfterMethod(JoinPoint point) {
+	public void cleanMenuCacheAfterMethod(ProceedingJoinPoint point) throws Throwable {
 		RedisUtils.getInstance().del(Constants.MENU);
+		point.proceed();
 	}
 
 	/**
