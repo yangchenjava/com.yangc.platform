@@ -1,5 +1,7 @@
 package com.yangc.bean;
 
+import com.yangc.common.StatusCode;
+
 public class ResultBean {
 
 	private int statusCode;
@@ -11,11 +13,11 @@ public class ResultBean {
 	}
 
 	public ResultBean(boolean success, String message) {
-		this(0, success, message);
+		this(StatusCode.NORMAL, success, message);
 	}
 
-	public ResultBean(int statusCode, boolean success, String message) {
-		this.statusCode = statusCode;
+	public ResultBean(StatusCode statusCode, boolean success, String message) {
+		this.statusCode = statusCode.value();
 		this.success = success;
 		this.message = message;
 		this.msg = message;
@@ -25,8 +27,8 @@ public class ResultBean {
 		return statusCode;
 	}
 
-	public void setStatusCode(int statusCode) {
-		this.statusCode = statusCode;
+	public void setStatusCode(StatusCode statusCode) {
+		this.statusCode = statusCode.value();
 	}
 
 	public boolean getSuccess() {

@@ -2,6 +2,9 @@ package com.yangc.common;
 
 public enum StatusCode {
 
+	/** 正常 */
+	NORMAL(0),
+
 	/** 验证码错误 */
 	CAPTCHA_ERROR(100),
 

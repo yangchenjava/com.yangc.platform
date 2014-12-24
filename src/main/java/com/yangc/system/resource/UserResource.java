@@ -64,7 +64,7 @@ public class UserResource {
 			// 登录失败超过一定次数,出现验证码
 			if ((Integer) session.getAttribute(Constants.ENTER_COUNT) >= Integer.parseInt(Message.getMessage("shiro.captcha"))) {
 				session.setAttribute(Constants.NEED_CAPTCHA, "NEED_CAPTCHA");
-				resultBean.setStatusCode(StatusCode.CAPTCHA_ERROR.value());
+				resultBean.setStatusCode(StatusCode.CAPTCHA_ERROR);
 			}
 			return resultBean;
 		} catch (Exception e) {

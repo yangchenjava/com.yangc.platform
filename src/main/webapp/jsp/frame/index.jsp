@@ -5,6 +5,7 @@
 <script type="text/javascript" src="<%=basePath%>ueditor/ueditor.all.js"></script>
 <script type="text/javascript" src="<%=basePath%>ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" src="<%=js_lib%>jquery_plugin/jquery.md5.js"></script>
+<script type="text/javascript" src="<%=js_custom%>frame/status_code.js"></script>
 <script type="text/javascript" src="<%=js_custom%>frame/permission.js"></script>
 <script type="text/javascript" src="<%=js_custom%>frame/index.js"></script>
 <script type="text/javascript">

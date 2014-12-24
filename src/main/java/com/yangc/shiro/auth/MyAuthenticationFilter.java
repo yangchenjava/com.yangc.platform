@@ -63,7 +63,7 @@ public class MyAuthenticationFilter extends AuthenticationFilter {
 			if (StringUtils.isNotBlank(header) && (header.equals("X-Requested-With") || header.equals("XMLHttpRequest"))) {
 				resp.setContentType("application/json;charset=UTF-8");
 				PrintWriter pw = resp.getWriter();
-				pw.write(JsonUtils.toJson(new ResultBean(StatusCode.SESSION_TIMEOUT.value(), false, "页面超时, 请刷新页面!")));
+				pw.write(JsonUtils.toJson(new ResultBean(StatusCode.SESSION_TIMEOUT, false, "页面超时，请重新登录!")));
 				pw.flush();
 				pw.close();
 			}

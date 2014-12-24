@@ -42,7 +42,7 @@
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <constructor-arg value="SSOcookie" />
         <property name="httpOnly" value="true" />
-        <property name="maxAge" value="180000" />
+        <property name="maxAge" value="1800000" />
     </bean>
 
     <!-- 会话管理器 -->
@@ -85,6 +85,7 @@
         		/resource/interface/login = anon
         		/resource/interface/register = anon
         		/resource/interface/** = myClient
+        		/resource/ping/** = anon
         		/resource/user/captcha = anon
         		/resource/user/login = myCaptc
         		/resource/** = myAuthc

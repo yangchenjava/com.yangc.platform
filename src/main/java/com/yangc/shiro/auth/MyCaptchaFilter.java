@@ -50,7 +50,7 @@ public class MyCaptchaFilter extends AuthenticationFilter {
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
-		pw.write(JsonUtils.toJson(new ResultBean(StatusCode.CAPTCHA_ERROR.value(), false, "验证码错误")));
+		pw.write(JsonUtils.toJson(new ResultBean(StatusCode.CAPTCHA_ERROR, false, "验证码错误")));
 		pw.flush();
 		pw.close();
 		return false;

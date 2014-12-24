@@ -94,14 +94,8 @@ Ext.onReady(function(){
 		items: [],
 		listeners: {
     		tabchange: function(tabPanel, newCard, oldCard, eOpts){
-    			$.get(basePath + "resource/ping/system", function(data){
-    				if (data.success) {
-    					index.parentMenuId = newCard.id;
-    					newCard.loader.load();
-    				} else {
-    					message.error(data.message);
-    				}
-    			});
+				index.parentMenuId = newCard.id;
+				newCard.loader.load();
 			}
 		}
 	});
@@ -232,7 +226,42 @@ Ext.onReady(function(){
 		}
 	});
 	
+	// 判断权限
 	hasPermission = function(permission){
 		return $.inArray(permission, index.userPermission) == -1 ? false : true;
 	};
+	
+	// 校验请求ExtJS
+	Ext.Ajax.on("requestcomplete", function(conn, response, options, eOpts){
+		if (response.status == 200) {
+			var result = null;
+			try {
+				result = Ext.JSON.decode(response.responseText);
+			} catch (e) {
+				console.error(e);
+			}
+			if (result && result.statusCode && result.statusCode == statusCode.SESSION_TIMEOUT) {
+				message.error(result.message, function(){
+					window.location.href = basePath + "resource/user/logout";
+				});
+			}
+		}
+	});
+	
+	// 校验请求jQuery
+	$(document).ajaxSuccess(function(event, xhr, settings){
+		if (xhr.status == 200) {
+			var result = null;
+			try {
+				result = $.parseJSON(xhr.responseText);
+			} catch (e) {
+				console.error(e);
+			}
+			if (result && result.statusCode && result.statusCode == statusCode.SESSION_TIMEOUT) {
+				message.error(result.message, function(){
+					window.location.href = basePath + "resource/user/logout";
+				});
+			}
+		}
+	});
 });

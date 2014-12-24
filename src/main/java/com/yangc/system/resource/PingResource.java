@@ -30,7 +30,7 @@ public class PingResource {
 	public ResultBean system() {
 		logger.info("system");
 		try {
-			return new ResultBean(true, "");
+			return new ResultBean(true, "success");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return WebApplicationException.build();

@@ -29,7 +29,7 @@ public class MyClientFilter extends AuthenticationFilter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		resp.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = resp.getWriter();
-		pw.write(JsonUtils.toJson(new ResultBean(StatusCode.SESSION_TIMEOUT.value(), false, "session超时")));
+		pw.write(JsonUtils.toJson(new ResultBean(StatusCode.SESSION_TIMEOUT, false, "session超时")));
 		pw.flush();
 		pw.close();
 		return false;
