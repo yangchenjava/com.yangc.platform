@@ -158,16 +158,4 @@ public class InterfaceResource {
 		}
 	}
 
-	@RequestMapping(value = "test", method = RequestMethod.POST)
-	@ResponseBody
-	public ResultBean test() {
-		logger.info("test");
-		try {
-			return new ResultBean(true, "test - yangchen");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return WebApplicationException.build();
-		}
-	}
-
 }
