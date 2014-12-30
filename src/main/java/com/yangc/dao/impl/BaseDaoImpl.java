@@ -102,7 +102,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 						countHql = "select count(*) " + hql.trim().substring(index, orderIndex);
 					}
 					Query countQuery = session.createQuery(countHql);
-					if (null != values) {
+					if (values != null) {
 						for (int i = 0, length = values.length; i < length; i++) {
 							countQuery.setParameter(i, values[i]);
 						}
@@ -112,7 +112,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 				}
 				Query query = session.createQuery(hql);
 				/* 设置参数 */
-				if (null != values) {
+				if (values != null) {
 					for (int i = 0, length = values.length; i < length; i++) {
 						query.setParameter(i, values[i]);
 					}

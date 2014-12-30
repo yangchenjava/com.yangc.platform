@@ -153,7 +153,6 @@ public class JdbcDaoImpl implements JdbcDao {
 		int firstResult = (pagination.getPageNow() - 1) * pagination.getPageSize();
 		/* 校验分页情况 */
 		if (firstResult >= pagination.getTotalCount() || firstResult < 0) {
-			firstResult = 0;
 			pagination.setPageNow(1);
 		}
 		/* 如果总数返回0, 直接返回空 */
