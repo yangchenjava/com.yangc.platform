@@ -7,11 +7,11 @@
 	<bean id="myRealm" class="com.yangc.shiro.auth.MyRealm">
 		<property name="cachingEnabled" value="true"/>
 		<!-- 
-	    <property name="authenticationCachingEnabled" value="true" />
-	    <property name="authenticationCacheName" value="authenticationCache" />
-	     -->
-	    <property name="authorizationCachingEnabled" value="true" />
-	    <property name="authorizationCacheName" value="authorizationCache" />
+		<property name="authenticationCachingEnabled" value="true" />
+		<property name="authenticationCacheName" value="authenticationCache" />
+		 -->
+		<property name="authorizationCachingEnabled" value="true" />
+		<property name="authorizationCacheName" value="authorizationCache" />
 	</bean>
 
 	<!-- cache -->
@@ -24,8 +24,8 @@
 
 	<!-- 会话验证调度器 -->
 	<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
-	    <property name="sessionValidationInterval" value="1800000" />
-	    <property name="sessionManager" ref="sessionManager" />
+		<property name="sessionValidationInterval" value="3600000" />
+		<property name="sessionManager" ref="sessionManager" />
 	</bean>
 
 	<!-- 会话ID生成器 -->
@@ -34,26 +34,31 @@
 	<!-- 会话DAO -->
 	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
 		<property name="cacheManager" ref="cacheManager" />
-	    <property name="activeSessionsCacheName" value="shiro-activeSessionCache" />
-	    <property name="sessionIdGenerator" ref="sessionIdGenerator" />
+		<property name="activeSessionsCacheName" value="shiro-activeSessionCache" />
+		<property name="sessionIdGenerator" ref="sessionIdGenerator" />
 	</bean>
 
 	<!-- 会话Cookie模板 -->
-    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg value="SSOcookie" />
-        <property name="httpOnly" value="true" />
-        <property name="maxAge" value="1800000" />
-    </bean>
+	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="SSOcookie" />
+		<property name="httpOnly" value="true" />
+		<property name="maxAge" value="1800000" />
+	</bean>
 
-    <!-- 会话管理器 -->
+	<!-- 会话管理器 -->
+	<!-- 
+		DefaultSessionManager: DefaultSecurityManager使用的默认实现,用于JavaSE环境
+		ServletContainerSessionManager: DefaultWebSecurityManager使用的默认实现,用于Web环境,其直接使用Servlet容器的会话
+		DefaultWebSessionManager: 用于Web环境,可以替代ServletContainerSessionManager,自己维护会话,直接废弃了Servlet容器的会话管理
+	 -->
 	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-	    <property name="globalSessionTimeout" value="1800000" />
-	    <property name="deleteInvalidSessions" value="true" />
-	    <property name="sessionValidationSchedulerEnabled" value="false" />
-	    <property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
-	    <property name="sessionDAO" ref="sessionDAO" />
-	    <property name="sessionIdCookieEnabled" value="true" />
-	    <property name="sessionIdCookie" ref="sessionIdCookie" />
+		<property name="globalSessionTimeout" value="1800000" />
+		<property name="deleteInvalidSessions" value="true" />
+		<property name="sessionValidationSchedulerEnabled" value="true" />
+		<property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
+		<property name="sessionDAO" ref="sessionDAO" />
+		<property name="sessionIdCookieEnabled" value="true" />
+		<property name="sessionIdCookie" ref="sessionIdCookie" />
 	</bean>
 
 	<!-- 安全管理器 -->
@@ -70,34 +75,34 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/jsp/login.jsp" />
-        <property name="successUrl" value="/jsp/frame/index.jsp" />
-        <property name="unauthorizedUrl" value="/jsp/error/exception.jsp" />
-        <property name="filters">
-        	<map>
-        		<entry key="myCaptc" value-ref="myCaptchaFilter" />
-        		<entry key="myAuthc" value-ref="myAuthenticationFilter" />
-        		<entry key="myClient" value-ref="myClientFilter" />
-        	</map>
-        </property>
-        <property name="filterChainDefinitions">
-        	<value>
-        		/resource/blog/** = anon
-        		/resource/interface/login = anon
-        		/resource/interface/register = anon
-        		/resource/interface/** = myClient
-        		/resource/ping/** = anon
-        		/resource/user/captcha = anon
-        		/resource/user/login = myCaptc
-        		/resource/** = myAuthc
-        		/jsp/** = myAuthc
-        		/ = myAuthc
-        	</value>
-        </property>
+		<property name="successUrl" value="/jsp/frame/index.jsp" />
+		<property name="unauthorizedUrl" value="/jsp/error/exception.jsp" />
+		<property name="filters">
+			<map>
+				<entry key="myCaptc" value-ref="myCaptchaFilter" />
+				<entry key="myAuthc" value-ref="myAuthenticationFilter" />
+				<entry key="myClient" value-ref="myClientFilter" />
+			</map>
+		</property>
+		<property name="filterChainDefinitions">
+			<value>
+				/resource/blog/** = anon
+				/resource/interface/login = anon
+				/resource/interface/register = anon
+				/resource/interface/** = myClient
+				/resource/ping/** = anon
+				/resource/user/captcha = anon
+				/resource/user/login = myCaptc
+				/resource/** = myAuthc
+				/jsp/** = myAuthc
+				/ = myAuthc
+			</value>
+		</property>
 	</bean>
 
 	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager" />
-	    <property name="arguments" ref="securityManager" />
+		<property name="arguments" ref="securityManager" />
 	</bean>
 
 	<!-- shiro生命周期处理器 -->
