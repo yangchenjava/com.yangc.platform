@@ -93,13 +93,13 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 				}
 				if (pagination.getTotalCount() == 0) {
 					String tempHql = hql.toLowerCase().trim();
-					int index = (" " + tempHql).indexOf(" from ");
+					int fromIndex = (" " + tempHql).indexOf(" from ");
 					int orderIndex = tempHql.indexOf(" order by ");
 					String countHql = null;
 					if (orderIndex == -1) {
-						countHql = "select count(*) " + hql.trim().substring(index);
+						countHql = "select count(*) " + hql.trim().substring(fromIndex);
 					} else {
-						countHql = "select count(*) " + hql.trim().substring(index, orderIndex);
+						countHql = "select count(*) " + hql.trim().substring(fromIndex, orderIndex);
 					}
 					Query countQuery = session.createQuery(countHql);
 					if (values != null) {
@@ -149,13 +149,13 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 				}
 				if (pagination.getTotalCount() == 0) {
 					String tempHql = hql.toLowerCase().trim();
-					int index = (" " + tempHql).indexOf(" from ");
+					int fromIndex = (" " + tempHql).indexOf(" from ");
 					int orderIndex = tempHql.indexOf(" order by ");
 					String countHql = null;
 					if (orderIndex == -1) {
-						countHql = "select count(*) " + hql.trim().substring(index);
+						countHql = "select count(*) " + hql.trim().substring(fromIndex);
 					} else {
-						countHql = "select count(*) " + hql.trim().substring(index, orderIndex);
+						countHql = "select count(*) " + hql.trim().substring(fromIndex, orderIndex);
 					}
 					Query countQuery = session.createQuery(countHql);
 					countQuery.setProperties(paramMap);
