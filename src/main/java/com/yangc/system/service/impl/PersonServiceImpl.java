@@ -79,7 +79,7 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public List<TSysPerson> getPersonListByNicknameAndDeptId_page(String nickname, Long deptId) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("select new TSysPerson(p.id, p.nickname, p.sex, p.phone, p.spell, u.id as userId, u.username, p.deptId, d.deptName)");
+		sb.append("select new TSysPerson(p.id, p.nickname, p.sex, p.phone, p.spell, p.userId, u.username, p.deptId, d.deptName)");
 		sb.append(" from TSysPerson p, TSysUser u, TSysDepartment d where p.userId = u.id and p.deptId = d.id");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
@@ -110,8 +110,7 @@ public class PersonServiceImpl implements PersonService {
 			paramMap.put("deptId", deptId);
 		}
 
-		Number count = (Number) this.baseDao.findAllByMap(sb.toString(), paramMap).get(0);
-		return count.longValue();
+		return (long) this.baseDao.getCount(sb.toString(), paramMap);
 	}
 
 }

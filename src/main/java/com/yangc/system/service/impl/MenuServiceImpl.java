@@ -51,7 +51,9 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public void delMenu(Long menuId) throws IllegalStateException {
-		int totalCount = this.baseDao.getCount("select count(m) from TSysMenu m where m.parentMenuId = ?", new Object[] { menuId });
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("menuId", menuId);
+		int totalCount = this.baseDao.getCount("select count(m) from TSysMenu m where m.parentMenuId = :menuId", paramMap);
 		if (totalCount > 0) {
 			throw new IllegalStateException("该节点下存在子节点");
 		}

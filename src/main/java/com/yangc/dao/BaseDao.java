@@ -135,9 +135,9 @@ public interface BaseDao {
 	 * @作者: yangc
 	 * @创建日期: 2014年1月3日 上午10:07:47
 	 * @param hql
-	 * @param values
+	 * @param paramMap
 	 * @return
 	 */
-	public int getCount(String hql, Object[] values);
+	public int getCount(String hql, Map<String, Object> paramMap);
 
 }
