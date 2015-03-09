@@ -10,18 +10,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-  	<title>yangc</title>
-  	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/resources/css/ext-all.css" />
-  	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/ux/css/ClearButton.css" />
-  	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/ux/css/ItemSelector.css" />
-  	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/ux/css/Notification.css" />
-  	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/tab-bar.css" />
-  	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/ext-custom.css" />
-	<script type="text/javascript" src="<%=js_lib%>ext4.2/ext-all.js"></script>
-	<script type="text/javascript" src="<%=js_lib%>ext4.2/locale/ext-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="<%=js_lib%>ext4.2/ext-custom.js"></script>
-	<script type="text/javascript" src="<%=js_lib%>ext4.2/ext-validate.js"></script>
-	<script type="text/javascript" src="<%=js_lib%>jquery/jquery-1.8.3.min.js"></script>
+	<title>yangc</title>
+	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/resources/css/ext-all.css" />
+	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/ux/css/ClearButton.css" />
+	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/ux/css/ItemSelector.css" />
+	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/ux/css/Notification.css" />
+	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/tab-bar.css" />
+	<link rel="stylesheet" type="text/css" href="<%=js_lib%>ext4.2/ext-custom.css" />
+	<script type="text/javascript" src="<%=js_lib%>LAB/LAB.min.js"></script>
 	<script type="text/javascript">
-    var basePath = "<%=basePath%>";
+	var basePath = "<%=basePath%>";
+	$LAB
+	.queueScript("<%=js_lib%>jquery/jquery-1.8.3.min.js")
+	.queueScript("<%=js_lib%>ext4.2/ext-all.js").queueWait()
+	.queueScript("<%=js_lib%>ext4.2/locale/ext-lang-zh_CN.js")
+	.queueScript("<%=js_lib%>ext4.2/ext-custom.js")
+	.queueScript("<%=js_lib%>ext4.2/ext-validate.js").queueWait();
 	</script>
