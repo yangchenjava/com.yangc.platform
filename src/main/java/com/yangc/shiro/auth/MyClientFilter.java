@@ -15,7 +15,7 @@ import com.yangc.utils.json.JsonUtils;
 public class MyClientFilter extends AuthenticationFilter {
 
 	/**
-	 * @功能: 不允许访问时是否自己处理,true表示自己不处理且继续拦截器链执行,false表示自己已经处理了(比如重定向到另一个页面)
+	 * @功能: 不允许访问时,是否自己处理,true表示自己不处理且继续拦截器链执行,false表示自己已经处理了(比如重定向到另一个页面)
 	 * @作者: yangc
 	 * @创建日期: 2014年10月30日 下午6:45:38
 	 * @param request

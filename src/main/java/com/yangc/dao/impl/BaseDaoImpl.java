@@ -26,32 +26,27 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 	@Override
 	public void saveOrUpdate(BaseBean bean) {
 		this.getHibernateTemplate().saveOrUpdate(bean);
-		this.getHibernateTemplate().flush();
 	}
 
 	@Override
 	public void saveOrUpdate(List<BaseBean> list) {
 		this.getHibernateTemplate().saveOrUpdateAll(list);
-		this.getHibernateTemplate().flush();
 	}
 
 	@Override
 	public void delete(Class<? extends BaseBean> clazz, Serializable id) {
 		Object entity = this.getHibernateTemplate().get(clazz, id);
 		this.getHibernateTemplate().delete(entity);
-		this.getHibernateTemplate().flush();
 	}
 
 	@Override
 	public void update(BaseBean bean) {
 		this.getHibernateTemplate().update(bean);
-		this.getHibernateTemplate().flush();
 	}
 
 	@Override
 	public void updateOrDelete(String hql, Object[] values) {
 		this.getHibernateTemplate().bulkUpdate(hql, values);
-		this.getHibernateTemplate().flush();
 	}
 
 	@Override
