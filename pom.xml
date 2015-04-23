@@ -10,7 +10,7 @@
 		<project.build.name>com.yangc.platform</project.build.name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-		<spring.version>3.2.8.RELEASE</spring.version>
+		<spring.version>3.2.13.RELEASE</spring.version>
 		<hibernate.version>3.6.10.Final</hibernate.version>
 		<shiro.version>1.2.3</shiro.version>
 	</properties>
