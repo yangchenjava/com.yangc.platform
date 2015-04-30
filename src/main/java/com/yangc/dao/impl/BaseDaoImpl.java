@@ -16,6 +16,7 @@ import com.yangc.common.Pagination;
 import com.yangc.common.PaginationThreadUtils;
 import com.yangc.dao.BaseDao;
 
+@SuppressWarnings("unchecked")
 public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 
 	@Override
@@ -30,7 +31,9 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 
 	@Override
 	public void saveOrUpdate(List<BaseBean> list) {
-		this.getHibernateTemplate().saveOrUpdateAll(list);
+		for (BaseBean bean : list) {
+			this.getHibernateTemplate().saveOrUpdate(bean);
+		}
 	}
 
 	@Override
@@ -50,35 +53,35 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 	}
 
 	@Override
-	public BaseBean get(Class<? extends BaseBean> clazz, Serializable id) {
+	public <T> T get(Class<? extends BaseBean> clazz, Serializable id) {
 		if (id != null) {
-			return (BaseBean) this.getHibernateTemplate().get(clazz, id);
+			return (T) this.getHibernateTemplate().get(clazz, id);
 		}
 		return null;
 	}
 
 	@Override
-	public BaseBean get(String className, Serializable id) {
+	public <T> T get(String className, Serializable id) {
 		if (id != null) {
-			return (BaseBean) this.getHibernateTemplate().get(className, id);
+			return (T) this.getHibernateTemplate().get(className, id);
 		}
 		return null;
 	}
 
 	@Override
-	public BaseBean get(String hql, Object[] values) {
+	public <T> T get(String hql, Object[] values) {
 		List<?> list = this.getHibernateTemplate().find(hql, values);
 		if (list != null && !list.isEmpty()) {
-			return (BaseBean) list.get(0);
+			return (T) list.get(0);
 		}
 		return null;
 	}
 
 	@Override
-	public List<?> find(final String hql, final Object[] values) {
-		return this.getHibernateTemplate().execute(new HibernateCallback<List<?>>() {
+	public <T> List<T> find(final String hql, final Object[] values) {
+		return this.getHibernateTemplate().execute(new HibernateCallback<List<T>>() {
 			@Override
-			public List<?> doInHibernate(Session session) throws HibernateException, SQLException {
+			public List<T> doInHibernate(Session session) throws HibernateException, SQLException {
 				/* 获取分页情况 */
 				Pagination pagination = PaginationThreadUtils.get();
 				if (pagination == null) {
@@ -131,10 +134,10 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 	}
 
 	@Override
-	public List<?> findByMap(final String hql, final Map<String, Object> paramMap) {
-		return this.getHibernateTemplate().execute(new HibernateCallback<List<?>>() {
+	public <T> List<T> findByMap(final String hql, final Map<String, Object> paramMap) {
+		return this.getHibernateTemplate().execute(new HibernateCallback<List<T>>() {
 			@Override
-			public List<?> doInHibernate(Session session) throws HibernateException, SQLException {
+			public List<T> doInHibernate(Session session) throws HibernateException, SQLException {
 				/* 获取分页情况 */
 				Pagination pagination = PaginationThreadUtils.get();
 				if (pagination == null) {
@@ -179,15 +182,15 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 	}
 
 	@Override
-	public List<?> findAll(String hql, Object[] values) {
-		return this.getHibernateTemplate().find(hql, values);
+	public <T> List<T> findAll(String hql, Object[] values) {
+		return (List<T>) this.getHibernateTemplate().find(hql, values);
 	}
 
 	@Override
-	public List<?> findAllByMap(final String hql, final Map<String, Object> paramMap) {
-		return this.getHibernateTemplate().execute(new HibernateCallback<List<?>>() {
+	public <T> List<T> findAllByMap(final String hql, final Map<String, Object> paramMap) {
+		return this.getHibernateTemplate().execute(new HibernateCallback<List<T>>() {
 			@Override
-			public List<?> doInHibernate(Session session) throws HibernateException, SQLException {
+			public List<T> doInHibernate(Session session) throws HibernateException, SQLException {
 				Query query = session.createQuery(hql);
 				query.setProperties(paramMap);
 				return query.list();

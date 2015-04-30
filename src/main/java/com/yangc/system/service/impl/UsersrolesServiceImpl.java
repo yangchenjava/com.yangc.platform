@@ -10,7 +10,6 @@ import com.yangc.system.bean.TSysUsersroles;
 import com.yangc.system.service.UsersrolesService;
 
 @Service
-@SuppressWarnings("unchecked")
 public class UsersrolesServiceImpl implements UsersrolesService {
 
 	@Autowired

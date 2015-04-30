@@ -13,7 +13,6 @@ import com.yangc.system.service.UsersrolesService;
 import com.yangc.utils.BeanUtils;
 
 @Service
-@SuppressWarnings("unchecked")
 public class RoleServiceImpl implements RoleService {
 
 	@Autowired
@@ -25,7 +24,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public void addOrUpdateRole(Long roleId, String roleName) {
-		TSysRole role = (TSysRole) this.baseDao.get(TSysRole.class, roleId);
+		TSysRole role = this.baseDao.get(TSysRole.class, roleId);
 		if (role == null) {
 			role = new TSysRole();
 		}

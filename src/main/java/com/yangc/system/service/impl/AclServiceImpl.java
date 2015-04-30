@@ -57,7 +57,7 @@ public class AclServiceImpl implements AclService {
 
 	@Override
 	public TSysAcl getAclByRoleIdAndMenuId(Long roleId, Long menuId) {
-		return (TSysAcl) this.baseDao.get("from TSysAcl where roleId = ? and menuId = ?", new Object[] { roleId, menuId });
+		return this.baseDao.get("from TSysAcl where roleId = ? and menuId = ?", new Object[] { roleId, menuId });
 	}
 
 	@Override

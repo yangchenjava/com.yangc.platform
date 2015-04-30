@@ -17,7 +17,6 @@ import com.yangc.system.service.UsersrolesService;
 import com.yangc.utils.lang.NumberUtils;
 
 @Service
-@SuppressWarnings("unchecked")
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -59,11 +58,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String delUser(Long userId) {
-		String username = ((TSysUser) this.baseDao.get(TSysUser.class, userId)).getUsername();
+		TSysUser user = this.baseDao.get(TSysUser.class, userId);
 		this.personService.delPersonByUserId(userId);
 		this.usersrolesService.delUsersrolesByMainId(userId, 0);
 		this.baseDao.delete(TSysUser.class, userId);
-		return username;
+		return user.getUsername();
 	}
 
 	@Override
@@ -73,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public TSysUser getUserByUsername(String username) {
-		return (TSysUser) this.baseDao.get("from TSysUser where username = ?", new Object[] { username });
+		return this.baseDao.get("from TSysUser where username = ?", new Object[] { username });
 	}
 
 	@Override

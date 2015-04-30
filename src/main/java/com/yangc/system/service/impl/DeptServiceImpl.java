@@ -12,7 +12,6 @@ import com.yangc.system.service.PersonService;
 import com.yangc.utils.BeanUtils;
 
 @Service
-@SuppressWarnings("unchecked")
 public class DeptServiceImpl implements DeptService {
 
 	@Autowired
@@ -22,7 +21,7 @@ public class DeptServiceImpl implements DeptService {
 
 	@Override
 	public void addOrUpdateDept(Long deptId, String deptName, Long serialNum) {
-		TSysDepartment dept = (TSysDepartment) this.baseDao.get(TSysDepartment.class, deptId);
+		TSysDepartment dept = this.baseDao.get(TSysDepartment.class, deptId);
 		if (dept == null) {
 			dept = new TSysDepartment();
 		}

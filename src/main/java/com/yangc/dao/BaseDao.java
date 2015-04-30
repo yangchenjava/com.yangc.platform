@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.yangc.bean.BaseBean;
 
-@SuppressWarnings("rawtypes")
 public interface BaseDao {
 
 	/**
@@ -68,7 +67,7 @@ public interface BaseDao {
 	 * @param id
 	 * @return
 	 */
-	public BaseBean get(Class<? extends BaseBean> clazz, Serializable id);
+	public <T> T get(Class<? extends BaseBean> clazz, Serializable id);
 
 	/**
 	 * @功能: 查询一条
@@ -78,7 +77,7 @@ public interface BaseDao {
 	 * @param id
 	 * @return
 	 */
-	public BaseBean get(String className, Serializable id);
+	public <T> T get(String className, Serializable id);
 
 	/**
 	 * @功能: 查询一条
@@ -88,7 +87,7 @@ public interface BaseDao {
 	 * @param values
 	 * @return
 	 */
-	public BaseBean get(String hql, Object[] values);
+	public <T> T get(String hql, Object[] values);
 
 	/**
 	 * @功能: 分页查询
@@ -98,7 +97,7 @@ public interface BaseDao {
 	 * @param values
 	 * @return
 	 */
-	public List find(String hql, Object[] values);
+	public <T> List<T> find(String hql, Object[] values);
 
 	/**
 	 * @功能: 分页查询
@@ -108,7 +107,7 @@ public interface BaseDao {
 	 * @param paramMap
 	 * @return
 	 */
-	public List findByMap(String hql, Map<String, Object> paramMap);
+	public <T> List<T> findByMap(String hql, Map<String, Object> paramMap);
 
 	/**
 	 * @功能: 全部查询
@@ -118,7 +117,7 @@ public interface BaseDao {
 	 * @param values
 	 * @return
 	 */
-	public List findAll(String hql, Object[] values);
+	public <T> List<T> findAll(String hql, Object[] values);
 
 	/**
 	 * @功能: 全部查询
@@ -128,7 +127,7 @@ public interface BaseDao {
 	 * @param paramMap
 	 * @return
 	 */
-	public List findAllByMap(String hql, Map<String, Object> paramMap);
+	public <T> List<T> findAllByMap(String hql, Map<String, Object> paramMap);
 
 	/**
 	 * @功能: 查询记录的数量
