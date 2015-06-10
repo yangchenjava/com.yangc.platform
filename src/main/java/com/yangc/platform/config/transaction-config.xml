@@ -12,7 +12,7 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-	<tx:advice id="transactionAdvisor" transaction-manager="transactionManager">
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="save*" propagation="REQUIRED" />
 			<tx:method name="add*" propagation="REQUIRED" />
@@ -35,6 +35,6 @@
 
 	<aop:config>
 		<aop:pointcut id="transactionPointcut" expression="execution(* com.*.*.service..*.*(..))" />
-		<aop:advisor advice-ref="transactionAdvisor" pointcut-ref="transactionPointcut" />
+		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="transactionPointcut" />
 	</aop:config>
 </beans>

@@ -19,7 +19,7 @@ public class UeditorServiceImpl implements UeditorService {
 	@Override
 	public UeditorBean uploadFile(MultipartFile upfile, String savePath, String urlPath) throws IOException {
 		String original = upfile.getOriginalFilename();
-		String type = original.substring(original.indexOf("."));
+		String type = original.substring(original.lastIndexOf("."));
 		long size = upfile.getSize();
 
 		// /{yyyy}{mm}{dd}/{time}{rand:6}

@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +37,7 @@ public class AclResource {
 	@ResponseBody
 	public Collection<String> getUserPermission() {
 		logger.info("getUserPermission");
-		return ShiroUtils.getUserPermission(SecurityUtils.getSubject().getPrincipals());
+		return ShiroUtils.getUserPermission();
 	}
 
 	/**
