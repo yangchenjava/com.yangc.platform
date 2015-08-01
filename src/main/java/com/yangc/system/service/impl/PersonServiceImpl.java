@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yangc.dao.BaseDao;
-import com.yangc.dao.JdbcDao;
 import com.yangc.system.bean.TSysPerson;
 import com.yangc.system.service.PersonService;
 import com.yangc.utils.image.ImageUtils;
@@ -24,14 +24,12 @@ public class PersonServiceImpl implements PersonService {
 
 	@Autowired
 	private BaseDao baseDao;
-	@Autowired
-	private JdbcDao jdbcDao;
 
 	@Override
 	public void addOrUpdatePerson(TSysPerson person, MultipartFile photo, String savePath, String urlPath) throws IOException {
-		if (photo != null) {
+		if (photo != null && !photo.isEmpty()) {
 			long currentTimeMillis = System.currentTimeMillis();
-			String fileType = photo.getOriginalFilename().substring(photo.getOriginalFilename().indexOf("."));
+			String fileType = FilenameUtils.getExtension(photo.getOriginalFilename());
 			String thumbnailName = person.getUserId() + "_" + currentTimeMillis + fileType;
 			String photoName = person.getUserId() + "_" + currentTimeMillis + "_original" + fileType;
 
