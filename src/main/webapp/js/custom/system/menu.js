@@ -28,10 +28,11 @@ Ext.onReady(function(){
             url: basePath + "resource/menu/getMenuTreeList"
         },
         root: {
-        	id: "0",
+        	id: 0,
 	        text: "系统菜单",
-	        menuId: "0",
+	        menuId: 0,
 	        menuName: "系统菜单",
+	        serialNum: 1,
 	        expanded: true
 	    },
         autoLoad: true
