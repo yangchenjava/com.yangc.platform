@@ -60,6 +60,14 @@ public interface BaseDao {
 	public void updateOrDelete(String hql, Object[] values);
 
 	/**
+	 * @功能: 合并
+	 * @作者: yangc
+	 * @创建日期: 2015年8月3日 上午12:39:29
+	 * @param bean
+	 */
+	public void merge(BaseBean bean);
+
+	/**
 	 * @功能: 查询一条
 	 * @作者: yangc
 	 * @创建日期: 2013-7-29 下午12:06:02

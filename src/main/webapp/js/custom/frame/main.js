@@ -84,7 +84,12 @@ Ext.onReady(function(){
 				closeAllTabsText: "关闭所有"
 			})
 		],
-		items: []
+		items: [],
+		listeners: {
+    		tabchange: function(tabPanel, newCard, oldCard, eOpts){
+				newCard.loader.load();
+			}
+		}
 	});
 
     Ext.create("Ext.panel.Panel", {
