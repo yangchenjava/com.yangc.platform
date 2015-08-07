@@ -100,6 +100,11 @@ Ext.onReady(function(){
 		autoLoad: false
 	});
 	
+	var store_searchName = Ext.create("Ext.data.Store", {
+		model: "Person",
+		data : []
+	});
+	
 	/** ------------------------------------- view ------------------------------------- */
 	var grid_person = Ext.create("Ext.grid.Panel", {
         renderTo: "person",
@@ -139,13 +144,19 @@ Ext.onReady(function(){
 		    			}
 		    		},
 		        	listeners: {
-			        	beforequery: function(queryPlan, eOpts){
+		        		beforequery: function(queryPlan, eOpts){
 			        		if (!queryPlan.forceAll) {
 			        			var combo = queryPlan.combo, content = queryPlan.query.trim();
 			        			if (content) {
 			        				store_spellList.proxy.extraParams = {"condition": encodeURIComponent(content)};
 			        				store_spellList.load(function (records, operation, success){
-			        				    combo.expand();
+			        					store_searchName.removeAll();
+			        					if (records.length > 0) {
+			        						store_searchName.add(records);
+			        						combo.expand();
+			        					} else {
+			        						store_searchName.add(Ext.create("Person", {nickname: content}));
+			        					}
 			        				});
 //			        				combo.store.filterBy(function(record, id){
 //			        					var nameSpell = record.get("nickname") + record.get("spell");
@@ -155,6 +166,12 @@ Ext.onReady(function(){
 			        				combo.collapse();
 			        			}
 			        			return false;
+			        		}
+			        	},
+			        	collapse: function(field, eOpts){
+			        		if (!field.value) {
+			        			store_searchName.removeAll();
+			        			store_searchName.add(Ext.create("Person", {nickname: field.lastValue}));
 			        		}
 			        	}
 			        }
