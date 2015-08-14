@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.coverity.security.Escape;
 import com.yangc.dao.BaseDao;
 import com.yangc.system.bean.TSysPerson;
 import com.yangc.system.service.PersonService;
@@ -65,9 +66,10 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public List<TSysPerson> getPersonList(String condition) {
 		if (StringUtils.isNotBlank(condition)) {
-			String hql = "select new TSysPerson(nickname, spell) from TSysPerson where nickname like :condition or spell like :condition";
-			Map<String, Object> paramMap = new HashMap<String, Object>(1);
-			paramMap.put("condition", "%" + condition + "%");
+			String hql = "select new TSysPerson(nickname, spell) from TSysPerson where nickname like :condition escape :escape or spell like :condition escape :escape";
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("condition", "%" + Escape.sqlLikeClause(condition) + "%");
+			paramMap.put("escape", "@");
 			return this.baseDao.findAllByMap(hql, paramMap);
 		}
 		return null;
