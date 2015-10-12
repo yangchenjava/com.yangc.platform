@@ -1,5 +1,8 @@
 package com.yangc.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
@@ -11,11 +14,12 @@ public class SessionFactoryBean extends LocalSessionFactoryBean {
 	@Override
 	public void setMappingDirectoryLocations(Resource... mappingDirectoryLocations) {
 		if (mappingDirectoryLocations != null) {
-			Resource[] resource = new Resource[mappingDirectoryLocations.length];
-			for (int i = 0; i < mappingDirectoryLocations.length; i++) {
-				resource[i] = new FileSystemResource(((FileSystemResource) mappingDirectoryLocations[i]).getPath() + "/" + Constants.DB_NAME);
+			List<Resource> resources = new ArrayList<Resource>(mappingDirectoryLocations.length);
+			for (Resource mappingDirectoryLocation : mappingDirectoryLocations) {
+				FileSystemResource resource = new FileSystemResource(((FileSystemResource) mappingDirectoryLocation).getPath() + "/" + Constants.DB_NAME);
+				if (resource.exists()) resources.add(resource);
 			}
-			super.setMappingDirectoryLocations(resource);
+			super.setMappingDirectoryLocations(resources.toArray(new Resource[0]));
 		}
 	}
 

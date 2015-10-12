@@ -36,6 +36,24 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			<!-- 打包JAR插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>make-a-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>api</classifier>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<!-- 打包WAR插件 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -51,7 +69,7 @@
 				<artifactId>maven-jetty-plugin</artifactId>
 				<version>6.1.26</version>
 				<configuration>
-					<webApp>${basedir}/target/${project.artifactId}-${project.version}.war</webApp>
+					<webApp>${project.build.directory}/${project.artifactId}-${project.version}.war</webApp>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<connectors>
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
@@ -86,12 +104,12 @@
 			<!-- <url>http://127.0.0.1:8081/nexus/content/repositories/central/</url> -->
 		</repository>
 		<repository>
-			<id>sonatype</id>
-			<url>http://repository.sonatype.org/content/groups/public/</url>
+			<id>repo1</id>
+			<url>http://repo1.maven.org/maven2</url>
 		</repository>
 		<repository>
-			<id>atlassian</id>
-			<url>https://m2proxy.atlassian.com/repository/public</url>
+			<id>sonatype</id>
+			<url>http://repository.sonatype.org/content/groups/public/</url>
 		</repository>
 	</repositories>
 
