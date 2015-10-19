@@ -102,7 +102,7 @@
 
 	<sql name="system.friend.delFriend" desc="删除用户好友信息">
 	<![CDATA[
-		DELETE FROM T_SYS_PERSON_REL WHERE ID = ? AND FRIEND_ID = ?
+		DELETE FROM T_SYS_PERSON_REL WHERE ID = :userId AND FRIEND_ID = :friendId
 	]]>
 	</sql>
 

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -17,7 +16,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -27,13 +26,14 @@ import com.yangc.common.PaginationThreadUtils;
 import com.yangc.dao.JdbcDao;
 import com.yangc.utils.Constants;
 
+@SuppressWarnings("unchecked")
 public class JdbcDaoImpl implements JdbcDao {
 
 	/** 存储符合规范的文件 */
 	private static final List<File> LIST = new ArrayList<File>();
 
 	private NamedParameterJdbcTemplate npJdbcTemplate;
-	private JdbcTemplate jdbcTemplate;
+	// private JdbcTemplate jdbcTemplate;
 
 	static {
 		List<File> fileList = getFileInfo(Constants.CLASSPATH + "config/multi/jdbc/");
@@ -44,9 +44,9 @@ public class JdbcDaoImpl implements JdbcDao {
 		LIST.clear();
 	}
 
-	public JdbcDaoImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate, JdbcTemplate jdbcTemplate) {
+	public JdbcDaoImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.npJdbcTemplate = namedParameterJdbcTemplate;
-		this.jdbcTemplate = jdbcTemplate;
+		// this.jdbcTemplate = jdbcTemplate;
 	}
 
 	/**
@@ -88,7 +88,6 @@ public class JdbcDaoImpl implements JdbcDao {
 	/**
 	 * 加载结果文件内容
 	 */
-	@SuppressWarnings("unchecked")
 	private static void loadFileContents(File file) {
 		try {
 			SAXReader reader = new SAXReader();
@@ -118,23 +117,25 @@ public class JdbcDaoImpl implements JdbcDao {
 	}
 
 	@Override
-	public int[] batchExecute(String sql, final List<Object[]> paramList) {
-		return this.jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
-			// 返回更新的记录数
-			@Override
-			public int getBatchSize() {
-				return paramList.size();
-			}
+	public int[] batchExecute(String sql, List<Map<String, Object>> paramMaps) {
+		// return this.jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+		// // 返回更新的记录数
+		// @Override
+		// public int getBatchSize() {
+		// return paramList.size();
+		// }
+		//
+		// // 设置参数
+		// @Override
+		// public void setValues(PreparedStatement ps, int i) throws SQLException {
+		// Object[] objs = paramList.get(i);
+		// for (int j = 0, length = objs.length; j < length; j++) {
+		// ps.setObject(j + 1, objs[j]);
+		// }
+		// }
+		// });
 
-			// 设置参数
-			@Override
-			public void setValues(PreparedStatement ps, int i) throws SQLException {
-				Object[] objs = paramList.get(i);
-				for (int j = 0, length = objs.length; j < length; j++) {
-					ps.setObject(j + 1, objs[j]);
-				}
-			}
-		});
+		return this.npJdbcTemplate.batchUpdate(sql, paramMaps.toArray(new Map[0]));
 	}
 
 	@Override
@@ -221,10 +222,20 @@ public class JdbcDaoImpl implements JdbcDao {
 
 	@Override
 	public Connection getConn() {
-		try {
-			return this.jdbcTemplate.getDataSource().getConnection();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		// try {
+		// return this.jdbcTemplate.getDataSource().getConnection();
+		// } catch (SQLException e) {
+		// e.printStackTrace();
+		// }
+		// return null;
+
+		JdbcOperations jdbcOperations = this.npJdbcTemplate.getJdbcOperations();
+		if (jdbcOperations instanceof JdbcTemplate) {
+			try {
+				return ((JdbcTemplate) jdbcOperations).getDataSource().getConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

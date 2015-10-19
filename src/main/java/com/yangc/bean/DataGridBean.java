@@ -13,15 +13,10 @@ public class DataGridBean {
 	private int totalCount;
 
 	public DataGridBean() {
-		this(null);
 	}
 
 	public DataGridBean(List<?> dataGrid) {
-		this.dataGrid = dataGrid;
-		Pagination pagination = PaginationThreadUtils.get();
-		this.pageCount = pagination.getPageCount();
-		this.pageNow = pagination.getPageNow();
-		this.totalCount = pagination.getTotalCount();
+		this.setDataGrid(dataGrid);
 	}
 
 	public List<?> getDataGrid() {
@@ -30,6 +25,10 @@ public class DataGridBean {
 
 	public void setDataGrid(List<?> dataGrid) {
 		this.dataGrid = dataGrid;
+		Pagination pagination = PaginationThreadUtils.get();
+		this.pageCount = pagination.getPageCount();
+		this.pageNow = pagination.getPageNow();
+		this.totalCount = pagination.getTotalCount();
 	}
 
 	public int getPageCount() {

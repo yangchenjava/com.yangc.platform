@@ -24,6 +24,6 @@
 
 	<bean id="jdbcDao" class="com.yangc.dao.impl.JdbcDaoImpl">
 		<constructor-arg index="0" ref="namedParameterJdbcTemplate" />
-		<constructor-arg index="1" ref="jdbcTemplate" />
+		<!-- <constructor-arg index="1" ref="jdbcTemplate" /> -->
 	</bean>
 </beans>

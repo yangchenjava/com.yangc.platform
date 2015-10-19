@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,11 +33,14 @@ public class FriendServiceImpl implements FriendService {
 	@Override
 	public void delFriend(Long userId, String friendIds) {
 		String sql = JdbcDao.SQL_MAPPING.get("system.friend.delFriend");
-		List<Object[]> paramList = new ArrayList<Object[]>();
+		List<Map<String, Object>> paramMaps = new ArrayList<Map<String, Object>>();
 		for (String friendId : friendIds.split(",")) {
-			paramList.add(new Object[] { userId, friendId });
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("userId", userId);
+			paramMap.put("friendId", NumberUtils.toLong(friendId));
+			paramMaps.add(paramMap);
 		}
-		this.jdbcDao.batchExecute(sql, paramList);
+		this.jdbcDao.batchExecute(sql, paramMaps);
 	}
 
 	@Override

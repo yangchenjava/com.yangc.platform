@@ -35,10 +35,10 @@ public interface JdbcDao {
 	 * @作者: yangc
 	 * @创建日期: 2013-7-29 上午11:54:48
 	 * @param sql
-	 * @param paramList
+	 * @param paramMaps
 	 * @return
 	 */
-	public int[] batchExecute(String sql, List<Object[]> paramList);
+	public int[] batchExecute(String sql, List<Map<String, Object>> paramMaps);
 
 	/**
 	 * @功能: 分页查询
