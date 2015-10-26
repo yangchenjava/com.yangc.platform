@@ -31,7 +31,7 @@ public interface BaseDao {
 	 * @创建日期: 2013-7-29 下午12:06:21
 	 * @param list
 	 */
-	public void saveOrUpdate(List<BaseBean> list);
+	public void saveOrUpdate(List<? extends BaseBean> list);
 
 	/**
 	 * @功能: 删除

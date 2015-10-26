@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -74,15 +75,7 @@ public class JdbcDaoImpl implements JdbcDao {
 	 * 判断是否符合命名规范
 	 */
 	private static boolean matchNaming(File file) {
-		boolean b = false;
-		String fileName = file.getName();
-		if (fileName.endsWith(".xml")) {
-			String dbFileName = fileName.split("\\.")[0];
-			if (dbFileName.endsWith("-sql") && dbFileName.contains(Constants.DB_NAME)) {
-				b = true;
-			}
-		}
-		return b;
+		return file.getName().endsWith(Constants.DB_NAME + "-sql.xml");
 	}
 
 	/**
@@ -136,6 +129,12 @@ public class JdbcDaoImpl implements JdbcDao {
 		// });
 
 		return this.npJdbcTemplate.batchUpdate(sql, paramMaps.toArray(new Map[0]));
+	}
+
+	@Override
+	public Map<String, Object> get(String sql, Map<String, Object> paramMap) {
+		List<Map<String, Object>> mapList = this.findAll(sql, paramMap);
+		return CollectionUtils.isEmpty(mapList) ? null : mapList.get(0);
 	}
 
 	@Override

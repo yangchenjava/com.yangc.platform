@@ -33,7 +33,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 	}
 
 	@Override
-	public void saveOrUpdate(List<BaseBean> list) {
+	public void saveOrUpdate(List<? extends BaseBean> list) {
 		this.getHibernateTemplate().saveOrUpdateAll(list);
 		this.getHibernateTemplate().flush();
 	}

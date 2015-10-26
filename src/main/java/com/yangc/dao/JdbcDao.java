@@ -41,6 +41,16 @@ public interface JdbcDao {
 	public int[] batchExecute(String sql, List<Map<String, Object>> paramMaps);
 
 	/**
+	 * @功能: 查询一条记录
+	 * @作者: yangc
+	 * @创建日期: 2015年10月26日 上午9:47:28
+	 * @param sql
+	 * @param paramMap
+	 * @return
+	 */
+	public Map<String, Object> get(String sql, Map<String, Object> paramMap);
+
+	/**
 	 * @功能: 分页查询
 	 * @作者: yangc
 	 * @创建日期: 2013-7-29 上午11:55:10

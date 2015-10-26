@@ -89,6 +89,7 @@ public class Pagination {
 		return this.notPaginated;
 	}
 
+	@Override
 	public String toString() {
 		return "[\"total\":" + this.getPageCount() + ", \"page\":" + this.pageNow + ", \"records\":" + this.totalCount + "]";
 	}
