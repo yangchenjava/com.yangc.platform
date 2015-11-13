@@ -98,6 +98,16 @@ public interface BaseDao {
 	public <T> T get(String hql, Object[] values);
 
 	/**
+	 * @功能: 查询一条
+	 * @作者: yangc
+	 * @创建日期: 2013-7-29 下午12:05:39
+	 * @param hql
+	 * @param paramMap
+	 * @return
+	 */
+	public <T> T getByMap(String hql, Map<String, Object> paramMap);
+
+	/**
 	 * @功能: 分页查询
 	 * @作者: yangc
 	 * @创建日期: 2013-7-29 下午12:05:33
