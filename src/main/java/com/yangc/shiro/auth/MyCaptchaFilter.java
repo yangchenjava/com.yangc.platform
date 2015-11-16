@@ -9,6 +9,7 @@ import javax.servlet.ServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.web.filter.authc.AuthenticationFilter;
+import org.springframework.http.MediaType;
 
 import com.yangc.bean.ResultBean;
 import com.yangc.common.StatusCode;
@@ -48,7 +49,9 @@ public class MyCaptchaFilter extends AuthenticationFilter {
 
 	@Override
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-		response.setContentType("application/json;charset=UTF-8");
+		response.reset();
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		PrintWriter pw = response.getWriter();
 		pw.write(JsonUtils.toJson(new ResultBean(StatusCode.CAPTCHA_ERROR, false, "验证码错误")));
 		pw.flush();

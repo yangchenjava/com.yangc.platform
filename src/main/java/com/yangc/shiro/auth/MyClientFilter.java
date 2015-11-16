@@ -4,9 +4,9 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.web.filter.authc.AuthenticationFilter;
+import org.springframework.http.MediaType;
 
 import com.yangc.bean.ResultBean;
 import com.yangc.common.StatusCode;
@@ -26,9 +26,10 @@ public class MyClientFilter extends AuthenticationFilter {
 	 */
 	@Override
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-		HttpServletResponse resp = (HttpServletResponse) response;
-		resp.setContentType("application/json;charset=UTF-8");
-		PrintWriter pw = resp.getWriter();
+		response.reset();
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		PrintWriter pw = response.getWriter();
 		pw.write(JsonUtils.toJson(new ResultBean(StatusCode.SESSION_TIMEOUT, false, "session超时")));
 		pw.flush();
 		pw.close();
