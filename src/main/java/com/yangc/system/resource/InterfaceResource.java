@@ -6,7 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -32,7 +33,7 @@ import com.yangc.utils.json.JsonUtils;
 @RequestMapping("/interface")
 public class InterfaceResource {
 
-	private static final Logger logger = Logger.getLogger(InterfaceResource.class);
+	private static final Logger logger = LogManager.getLogger(InterfaceResource.class);
 
 	@Autowired
 	private UserService userService;

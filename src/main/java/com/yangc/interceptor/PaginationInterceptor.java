@@ -6,7 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.yangc.common.Pagination;
@@ -14,7 +15,7 @@ import com.yangc.common.PaginationThreadUtils;
 
 public class PaginationInterceptor extends HandlerInterceptorAdapter {
 
-	private static final Logger logger = Logger.getLogger(PaginationInterceptor.class);
+	private static final Logger logger = LogManager.getLogger(PaginationInterceptor.class);
 
 	// 前端js对分页请求的名字
 	private static final String PAGE_SIZE = "limit";

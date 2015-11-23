@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ import com.yangc.utils.net.AttachmentUtils;
 @RequestMapping("/ping")
 public class PingResource {
 
-	private static final Logger logger = Logger.getLogger(PingResource.class);
+	private static final Logger logger = LogManager.getLogger(PingResource.class);
 
 	/**
 	 * @功能: 检查是否通畅

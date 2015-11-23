@@ -4,7 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -32,7 +33,7 @@ import com.yangc.utils.image.CaptchaUtils.CAPTCHA_TYPE;
 @RequestMapping("/user")
 public class UserResource {
 
-	private static final Logger logger = Logger.getLogger(UserResource.class);
+	private static final Logger logger = LogManager.getLogger(UserResource.class);
 
 	@Autowired
 	private UserService userService;

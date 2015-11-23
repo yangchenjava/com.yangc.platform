@@ -9,7 +9,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * 资源文件扫描器
@@ -17,7 +18,7 @@ import org.apache.log4j.Logger;
  */
 public final class PropertiesFileScanUtils {
 
-	private static Logger logger = Logger.getLogger(PropertiesFileScanUtils.class);
+	private static Logger logger = LogManager.getLogger(PropertiesFileScanUtils.class);
 
 	private static final Map<String, String> properties = new HashMap<String, String>();
 

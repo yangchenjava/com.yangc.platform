@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +18,7 @@ import com.yangc.utils.json.JsonUtils;
 
 public class GlobalExceptionHandler implements HandlerExceptionResolver {
 
-	public static final Logger logger = Logger.getLogger(GlobalExceptionHandler.class);
+	public static final Logger logger = LogManager.getLogger(GlobalExceptionHandler.class);
 
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {

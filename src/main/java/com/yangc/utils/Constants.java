@@ -1,12 +1,13 @@
 package com.yangc.utils;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.yangc.utils.prop.PropertiesUtils;
 
 public class Constants {
 
-	private static Logger logger = Logger.getLogger(Constants.class);
+	private static Logger logger = LogManager.getLogger(Constants.class);
 
 	/***************** system *****************/
 	public static final String CLASSPATH = Constants.class.getResource("//").getFile();

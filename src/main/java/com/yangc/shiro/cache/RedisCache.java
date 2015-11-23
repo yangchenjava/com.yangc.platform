@@ -4,7 +4,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 
@@ -15,7 +16,7 @@ import com.yangc.utils.io.SerializeUtils;
 
 public class RedisCache<K, V> implements Cache<K, V> {
 
-	private static final Logger logger = Logger.getLogger(RedisCache.class);
+	private static final Logger logger = LogManager.getLogger(RedisCache.class);
 
 	private byte[] cacheName;
 

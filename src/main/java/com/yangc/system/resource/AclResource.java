@@ -3,7 +3,8 @@ package com.yangc.system.resource;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,7 @@ import com.yangc.system.service.AclService;
 @RequestMapping("/acl")
 public class AclResource {
 
-	private static final Logger logger = Logger.getLogger(AclResource.class);
+	private static final Logger logger = LogManager.getLogger(AclResource.class);
 
 	@Autowired
 	private AclService aclService;
