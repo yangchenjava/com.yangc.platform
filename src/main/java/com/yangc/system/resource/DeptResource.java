@@ -66,7 +66,7 @@ public class DeptResource {
 	@ResponseBody
 	@RequiresPermissions("dept:" + Permission.ADD)
 	public ResultBean addDept(String deptName, Long serialNum) {
-		logger.info("addDept - deptName=" + deptName + ", serialNum=" + serialNum);
+		logger.info("addDept - deptName={}, serialNum={}", deptName, serialNum);
 		try {
 			this.deptService.addOrUpdateDept(null, deptName, serialNum);
 			return new ResultBean(true, "添加成功");
@@ -86,7 +86,7 @@ public class DeptResource {
 	@ResponseBody
 	@RequiresPermissions("dept:" + Permission.UPD)
 	public ResultBean updateDept(Long id, String deptName, Long serialNum) {
-		logger.info("updateDept - id=" + id + ", deptName=" + deptName + ", serialNum=" + serialNum);
+		logger.info("updateDept - id={}, deptName={}, serialNum={}", id, deptName, serialNum);
 		try {
 			this.deptService.addOrUpdateDept(id, deptName, serialNum);
 			return new ResultBean(true, "修改成功");
@@ -106,7 +106,7 @@ public class DeptResource {
 	@ResponseBody
 	@RequiresPermissions("dept:" + Permission.DEL)
 	public ResultBean delDept(Long id) {
-		logger.info("delDept - id=" + id);
+		logger.info("delDept - id={}", id);
 		ResultBean resultBean = new ResultBean();
 		try {
 			this.deptService.delDept(id);

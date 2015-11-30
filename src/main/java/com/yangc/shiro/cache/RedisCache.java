@@ -27,7 +27,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public V get(K key) throws CacheException {
-		logger.debug("get - key=" + key);
+		logger.debug("get - key={}", key);
 		if (key != null) {
 			RedisUtils cache = RedisUtils.getInstance();
 			ShardedJedis jedis = null;
@@ -47,7 +47,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
 
 	@Override
 	public V put(K key, V value) throws CacheException {
-		logger.debug("put - key=" + key + ", value=" + value);
+		logger.debug("put - key={}, value={}", key, value);
 		if (key != null && value != null) {
 			RedisUtils cache = RedisUtils.getInstance();
 			ShardedJedis jedis = null;
@@ -69,7 +69,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public V remove(K key) throws CacheException {
-		logger.debug("remove - key=" + key);
+		logger.debug("remove - key={}" + key);
 		if (key != null) {
 			RedisUtils cache = RedisUtils.getInstance();
 			ShardedJedis jedis = null;

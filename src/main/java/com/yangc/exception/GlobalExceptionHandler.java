@@ -22,7 +22,7 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
 
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-		logger.error(ex.getMessage());
+		logger.error(ex.getMessage(), ex.getCause());
 		if (ex instanceof UnauthorizedException) {
 			String header = request.getHeader("X-Requested-With");
 			// 异步

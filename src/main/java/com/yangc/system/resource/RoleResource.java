@@ -55,7 +55,7 @@ public class RoleResource {
 	@ResponseBody
 	@RequiresPermissions("role:" + Permission.ADD)
 	public ResultBean addRole(String roleName) {
-		logger.info("addRole - roleName=" + roleName);
+		logger.info("addRole - roleName={}", roleName);
 		try {
 			this.roleService.addOrUpdateRole(null, roleName);
 			return new ResultBean(true, "添加成功");
@@ -69,7 +69,7 @@ public class RoleResource {
 	@ResponseBody
 	@RequiresPermissions("role:" + Permission.UPD)
 	public ResultBean updateRole(Long id, String roleName) {
-		logger.info("updateRole - id=" + id + ", roleName=" + roleName);
+		logger.info("updateRole - id={}, roleName={}", id, roleName);
 		try {
 			this.roleService.addOrUpdateRole(id, roleName);
 			return new ResultBean(true, "修改成功");
@@ -83,7 +83,7 @@ public class RoleResource {
 	@ResponseBody
 	@RequiresPermissions("role:" + Permission.DEL)
 	public ResultBean delRole(Long id) {
-		logger.info("delRole - id=" + id);
+		logger.info("delRole - id={}", id);
 		try {
 			this.roleService.delRole(id);
 			// 清除所有权限缓存信息

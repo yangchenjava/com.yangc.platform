@@ -27,7 +27,7 @@ public final class PropertiesFileScanUtils {
 		try {
 			logger.info("==========开始搜索满足条件的属性文件=========");
 			init(Constants.CLASSPATH);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -43,15 +43,15 @@ public final class PropertiesFileScanUtils {
 			File[] files = file.listFiles();
 			for (File f : files) {
 				if (!f.isDirectory() && f.getName().endsWith("-message.properties")) {
-					logger.info("搜索到属性文件:" + f.getAbsolutePath());
+					logger.info("搜索到属性文件:{}", f.getAbsolutePath());
 					Properties temp = new Properties();
 					temp.load(new FileInputStream(f));
 					Set<Object> keys = temp.keySet();
 					for (Iterator<Object> it = keys.iterator(); it.hasNext();) {
 						String key = (String) it.next();
 						if (properties.containsKey(key)) {
-							logger.error("属性文件:" + f.getAbsolutePath() + "定义的键(" + key + ")重复");
-							throw new IOException("属性文件:" + f.getAbsolutePath() + "定义的键(" + key + ")重复");
+							logger.error("属性文件:{}定义的键({})重复", f.getAbsolutePath(), key);
+							throw new RuntimeException("属性文件:" + f.getAbsolutePath() + "定义的键(" + key + ")重复");
 						} else {
 							properties.put(key, temp.getProperty(key));
 						}

@@ -47,7 +47,7 @@ public class UserResource {
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultBean login(String username, String password) {
-		logger.info("login - username=" + username + ", password=" + password);
+		logger.info("login - username={}, password={}", username, password);
 		ResultBean resultBean = new ResultBean();
 		Session session = null;
 		try {
@@ -109,13 +109,13 @@ public class UserResource {
 	@RequestMapping(value = "changePassword", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultBean changePassword(String password, String newPassword) {
-		logger.info("changePassword - password=" + password + ", newPassword=" + newPassword);
+		logger.info("changePassword - password={}, newPassword={}", password, newPassword);
 		ResultBean resultBean = new ResultBean();
 		try {
 			TSysUser user = ShiroUtils.getCurrentUser();
 			password = Md5Utils.getMD5(password);
 			newPassword = Md5Utils.getMD5(newPassword);
-			logger.info("changePassword - userId=" + user.getId() + ", password=" + password + ", newPassword=" + newPassword);
+			logger.info("changePassword - userId={}, password={}, newPassword={}", user.getId(), password, newPassword);
 			if (StringUtils.isBlank(password) || StringUtils.isBlank(newPassword)) {
 				resultBean.setSuccess(false);
 				resultBean.setMessage("原密码或新密码不能为空");

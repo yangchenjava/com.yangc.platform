@@ -51,7 +51,7 @@ public class AclResource {
 	@ResponseBody
 	@RequiresPermissions("role:" + Permission.SEL)
 	public List<AuthTree> getAuthTreeList(Long roleId, Long parentMenuId) {
-		logger.info("getAuthTreeList - roleId=" + roleId + ", parentMenuId=" + parentMenuId);
+		logger.info("getAuthTreeList - roleId={}, parentMenuId={}", roleId, parentMenuId);
 		return this.aclService.getAclListByRoleIdAndParentMenuId(roleId, parentMenuId);
 	}
 
@@ -65,7 +65,7 @@ public class AclResource {
 	@ResponseBody
 	@RequiresPermissions("role:" + Permission.ADD)
 	public ResultBean addOrUpdateAcl(Long roleId, Long menuId, int permission, int allow) {
-		logger.info("addOrUpdateAcl - roleId=" + roleId + ", menuId=" + menuId + ", permission=" + permission + ", allow=" + allow);
+		logger.info("addOrUpdateAcl - roleId={}, menuId={}, permission={}, allow={}", roleId, menuId, permission, allow);
 		try {
 			this.aclService.addOrUpdateAcl(roleId, menuId, permission, allow);
 			// 清除所有权限缓存信息

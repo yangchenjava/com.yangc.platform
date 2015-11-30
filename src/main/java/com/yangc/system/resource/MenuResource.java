@@ -38,7 +38,7 @@ public class MenuResource {
 	@ResponseBody
 	public List<TSysMenu> showTopFrame() {
 		Long userId = ShiroUtils.getCurrentUser().getId();
-		logger.info("showTopFrame - userId=" + userId);
+		logger.info("showTopFrame - userId={}", userId);
 		return this.menuService.getTopFrame(0L, userId);
 	}
 
@@ -52,7 +52,7 @@ public class MenuResource {
 	@ResponseBody
 	public List<TSysMenu> showMainFrame(Long parentMenuId) {
 		Long userId = ShiroUtils.getCurrentUser().getId();
-		logger.info("showMainFrame - parentMenuId=" + parentMenuId + ", userId=" + userId);
+		logger.info("showMainFrame - parentMenuId={}, userId={}", parentMenuId, userId);
 		return this.menuService.getMainFrame(parentMenuId, userId);
 	}
 
@@ -66,7 +66,7 @@ public class MenuResource {
 	@ResponseBody
 	@RequiresPermissions("menu:" + Permission.SEL)
 	public List<MenuTree> getMenuTreeList(Long parentMenuId) {
-		logger.info("getMenuTreeList - parentMenuId=" + parentMenuId);
+		logger.info("getMenuTreeList - parentMenuId={}", parentMenuId);
 		return this.menuService.getMenuTreeListByParentMenuId(parentMenuId);
 	}
 
@@ -80,8 +80,8 @@ public class MenuResource {
 	@ResponseBody
 	@RequiresPermissions("menu:" + Permission.ADD)
 	public ResultBean addMenu(String menuName, String menuAlias, String menuUrl, Long parentMenuId, Long serialNum, Long isshow, String description) {
-		logger.info("addMenu - menuName=" + menuName + ", menuAlias=" + menuAlias + ", menuUrl=" + menuUrl + ", parentMenuId=" + parentMenuId + ", serialNum=" + serialNum + ", isshow=" + isshow
-				+ ", description=" + description);
+		logger.info("addMenu - menuName={}, menuAlias={}, menuUrl={}, parentMenuId={}, serialNum={}, isshow={}, description={}", menuName, menuAlias, menuUrl, parentMenuId, serialNum, isshow,
+				description);
 		try {
 			this.menuService.addOrUpdateMenu(null, menuName, menuAlias, menuUrl, parentMenuId, serialNum, isshow, description);
 			return new ResultBean(true, "添加成功，请授权后进行查看");
@@ -101,8 +101,8 @@ public class MenuResource {
 	@ResponseBody
 	@RequiresPermissions("menu:" + Permission.UPD)
 	public ResultBean updateMenu(Long id, String menuName, String menuAlias, String menuUrl, Long parentMenuId, Long serialNum, Long isshow, String description) {
-		logger.info("updateMenu - id=" + id + ", menuName=" + menuName + ", menuAlias=" + menuAlias + ", menuUrl=" + menuUrl + ", parentMenuId=" + parentMenuId + ", serialNum=" + serialNum
-				+ ", isshow=" + isshow + ", description=" + description);
+		logger.info("updateMenu - id={}, menuName={}, menuAlias={}, menuUrl={}, parentMenuId={}, serialNum={}, isshow={}, description={}", id, menuName, menuAlias, menuUrl, parentMenuId, serialNum,
+				isshow, description);
 		try {
 			this.menuService.addOrUpdateMenu(id, menuName, menuAlias, menuUrl, parentMenuId, serialNum, isshow, description);
 			return new ResultBean(true, "修改成功，请刷新页面进行查看");
@@ -122,7 +122,7 @@ public class MenuResource {
 	@ResponseBody
 	@RequiresPermissions("menu:" + Permission.UPD)
 	public ResultBean updateParentMenuId(Long id, Long parentMenuId) {
-		logger.info("updateParentMenuId - id=" + id + ", parentMenuId=" + parentMenuId);
+		logger.info("updateParentMenuId - id={}, parentMenuId={}", id, parentMenuId);
 		try {
 			this.menuService.updateParentMenuId(id, parentMenuId);
 			return new ResultBean(true, "修改成功");
@@ -142,7 +142,7 @@ public class MenuResource {
 	@ResponseBody
 	@RequiresPermissions("menu:" + Permission.DEL)
 	public ResultBean delMenu(Long id) {
-		logger.info("delMenu - id=" + id);
+		logger.info("delMenu - id={}", id);
 		ResultBean resultBean = new ResultBean();
 		try {
 			this.menuService.delMenu(id);

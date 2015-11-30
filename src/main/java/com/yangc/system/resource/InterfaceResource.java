@@ -45,7 +45,7 @@ public class InterfaceResource {
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultBean login(String username, String password) {
-		logger.info("login - username=" + username + ", password=" + password);
+		logger.info("login - username={}, password={}", username, password);
 		ResultBean resultBean = new ResultBean();
 		try {
 			SecurityUtils.getSubject().login(new UsernamePasswordToken(username, Md5Utils.getMD5(password)));
@@ -65,7 +65,7 @@ public class InterfaceResource {
 	@RequestMapping(value = "register", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultBean register(String username, String password, String nickname, Long sex, String phone, String signature, MultipartFile photo, HttpServletRequest request) {
-		logger.info("register - username=" + username + ", password=" + password + ", nickname=" + nickname + ", sex=" + sex + ", phone=" + phone + ", signature=" + signature);
+		logger.info("register - username={}, password={}, nickname={}, sex={}, phone={}, signature={}", username, password, nickname, sex, phone, signature);
 		ResultBean resultBean = new ResultBean();
 		try {
 			TSysPerson person = new TSysPerson();
@@ -95,7 +95,7 @@ public class InterfaceResource {
 	@RequestMapping(value = "updatePerson", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultBean updatePerson(Long id, String nickname, Long sex, String phone, String signature, HttpServletRequest request) {
-		logger.info("updatePerson - id=" + id + ", nickname=" + nickname + ", sex=" + sex + ", phone=" + phone + ", signature=" + signature);
+		logger.info("updatePerson - id={}, nickname={}, sex={}, phone={}, signature={}", id, nickname, sex, phone, signature);
 		try {
 			TSysPerson person = this.personService.getPersonById(id);
 			person.setNickname(nickname);
@@ -114,7 +114,7 @@ public class InterfaceResource {
 	@RequestMapping(value = "updatePersonPhoto", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultBean updatePersonPhoto(Long id, MultipartFile photo, HttpServletRequest request) {
-		logger.info("updatePersonPhoto - id=" + id);
+		logger.info("updatePersonPhoto - id={}", id);
 		try {
 			TSysPerson person = this.personService.getPersonById(id);
 
@@ -132,14 +132,14 @@ public class InterfaceResource {
 	@RequestMapping(value = "userInfo", method = RequestMethod.POST)
 	@ResponseBody
 	public TSysPerson userInfo(Long userId) {
-		logger.info("userInfo - userId=" + userId);
+		logger.info("userInfo - userId={}", userId);
 		return this.personService.getPersonByUserId(userId);
 	}
 
 	@RequestMapping(value = "friends", method = RequestMethod.POST)
 	@ResponseBody
 	public List<TSysPerson> friends(Long userId, String friendIds) {
-		logger.info("friends - userId=" + userId + ", friendIds=" + friendIds);
+		logger.info("friends - userId={}, friendIds={}", userId, friendIds);
 		if (StringUtils.isNotBlank(friendIds)) {
 			this.friendService.delFriend(userId, friendIds);
 		}
@@ -149,7 +149,7 @@ public class InterfaceResource {
 	@RequestMapping(value = "deleteFriend", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultBean deleteFriend(Long userId, String friendId) {
-		logger.info("deleteFriend - userId=" + userId + ", friendId=" + friendId);
+		logger.info("deleteFriend - userId={}, friendId={}", userId, friendId);
 		try {
 			this.friendService.delFriend(userId, friendId);
 			return new ResultBean(true, friendId);

@@ -46,7 +46,7 @@ public class Constants {
 		} else if ("com.mysql.jdbc.Driver".equals(driverClassName)) {
 			Constants.DB_NAME = "mysql";
 		}
-		logger.info("DB_NAME - " + Constants.DB_NAME);
+		logger.info("DB_NAME - {}", Constants.DB_NAME);
 	}
 
 }

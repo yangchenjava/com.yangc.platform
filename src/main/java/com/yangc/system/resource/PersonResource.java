@@ -56,7 +56,7 @@ public class PersonResource {
 				e.printStackTrace();
 			}
 		}
-		logger.info("getPersonList - condition=" + condition);
+		logger.info("getPersonList - condition={}", condition);
 		return this.personService.getPersonList(condition);
 	}
 
@@ -77,7 +77,7 @@ public class PersonResource {
 				e.printStackTrace();
 			}
 		}
-		logger.info("getPersonListByNicknameAndDeptId_page - nickname=" + nickname + ", deptId=" + deptId);
+		logger.info("getPersonListByNicknameAndDeptId_page - nickname={}, deptId={}", nickname, deptId);
 		List<TSysPerson> personList = this.personService.getPersonListByNicknameAndDeptId_page(nickname, deptId);
 		return new DataGridBean(personList);
 	}
@@ -92,7 +92,7 @@ public class PersonResource {
 	@ResponseBody
 	@RequiresPermissions("person:" + Permission.SEL)
 	public TSysPerson getRoleIdsByUserId(Long userId) {
-		logger.info("getRoleIdsByUserId - userId=" + userId);
+		logger.info("getRoleIdsByUserId - userId={}", userId);
 		TSysPerson person = new TSysPerson();
 		List<TSysUsersroles> usersrolesList = this.usersrolesService.getUsersrolesListByUserId(userId);
 		if (usersrolesList == null || usersrolesList.isEmpty()) {
@@ -117,7 +117,7 @@ public class PersonResource {
 	@ResponseBody
 	@RequiresPermissions("person:" + Permission.ADD)
 	public ResultBean addPerson(String nickname, Long sex, String phone, Long deptId, String username, String roleIds) {
-		logger.info("addPerson - nickname=" + nickname + ", sex=" + sex + ", phone=" + phone + ", deptId=" + deptId + ", username=" + username + ", roleIds=" + roleIds);
+		logger.info("addPerson - nickname={}, sex={}, phone={}, deptId={}, username={}, roleIds={}", nickname, sex, phone, deptId, username, roleIds);
 		ResultBean resultBean = new ResultBean();
 		try {
 			TSysPerson person = new TSysPerson();
@@ -149,8 +149,7 @@ public class PersonResource {
 	@ResponseBody
 	@RequiresPermissions("person:" + Permission.UPD)
 	public ResultBean updatePerson(Long id, String nickname, Long sex, String phone, Long deptId, Long userId, String username, String roleIds) {
-		logger.info("updatePerson - id=" + id + ", nickname=" + nickname + ", sex=" + sex + ", phone=" + phone + ", deptId=" + deptId + ", userId=" + userId + ", username=" + username + ", roleIds="
-				+ roleIds);
+		logger.info("updatePerson - id={}, nickname={}, sex={}, phone={}, deptId={}, userId={}, username={}, roleIds={}", id, nickname, sex, phone, deptId, userId, username, roleIds);
 		ResultBean resultBean = new ResultBean();
 		try {
 			TSysPerson person = this.personService.getPersonById(id);
@@ -185,7 +184,7 @@ public class PersonResource {
 	@RequiresPermissions("person:" + Permission.DEL)
 	public ResultBean delPerson(Long userId) {
 		try {
-			logger.info("delPerson - userId=" + userId);
+			logger.info("delPerson - userId={}", userId);
 			String username = this.userService.delUser(userId);
 			// 清除用户权限缓存信息
 			ShiroUtils.clearCachedAuthorizationInfo(username);

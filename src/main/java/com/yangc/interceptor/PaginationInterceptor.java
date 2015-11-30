@@ -50,7 +50,7 @@ public class PaginationInterceptor extends HandlerInterceptorAdapter {
 					pagination.setPageSize(Integer.parseInt(pageSize));
 				}
 			}
-			logger.info("PaginationInterceptor - pageNow=" + pagination.getPageNow() + ", pageSize=" + pagination.getPageSize());
+			logger.info("PaginationInterceptor - pageNow={}, pageSize={}", pagination.getPageNow(), pagination.getPageSize());
 		}
 		return true;
 	}
