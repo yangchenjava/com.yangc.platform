@@ -14,15 +14,15 @@
 		</RollingFile>
 	</appenders>
 	<Loggers>
-		<Logger name="org.apache.activemq" level="info">
+		<Logger name="org.apache.activemq" level="info" additivity="false">
 			<appender-ref ref="Console" />
 			<appender-ref ref="RollingFile" />
 		</Logger>
-		<Logger name="org.apache.mina" level="info">
+		<Logger name="org.apache.mina" level="info" additivity="false">
 			<appender-ref ref="Console" />
 			<appender-ref ref="RollingFile" />
 		</Logger>
-		<Logger name="org.apache.shiro" level="info">
+		<Logger name="org.apache.shiro" level="info" additivity="false">
 			<appender-ref ref="Console" />
 			<appender-ref ref="RollingFile" />
 		</Logger>
