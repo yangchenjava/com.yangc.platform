@@ -44,12 +44,18 @@
 				<prop key="hibernate.jdbc.batch_size">25</prop>
 			</props>
 		</property>
-		<!-- 指定hibernate 映射文件存放的目录 -->
+		<!-- 指定hibernate映射文件存放的目录 -->
 		<property name="mappingDirectoryLocations">
 			<list>
 				<!-- <value>classpath:com/*/*/bean/oracle</value> -->
 				<!-- <value>classpath:com/*/*/bean/mysql</value> -->
 				<value>classpath:com/*/*/bean</value>
+			</list>
+		</property>
+		<!-- 指定hibernate映射文件存放的jar包 -->
+		<property name="mappingJarLocations">
+			<list>
+				<value>WEB-INF/lib/*bean*.jar</value>
 			</list>
 		</property>
 		<property name="entityInterceptor" ref="hibernateInterceptor" />
