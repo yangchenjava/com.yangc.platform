@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import org.hibernate.SessionFactory;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -15,6 +16,8 @@ import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
 import com.yangc.utils.Constants;
 
 public class SessionFactoryBean extends LocalSessionFactoryBean {
+
+	private List<JarFile> jarFiles;
 
 	@Override
 	public void setMappingDirectoryLocations(Resource... mappingDirectoryLocations) {
@@ -31,6 +34,9 @@ public class SessionFactoryBean extends LocalSessionFactoryBean {
 	@Override
 	public void setMappingJarLocations(Resource... mappingJarLocations) {
 		if (mappingJarLocations != null) {
+			if (this.jarFiles == null) {
+				this.jarFiles = new ArrayList<JarFile>();
+			}
 			List<Resource> resources = new ArrayList<Resource>();
 			for (Resource mappingJarLocation : mappingJarLocations) {
 				JarFile jarFile = null;
@@ -47,17 +53,32 @@ public class SessionFactoryBean extends LocalSessionFactoryBean {
 				} catch (IOException e) {
 					e.printStackTrace();
 				} finally {
-					try {
-						if (jarFile != null) {
-							jarFile.close();
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
+					if (jarFile != null) {
+						this.jarFiles.add(jarFile);
 					}
 				}
 			}
 			super.setMappingLocations(resources.toArray(new Resource[0]));
 		}
+	}
+
+	@Override
+	protected SessionFactory buildSessionFactory() throws Exception {
+		SessionFactory sessionFactory = super.buildSessionFactory();
+		if (this.jarFiles != null) {
+			for (JarFile jarFile : this.jarFiles) {
+				try {
+					if (jarFile != null) {
+						jarFile.close();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			this.jarFiles.clear();
+			this.jarFiles = null;
+		}
+		return sessionFactory;
 	}
 
 }

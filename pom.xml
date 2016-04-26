@@ -11,7 +11,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 		<log4j2.version>2.3</log4j2.version>
-		<spring.version>3.2.13.RELEASE</spring.version>
+		<spring.version>3.2.16.RELEASE</spring.version>
 		<hibernate.version>3.6.10.Final</hibernate.version>
 		<shiro.version>1.2.4</shiro.version>
 	</properties>
@@ -211,7 +211,7 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
-			<version>1.0.15</version>
+			<version>1.0.18</version>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>

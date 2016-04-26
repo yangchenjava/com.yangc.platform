@@ -1,8 +1,7 @@
 package com.yangc.dao.impl;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -12,22 +11,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.yangc.common.Pagination;
 import com.yangc.common.PaginationThreadUtils;
 import com.yangc.dao.JdbcDao;
 import com.yangc.utils.Constants;
 
-@SuppressWarnings("unchecked")
 public class JdbcDaoImpl implements JdbcDao {
 
 	/** 存储符合规范的文件 */
@@ -82,19 +84,23 @@ public class JdbcDaoImpl implements JdbcDao {
 	 * 加载结果文件内容
 	 */
 	private static void loadFileContents(File file) {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
-			SAXReader reader = new SAXReader();
-			Document doc = reader.read(new FileInputStream(file));
-			Element root = doc.getRootElement();
-			List<Element> elements = root.elements();
-			if (elements != null) {
-				for (Element element : elements) {
-					JdbcDao.SQL_MAPPING.put(element.attribute("name").getText(), element.getText().trim());
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(file);
+			Element root = document.getDocumentElement();
+			NodeList childNodes = root.getElementsByTagName("sql");
+			if (childNodes != null) {
+				for (int i = 0; i < childNodes.getLength(); i++) {
+					Element childNode = (Element) childNodes.item(i);
+					JdbcDao.SQL_MAPPING.put(childNode.getAttribute("name"), childNode.getTextContent().trim());
 				}
 			}
-		} catch (FileNotFoundException e) {
+		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
-		} catch (DocumentException e) {
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -110,6 +116,7 @@ public class JdbcDaoImpl implements JdbcDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public int[] batchExecute(String sql, List<Map<String, Object>> paramMaps) {
 		// return this.jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 		// // 返回更新的记录数
