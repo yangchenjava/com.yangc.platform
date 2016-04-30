@@ -32,58 +32,48 @@ import com.yangc.utils.Constants;
 
 public class JdbcDaoImpl implements JdbcDao {
 
-	/** 存储符合规范的文件 */
-	private static final List<File> LIST = new ArrayList<File>();
-
 	private NamedParameterJdbcTemplate npJdbcTemplate;
-	// private JdbcTemplate jdbcTemplate;
 
-	static {
-		List<File> fileList = getFileInfo(Constants.CLASSPATH + "config/multi/jdbc/");
-		for (File file : fileList) {
-			loadFileContents(file);
-		}
-		/** 释放内存 */
-		LIST.clear();
-	}
+	// private JdbcTemplate jdbcTemplate;
 
 	public JdbcDaoImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.npJdbcTemplate = namedParameterJdbcTemplate;
 		// this.jdbcTemplate = jdbcTemplate;
+
+		// 加载sql内容
+		List<File> fileList = this.getFileInfo(Constants.CLASSPATH + "config/multi/jdbc/");
+		for (File file : fileList) {
+			this.loadFileContents(file);
+		}
 	}
 
 	/**
 	 * 指定目录下探测符合命名规范的文件信息集合
 	 */
-	private static List<File> getFileInfo(String fileDir) {
+	private List<File> getFileInfo(String fileDir) {
+		List<File> fileList = new ArrayList<File>();
 		File file = new File(fileDir);
 		if (file.exists()) {
 			File[] files = file.listFiles();
 			if (files == null || files.length == 0) {
-				return LIST;
+				return fileList;
 			}
 			for (File f : files) {
-				if (f.isFile() && matchNaming(f)) {
-					LIST.add(f);
+				// 判断是否符合命名规范
+				if (f.isFile() && f.getName().endsWith(Constants.DB_NAME + "-sql.xml")) {
+					fileList.add(f);
 				} else if (f.isDirectory()) {
-					getFileInfo(f.getPath());
+					fileList.addAll(this.getFileInfo(f.getPath()));
 				}
 			}
 		}
-		return LIST;
-	}
-
-	/**
-	 * 判断是否符合命名规范
-	 */
-	private static boolean matchNaming(File file) {
-		return file.getName().endsWith(Constants.DB_NAME + "-sql.xml");
+		return fileList;
 	}
 
 	/**
 	 * 加载结果文件内容
 	 */
-	private static void loadFileContents(File file) {
+	private void loadFileContents(File file) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();

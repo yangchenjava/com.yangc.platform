@@ -8,6 +8,7 @@
 
 	<!-- 设置读取属性文件的加载器 -->
 	<context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true" />
+	<context:property-placeholder location="file:/jdbc.properties" ignore-unresolvable="true" ignore-resource-not-found="true" order="1" />
 
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<property name="driverClassName" value="${database.driverClassName}" />
