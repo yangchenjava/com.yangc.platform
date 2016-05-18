@@ -22,20 +22,20 @@ public class HTMLCharacterFilter implements Filter {
 	@SuppressWarnings("unchecked")
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
-		Map<String, String[]> params = req.getParameterMap();
-		if (params != null && !params.isEmpty()) {
-			for (Iterator<String> it = params.keySet().iterator(); it.hasNext();) {
-				String[] values = params.get(it.next());
+		Map<String, String[]> parameterMapCopy = req.getParameterMap();
+		if (parameterMapCopy != null && !parameterMapCopy.isEmpty()) {
+			for (Iterator<String> it = parameterMapCopy.keySet().iterator(); it.hasNext();) {
+				String[] values = parameterMapCopy.get(it.next());
 				for (int i = 0; i < values.length; i++) {
+					values[i] = values[i].replaceAll("&", "&amp;");
 					values[i] = values[i].replaceAll("<", "&lt;");
 					values[i] = values[i].replaceAll(">", "&gt;");
-					values[i] = values[i].replaceAll("&", "&amp;");
 					values[i] = values[i].replaceAll("\"", "&quot;");
 					values[i] = values[i].replaceAll("'", "&apos;");
 				}
 			}
 		}
-		chain.doFilter(new ParameterRequestWrapper(req, params), response);
+		chain.doFilter(new ParameterRequestWrapper(req, parameterMapCopy), response);
 	}
 
 	@Override
