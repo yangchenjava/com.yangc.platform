@@ -17,7 +17,7 @@
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
 
-	<!-- 主要用来实例化RequestMappingHandlerMapping,RequestMappingHandlerAdapter -->
+	<!-- 主要用来实例化DefaultAnnotationHandlerMapping,AnnotationMethodHandlerAdapter -->
 	<!-- <mvc:annotation-driven /> -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
