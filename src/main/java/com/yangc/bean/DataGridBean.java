@@ -26,9 +26,11 @@ public class DataGridBean {
 	public void setDataGrid(List<?> dataGrid) {
 		this.dataGrid = dataGrid;
 		Pagination pagination = PaginationThreadUtils.get();
-		this.pageCount = pagination.getPageCount();
-		this.pageNow = pagination.getPageNow();
-		this.totalCount = pagination.getTotalCount();
+		if (pagination != null) {
+			this.pageCount = pagination.getPageCount();
+			this.pageNow = pagination.getPageNow();
+			this.totalCount = pagination.getTotalCount();
+		}
 	}
 
 	public int getPageCount() {
