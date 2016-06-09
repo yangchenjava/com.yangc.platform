@@ -2,12 +2,17 @@ package com.yangc.dao.impl;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.hql.FilterTranslator;
+import org.hibernate.hql.QueryTranslatorFactory;
+import org.hibernate.impl.SessionFactoryImpl;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -111,15 +116,21 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 				}
 				if (pagination.getTotalCount() == 0) {
 					String tempHql = hql.toLowerCase().trim();
-					int fromIndex = (" " + tempHql).indexOf(" from ");
-					int orderIndex = tempHql.indexOf(" order by ");
-					String countHql = null;
-					if (orderIndex == -1) {
-						countHql = "select count(*) " + hql.trim().substring(fromIndex);
+					Query countQuery = null;
+					if (tempHql.indexOf(" group by ") == -1) {
+						int fromIndex = (" " + tempHql).indexOf(" from ");
+						int orderIndex = tempHql.indexOf(" order by ");
+						String countHql = null;
+						if (orderIndex == -1) {
+							countHql = "select count(*) " + hql.trim().substring(fromIndex);
+						} else {
+							countHql = "select count(*) " + hql.trim().substring(fromIndex, orderIndex);
+						}
+						countQuery = session.createQuery(countHql);
 					} else {
-						countHql = "select count(*) " + hql.trim().substring(fromIndex, orderIndex);
+						countQuery = session.createSQLQuery("SELECT COUNT(1) FROM (" + BaseDaoImpl.this.hql2Sql(hql) + ") TEMP_TABLE_");
 					}
-					Query countQuery = session.createQuery(countHql);
+
 					if (values != null) {
 						for (int i = 0, length = values.length; i < length; i++) {
 							countQuery.setParameter(i, values[i]);
@@ -167,16 +178,26 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 				}
 				if (pagination.getTotalCount() == 0) {
 					String tempHql = hql.toLowerCase().trim();
-					int fromIndex = (" " + tempHql).indexOf(" from ");
-					int orderIndex = tempHql.indexOf(" order by ");
-					String countHql = null;
-					if (orderIndex == -1) {
-						countHql = "select count(*) " + hql.trim().substring(fromIndex);
+					Query countQuery = null;
+					if (tempHql.indexOf(" group by ") == -1) {
+						int fromIndex = (" " + tempHql).indexOf(" from ");
+						int orderIndex = tempHql.indexOf(" order by ");
+						String countHql = null;
+						if (orderIndex == -1) {
+							countHql = "select count(*) " + hql.trim().substring(fromIndex);
+						} else {
+							countHql = "select count(*) " + hql.trim().substring(fromIndex, orderIndex);
+						}
+						countQuery = session.createQuery(countHql);
+						countQuery.setProperties(paramMap);
 					} else {
-						countHql = "select count(*) " + hql.trim().substring(fromIndex, orderIndex);
+						countQuery = session.createSQLQuery("SELECT COUNT(1) FROM (" + BaseDaoImpl.this.hql2Sql(hql) + ") TEMP_TABLE_");
+						Object[] values = BaseDaoImpl.this.paramMap2Array(hql, paramMap);
+						for (int i = 0, length = values.length; i < length; i++) {
+							countQuery.setParameter(i, values[i]);
+						}
 					}
-					Query countQuery = session.createQuery(countHql);
-					countQuery.setProperties(paramMap);
+
 					Number count = (Number) countQuery.uniqueResult();
 					pagination.setTotalCount(count.intValue());
 				}
@@ -199,6 +220,43 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 				return query.list();
 			}
 		});
+	}
+
+	/**
+	 * @功能: map参数转为数组参数
+	 * @作者: yangc
+	 * @创建日期: 2016年6月9日 上午1:03:05
+	 * @param hql
+	 * @param map
+	 * @return
+	 */
+	private Object[] paramMap2Array(String hql, Map<String, Object> map) {
+		List<Object> list = new ArrayList<Object>();
+		if (map != null && map.size() != 0) {
+			for (int i = 0; i < hql.length(); i++) {
+				if (hql.charAt(i) == ':') {
+					int blankIndex = hql.indexOf(" ", i);
+					list.add(map.get(hql.substring(i + 1, blankIndex)));
+					i = blankIndex;
+				}
+			}
+		}
+		return list.toArray();
+	}
+
+	/**
+	 * @功能: hql转为sql
+	 * @作者: yangc
+	 * @创建日期: 2016年6月9日 上午1:03:57
+	 * @param hql
+	 * @return
+	 */
+	private String hql2Sql(String hql) {
+		SessionFactoryImpl sessionFactoryImpl = (SessionFactoryImpl) this.getSessionFactory();
+		QueryTranslatorFactory queryTranslatorFactory = sessionFactoryImpl.getSettings().getQueryTranslatorFactory();
+		FilterTranslator filterTranslator = queryTranslatorFactory.createFilterTranslator(hql, hql, Collections.EMPTY_MAP, sessionFactoryImpl);
+		filterTranslator.compile(null, false);
+		return filterTranslator.getSQLString();
 	}
 
 	@Override
