@@ -15,6 +15,12 @@
 		<description>防止内存泄露</description>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
+	<!-- 
+	<listener>
+		<description>通过ThreadLocal保存当前线程的Request</description>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	 -->
 
 	<!-- shiro过滤,会去spring上下文中匹配名称为shiroFilter的bean -->
 	<filter>
