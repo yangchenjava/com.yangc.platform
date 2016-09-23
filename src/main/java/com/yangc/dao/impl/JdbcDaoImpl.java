@@ -41,7 +41,7 @@ public class JdbcDaoImpl implements JdbcDao {
 		// this.jdbcTemplate = jdbcTemplate;
 
 		// 加载sql内容
-		List<File> fileList = this.getFileInfo(Constants.CLASSPATH + "config/multi/jdbc/");
+		List<File> fileList = this.getFileList(Constants.CLASSPATH + "config/multi/jdbc/");
 		for (File file : fileList) {
 			this.loadFileContents(file);
 		}
@@ -50,20 +50,20 @@ public class JdbcDaoImpl implements JdbcDao {
 	/**
 	 * 指定目录下探测符合命名规范的文件信息集合
 	 */
-	private List<File> getFileInfo(String fileDir) {
+	private List<File> getFileList(String fileDir) {
 		List<File> fileList = new ArrayList<File>();
-		File file = new File(fileDir);
-		if (file.exists()) {
-			File[] files = file.listFiles();
+		File dir = new File(fileDir);
+		if (dir.exists()) {
+			File[] files = dir.listFiles();
 			if (files == null || files.length == 0) {
 				return fileList;
 			}
-			for (File f : files) {
+			for (File file : files) {
 				// 判断是否符合命名规范
-				if (f.isFile() && f.getName().endsWith(Constants.DB_NAME + "-sql.xml")) {
-					fileList.add(f);
-				} else if (f.isDirectory()) {
-					fileList.addAll(this.getFileInfo(f.getPath()));
+				if (file.isFile() && file.getName().endsWith(Constants.DB_NAME + "-sql.xml")) {
+					fileList.add(file);
+				} else if (file.isDirectory()) {
+					fileList.addAll(this.getFileList(file.getPath()));
 				}
 			}
 		}

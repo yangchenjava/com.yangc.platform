@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -40,14 +41,14 @@ public class PaginationInterceptor extends HandlerInterceptorAdapter {
 				if (StringUtils.isBlank(pageNow)) {
 					pagination.setPageNow(1);
 				} else {
-					pagination.setPageNow(Integer.parseInt(pageNow));
+					pagination.setPageNow(NumberUtils.toInt(pageNow, 1));
 				}
 			}
 			// 设置每页的行数
 			if (params.get(PAGE_SIZE) != null) {
 				String pageSize = params.get(PAGE_SIZE)[0];
 				if (StringUtils.isNotBlank(pageSize)) {
-					pagination.setPageSize(Integer.parseInt(pageSize));
+					pagination.setPageSize(NumberUtils.toInt(pageSize));
 				}
 			}
 			logger.info("PaginationInterceptor - pageNow={}, pageSize={}", pagination.getPageNow(), pagination.getPageSize());
