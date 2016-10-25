@@ -7,9 +7,9 @@
 						http://www.springframework.org/schema/task/spring-task-3.2.xsd">
 
 	<!-- 配置定时任务 -->
-	<task:executor id="myExecutor" pool-size="5" />
-	<task:scheduler id="myScheduler" pool-size="10" />
-	<task:annotation-driven executor="myExecutor" scheduler="myScheduler" />
+	<task:executor id="executor" pool-size="5" />
+	<task:scheduler id="scheduler" pool-size="10" />
+	<task:annotation-driven executor="executor" scheduler="scheduler" />
 
 	<!-- 配置线程池 -->
 	<bean id ="taskExecutor" class ="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
