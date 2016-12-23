@@ -34,7 +34,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>shiroFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/resource/*</url-pattern>
 	</filter-mapping>
 
 	<!-- html标签过滤 -->
@@ -44,6 +44,16 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>HTMLCharacterFilter</filter-name>
+		<url-pattern>/resource/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 日志输出 -->
+	<filter>
+		<filter-name>LoggerFilter</filter-name>
+		<filter-class>com.yangc.filter.LoggerFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoggerFilter</filter-name>
 		<url-pattern>/resource/*</url-pattern>
 	</filter-mapping>
 
@@ -63,7 +73,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/resource/*</url-pattern>
 	</filter-mapping>
 
 	<!-- springmvc -->
@@ -83,13 +93,13 @@
 
 	<!-- druid监控页面 -->
 	<servlet>
-  		<servlet-name>DruidStatView</servlet-name>
-  		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+		<servlet-name>DruidStatView</servlet-name>
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-   		<servlet-name>DruidStatView</servlet-name>
-   		<url-pattern>/druid/*</url-pattern>
- 	</servlet-mapping>
+		<servlet-name>DruidStatView</servlet-name>
+		<url-pattern>/druid/*</url-pattern>
+	</servlet-mapping>
 
 	<welcome-file-list>
 		<welcome-file>jsp/login.jsp</welcome-file>
