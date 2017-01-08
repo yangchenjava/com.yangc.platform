@@ -20,7 +20,7 @@
 		<property name="minIdle" value="${database.minIdle}" />
 		<property name="maxWait" value="${database.maxWait}" />
 		<property name="poolPreparedStatements" value="${database.poolPreparedStatements}" />
-		<property name="maxOpenPreparedStatements" value="${database.maxOpenPreparedStatements}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="${database.maxPoolPreparedStatementPerConnectionSize}" />
 		<property name="validationQuery" value="${database.validationQuery}" />
 		<property name="testOnBorrow" value="${database.testOnBorrow}" />
 		<property name="testOnReturn" value="${database.testOnReturn}" />
