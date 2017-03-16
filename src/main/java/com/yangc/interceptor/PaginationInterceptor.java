@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.yangc.common.Pagination;
@@ -25,33 +26,35 @@ public class PaginationInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		String uri = request.getRequestURI();
-		if (uri.endsWith("_page")) {
-			Pagination pagination = PaginationThreadUtils.get();
-			if (pagination == null) {
-				pagination = new Pagination();
-				PaginationThreadUtils.set(pagination);
-			}
-			Map<String, String[]> params = request.getParameterMap();
-			// 设置要跳转到的页数
-			if (params.get(PAGE_NOW) == null) {
-				pagination.setPageNow(1);
-			} else {
-				String pageNow = params.get(PAGE_NOW)[0];
-				if (StringUtils.isBlank(pageNow)) {
+		if (handler instanceof HandlerMethod) {
+			HandlerMethod handlerMethod = (HandlerMethod) handler;
+			if (handlerMethod.getMethodAnnotation(com.yangc.annotation.Pagination.class) != null) {
+				Pagination pagination = PaginationThreadUtils.get();
+				if (pagination == null) {
+					pagination = new Pagination();
+					PaginationThreadUtils.set(pagination);
+				}
+				Map<String, String[]> params = request.getParameterMap();
+				// 设置要跳转到的页数
+				if (params.get(PAGE_NOW) == null) {
 					pagination.setPageNow(1);
 				} else {
-					pagination.setPageNow(NumberUtils.toInt(pageNow, 1));
+					String pageNow = params.get(PAGE_NOW)[0];
+					if (StringUtils.isBlank(pageNow)) {
+						pagination.setPageNow(1);
+					} else {
+						pagination.setPageNow(NumberUtils.toInt(pageNow, 1));
+					}
 				}
-			}
-			// 设置每页的行数
-			if (params.get(PAGE_SIZE) != null) {
-				String pageSize = params.get(PAGE_SIZE)[0];
-				if (StringUtils.isNotBlank(pageSize)) {
-					pagination.setPageSize(NumberUtils.toInt(pageSize));
+				// 设置每页的行数
+				if (params.get(PAGE_SIZE) != null) {
+					String pageSize = params.get(PAGE_SIZE)[0];
+					if (StringUtils.isNotBlank(pageSize)) {
+						pagination.setPageSize(NumberUtils.toInt(pageSize));
+					}
 				}
+				logger.info("PaginationInterceptor - pageNow={}, pageSize={}", pagination.getPageNow(), pagination.getPageSize());
 			}
-			logger.info("PaginationInterceptor - pageNow={}, pageSize={}", pagination.getPageNow(), pagination.getPageSize());
 		}
 		return true;
 	}

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yangc.annotation.Pagination;
 import com.yangc.bean.DataGridBean;
 import com.yangc.bean.ResultBean;
 import com.yangc.exception.WebApplicationException;
@@ -66,6 +67,7 @@ public class PersonResource {
 	 * @创建日期: 2013年12月23日 下午5:30:25
 	 * @return
 	 */
+	@Pagination
 	@RequestMapping(value = "getPersonListByNicknameAndDeptId_page", method = RequestMethod.POST)
 	@ResponseBody
 	@RequiresPermissions("person:" + Permission.SEL)

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yangc.annotation.Pagination;
 import com.yangc.bean.DataGridBean;
 import com.yangc.bean.ResultBean;
 import com.yangc.exception.WebApplicationException;
@@ -42,6 +43,7 @@ public class RoleResource {
 	 * @创建日期: 2013年12月23日 下午7:16:59
 	 * @return
 	 */
+	@Pagination
 	@RequestMapping(value = "getRoleList_page", method = RequestMethod.POST)
 	@ResponseBody
 	@RequiresPermissions("role:" + Permission.SEL)
