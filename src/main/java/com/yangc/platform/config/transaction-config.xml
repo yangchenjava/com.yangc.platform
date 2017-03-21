@@ -33,7 +33,8 @@
 		</tx:attributes>
 	</tx:advice>
 
-	<aop:config>
+	<!-- 使用cglib完成动态代理 -->
+	<aop:config proxy-target-class="true">
 		<aop:pointcut id="transactionPointcut" expression="execution(* com.*.*.service..*.*(..))" />
 		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="transactionPointcut" />
 	</aop:config>
