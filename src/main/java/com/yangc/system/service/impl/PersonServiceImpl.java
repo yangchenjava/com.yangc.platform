@@ -44,7 +44,7 @@ public class PersonServiceImpl implements PersonService {
 			person.setPhoto(urlPath + thumbnailName);
 		}
 
-		person.setSpell(PinyinUtils.getPinyin(person.getNickname()) + " " + PinyinUtils.getPinyinHead(person.getNickname()));
+		person.setSpell(PinyinUtils.getPinyin(person.getNickname()) + " " + PinyinUtils.getPinyinFirst(person.getNickname()));
 		this.baseDao.saveOrUpdate(person);
 	}
 
