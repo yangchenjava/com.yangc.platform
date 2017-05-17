@@ -27,6 +27,8 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
 			String header = request.getHeader("X-Requested-With");
 			// 异步
 			if (StringUtils.isNotBlank(header) && (header.equals("X-Requested-With") || header.equals("XMLHttpRequest"))) {
+				response.reset();
+				response.setCharacterEncoding("UTF-8");
 				response.setContentType("application/json;charset=UTF-8");
 				PrintWriter pw = null;
 				try {
